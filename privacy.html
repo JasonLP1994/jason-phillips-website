@@ -26,6 +26,123 @@ nav{position:relative;z-index:50}
   .navcta{padding:11px 16px;font-size:11px}
 }
 
+
+/* V3 atmospheric editorial imagery */
+.atmosphere-wide{position:relative;min-height:500px;background-size:cover;background-position:center;overflow:hidden}
+.atmosphere-wide:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,21,33,.86),rgba(7,21,33,.28),rgba(7,21,33,.72))}
+.atmosphere-copy{position:relative;z-index:2;max-width:600px;padding:105px 0}
+.atmosphere-copy h2{font-size:48px;line-height:1.04;letter-spacing:-.04em;margin:12px 0 20px}
+.atmosphere-copy p{max-width:520px;color:#d8e0e5;font-size:17px}
+.editorial-image{height:440px;overflow:hidden;background:#102536}
+.editorial-image img{width:100%;height:100%;object-fit:cover}
+@media(max-width:800px){.atmosphere-wide{min-height:430px}.atmosphere-copy{padding:75px 0}.atmosphere-copy h2{font-size:39px}.editorial-image{height:330px}}
+
+
+/* V4 luxury image treatment */
+.luxury-panel{position:relative;min-height:560px;background-size:cover;background-position:center;overflow:hidden}
+.luxury-panel:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,17,27,.84) 0%,rgba(6,17,27,.28) 48%,rgba(6,17,27,.18) 100%)}
+.luxury-panel .luxury-content{position:relative;z-index:2;padding:110px 0;max-width:560px}
+.luxury-panel h2{font-size:50px;line-height:1.03;letter-spacing:-.04em;margin:12px 0 20px}
+.luxury-panel p{font-size:17px;color:#e2e7ea;max-width:510px}
+.luxury-editorial{height:520px;overflow:hidden;background:#102536}
+.luxury-editorial img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:800px){.luxury-panel{min-height:460px;background-position:center}.luxury-panel .luxury-content{padding:80px 0}.luxury-panel h2{font-size:39px}.luxury-editorial{height:360px}}
+
+
+/* V5 curated luxury imagery */
+.curated-wide{position:relative;min-height:570px;background-size:cover;background-position:center;overflow:hidden}
+.curated-wide:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,16,26,.84) 0%,rgba(5,16,26,.36) 43%,rgba(5,16,26,.08) 78%)}
+.curated-copy{position:relative;z-index:2;padding:112px 0;max-width:560px}
+.curated-copy h2{font-size:50px;line-height:1.03;letter-spacing:-.04em;margin:12px 0 20px}
+.curated-copy p{font-size:17px;line-height:1.7;color:#e1e7ea;max-width:500px}
+.curated-image{height:500px;overflow:hidden;background:#0b1b28}
+.curated-image img{width:100%;height:100%;display:block;object-fit:cover}
+@media(max-width:800px){
+.curated-wide{min-height:460px;background-position:62% center}
+.curated-copy{padding:78px 0}
+.curated-copy h2{font-size:39px}
+.curated-image{height:350px}
+}
+
+
+/* V6 personal portrait treatment */
+.personal-portrait{overflow:hidden;background:#8fcbd1;border-radius:2px}
+.personal-portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.personal-portrait.hero-personal{height:620px}
+.personal-portrait.about-personal{height:520px}
+@media(max-width:800px){
+.personal-portrait.hero-personal{height:480px}
+.personal-portrait.about-personal{height:420px}
+}
+
+
+/* V7 authentic career story */
+.career-story{padding:100px 0;background:#071725;color:#f4f1ea}
+.career-story .story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}
+.career-story h2{font-size:48px;line-height:1.05;letter-spacing:-.035em;margin:14px 0 22px}
+.career-story p{color:#c8d1d7;line-height:1.75;font-size:17px}
+.story-photo{overflow:hidden;min-height:560px}
+.story-photo img{width:100%;height:560px;object-fit:cover;display:block}
+.proof-strip{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;margin-top:18px}
+.proof-strip .proof-img{height:340px;overflow:hidden}
+.proof-strip img{width:100%;height:100%;object-fit:cover;display:block}
+.proof-caption{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9caab4;margin-top:10px}
+.young-learners-proof{padding:90px 0;background:#f2efe8}
+.young-learners-proof .proof-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:center}
+.young-learners-proof img{width:100%;height:500px;object-fit:cover;display:block}
+@media(max-width:800px){
+.career-story,.young-learners-proof{padding:65px 0}
+.career-story .story-grid,.young-learners-proof .proof-grid{grid-template-columns:1fr;gap:34px}
+.career-story h2{font-size:38px}
+.story-photo,.story-photo img{min-height:0;height:420px}
+.proof-strip{grid-template-columns:1fr}
+.proof-strip .proof-img{height:280px}
+.young-learners-proof img{height:390px}
+}
+
+
+/* V9 IELTS + VTV proof */
+.editorial-proof{padding:92px 0;background:#f4f0e8}
+.editorial-proof.dark{background:#071725;color:#f5f1e9}
+.editorial-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.editorial-proof img{width:100%;height:520px;object-fit:cover;display:block}
+.editorial-proof .copy{font-size:17px;line-height:1.75}
+.editorial-proof.dark .copy{color:#c9d2d8}
+.mini-gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mini-gallery img{height:430px}
+@media(max-width:800px){.editorial-grid{grid-template-columns:1fr;gap:32px}.editorial-proof{padding:64px 0}.editorial-proof img,.mini-gallery img{height:390px}}
+
+/* V10 — Preply student review system */
+.student-voice{padding:96px 0;background:#f5f1e9;color:#0b2132}
+.student-voice.dark{background:#071725;color:#f7f3ec}
+.review-kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;opacity:.68}
+.student-voice h2{font-size:clamp(38px,5vw,62px);line-height:1.02;letter-spacing:-.045em;max-width:850px;margin:14px 0 18px}
+.review-intro{font-size:18px;line-height:1.7;max-width:720px;opacity:.78}
+.review-summary{display:flex;gap:38px;align-items:center;padding:27px 0 30px;margin-top:28px;border-top:1px solid rgba(10,33,50,.18);border-bottom:1px solid rgba(10,33,50,.18)}
+.dark .review-summary{border-color:rgba(255,255,255,.18)}
+.big-rating{font-size:48px;font-weight:700;letter-spacing:-.05em}
+.stars{letter-spacing:.14em;font-size:17px}
+.review-count{font-size:14px;opacity:.68;margin-top:5px}
+.review-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1}
+.metric{padding-left:22px;border-left:1px solid rgba(10,33,50,.16)}
+.dark .metric{border-color:rgba(255,255,255,.16)}
+.metric strong{display:block;font-size:21px}.metric span{font-size:12px;opacity:.65}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.review-card{background:#fff;padding:28px;min-height:260px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 10px 35px rgba(7,23,37,.055)}
+.dark .review-card{background:#0d2638}
+.review-card blockquote{margin:0;font-size:16px;line-height:1.65}
+.review-card footer{margin-top:24px;font-size:13px}
+.review-card footer strong{display:block;font-size:14px}
+.review-card footer span{opacity:.58}
+.review-feature{grid-column:span 2}
+.review-feature blockquote{font-size:19px;line-height:1.62}
+.review-note{margin-top:22px;font-size:12px;opacity:.58}
+@media(max-width:850px){
+ .student-voice{padding:68px 0}.review-summary{align-items:flex-start;flex-direction:column;gap:22px}
+ .review-metrics{grid-template-columns:repeat(2,1fr);width:100%}.review-grid{grid-template-columns:1fr}
+ .review-feature{grid-column:auto}.metric{padding:12px 0;border-left:0;border-top:1px solid rgba(10,33,50,.14)}
+}
+
 </style></head><body><div class="wrap"><nav>
 <a class="brand" href="index.html">JASON PHILLIPS</a>
 <div class="navlinks">
