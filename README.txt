@@ -23,3 +23,11 @@ V11 — Expanded Reviews
 - Added Belen and Jennifer, plus expanded several existing testimonials.
 - Results page now contains 10 selected reviews.
 - Homepage now gives Olia greater prominence alongside professional/workplace proof.
+
+
+V19 — Live Formspree Application Form
+- Coaching application connected to https://formspree.io/f/xzezgdyj
+- AJAX submission keeps visitors on the website.
+- Added sending, success and error states.
+- Form resets after a successful submission.
+- Formspree should email submissions to the address configured in the user's Formspree account.
