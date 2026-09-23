@@ -31,3 +31,66 @@ V19 — Live Formspree Application Form
 - Added sending, success and error states.
 - Form resets after a successful submission.
 - Formspree should email submissions to the address configured in the user's Formspree account.
+
+
+V21 — Cal.com Booking Integration
+- Private English Coaching: https://cal.com/jason-phillips-u5rvya/private-english-coaching101
+- Professional English Accelerator: https://cal.com/jason-phillips-u5rvya/private-english-accelerator
+- Performance Intensive: https://cal.com/jason-phillips-u5rvya/jason-phillips-u5rvya-performance-intensive
+- Work With Me offer buttons now open the correct Cal.com booking pages.
+- Book page now includes a three-option booking chooser above the live enquiry form.
+- Existing Formspree enquiry forms remain live.
+
+
+V22 — Embedded Booking Calendar
+- Cal.com booking calendars are embedded directly inside book.html.
+- Visitors can switch between Private Coaching, Professional English Accelerator and Performance Intensive without leaving the site.
+- Work With Me buttons now route internally to the correct embedded calendar state.
+- Existing Formspree application forms remain live.
+
+
+V23 — Single Session Booking Added
+- Added a fourth Cal.com booking option:
+  https://cal.com/jason-phillips-u5rvya/private-english-coaching-single-session
+- Book page now shows four booking choices.
+- Single-session Private Coaching loads by default.
+- Work With Me private coaching CTA now opens the single-session calendar, with recurring sessions available alongside it.
+
+
+V26 — Premium First-Session Package Flow
+Public offers:
+1) Private English Coaching — £45 / one 50-minute session
+2) Professional English Accelerator — £495 / 12 sessions
+3) Performance Intensive — £225 / 3 sessions
+
+Customer flow:
+Choose route -> pay -> book Session 1 -> meet on Zoom -> receive private client booking access / agree remaining schedule.
+
+IMPORTANT CAL.COM LAUNCH SETTINGS
+Before publishing the package checkout as live:
+- Private English Coaching Single Session:
+  recurring OFF; Stripe ON; price £45.
+- Professional English Accelerator:
+  recurring OFF; Stripe ON; price £495.
+  The public booking reserves Session 1 but payment covers all 12 sessions.
+- Performance Intensive:
+  recurring OFF; Stripe ON; price £225.
+  The public booking reserves Session 1 but payment covers all 3 sessions.
+- Keep any recurring/private links out of the public website. Use private client links only after Session 1 if desired.
+
+Current Cal URLs embedded:
+Private: https://cal.com/jason-phillips-u5rvya/private-english-coaching-single-session
+Accelerator: https://cal.com/jason-phillips-u5rvya/private-english-accelerator
+Intensive: https://cal.com/jason-phillips-u5rvya/jason-phillips-u5rvya-performance-intensive
+
+
+V27 — Live Paid Cal.com Calendars
+Exact live Cal.com links embedded:
+- Private English Coaching — Single Session:
+  https://cal.com/jason-phillips-u5rvya/private-english-coaching-single-session
+- Professional English Accelerator:
+  https://cal.com/jason-phillips-u5rvya/private-english-accelerator
+- Performance Intensive:
+  https://cal.com/jason-phillips-u5rvya/jason-phillips-u5rvya-performance-intensive
+
+Because payment/pricing is configured in Cal.com, the embedded calendars will present the corresponding payment checkout inside the website booking flow.
