@@ -94,3 +94,38 @@ Exact live Cal.com links embedded:
   https://cal.com/jason-phillips-u5rvya/jason-phillips-u5rvya-performance-intensive
 
 Because payment/pricing is configured in Cal.com, the embedded calendars will present the corresponding payment checkout inside the website booking flow.
+
+
+V28 — Phillips English Rebrand
+- Rebranded the visible site identity to PHILLIPS ENGLISH.
+- Added 'Private English Coaching' as the supporting brand line in the header where applicable.
+- Updated browser titles and footer branding.
+- Kept Jason Phillips prominent as the founder / coach in the site content.
+- Booking links, Cal.com payment flow and Formspree remain unchanged.
+- Designed to match the new phillipsenglish.com domain.
+
+
+V29 — Branded Email
+- Public contact email: hello@phillipsenglish.com
+- Personal client email available: jason@phillipsenglish.com
+- Replaced any public legacy Gmail references.
+- Added branded contact links to site footers/contact areas.
+- Formspree and Cal.com integrations remain unchanged.
+
+
+V30 — Contact Page
+- Added contact.html with a premium branded contact layout.
+- hello@phillipsenglish.com: general enquiries, new clients, programmes, booking and website questions.
+- jason@phillipsenglish.com: existing clients and direct client communication.
+- Added a Formspree-powered contact form.
+- Added Contact to the site navigation and footer.
+
+
+V31 — Policies & 12-Hour Cancellation Rule
+- Added cancellation.html with a 12-hour rescheduling/cancellation policy.
+- Updated Terms & Conditions and Privacy Policy.
+- Added policy links to footers and a concise booking-policy notice on book.html.
+- Policy preserves statutory consumer rights rather than using a blanket 'no refunds' clause.
+
+IMPORTANT BEFORE FULL COMMERCIAL LAUNCH:
+UK distance-selling rules may require a geographical business/contact address to be supplied to consumers before contracting. Add an appropriate business correspondence address to the legal/contact information once selected.
