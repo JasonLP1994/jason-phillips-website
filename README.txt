@@ -129,3 +129,51 @@ V31 — Policies & 12-Hour Cancellation Rule
 
 IMPORTANT BEFORE FULL COMMERCIAL LAUNCH:
 UK distance-selling rules may require a geographical business/contact address to be supplied to consumers before contracting. Add an appropriate business correspondence address to the legal/contact information once selected.
+
+
+V32 — Business Address Added
+- Added Phillips English business correspondence address to Contact, Terms, Privacy and Cancellation pages.
+- Added a discreet footer reference across the site.
+- Address used exactly as supplied:
+  Phillips English, 17 Dacombe Close, Upton, Poole, Dorset, United Kingdom
+- Postcode has not been added because it was not supplied.
+
+
+V33 — Group Coaching Added
+- Added group-coaching.html.
+- Added Group Coaching to navigation.
+- Added homepage and Work With Me teasers.
+- Added Group English Coaching as a Contact enquiry type.
+- Pricing is intentionally custom until a fixed group pricing model is chosen.
+- Group model: one agreed fee for the whole group; members may split the cost themselves.
+
+
+V34 — Group Offer Structure
+Added 3 commercial group products:
+
+1) Private Small Group
+   - From £90 / 60 minutes
+   - One fee for the whole group
+   - 2–4 learners
+
+2) Professional Team Coaching
+   - From £120 / 60 minutes
+   - Bespoke professional/team English
+   - Typically 4–6 learners
+
+3) Goal-Based Group Programme
+   - 8–12 weeks
+   - Custom quote based on group size and objective
+
+Until Cal.com/payment links are created, all buttons route to the group enquiry form.
+When the user supplies the live links, replace these enquiry CTAs with the appropriate embedded/direct booking routes.
+
+
+V35 — Group Booking Links Connected
+- Private Small Group booking:
+  https://cal.com/jason-phillips-u5rvya/private-group-coaching
+- Professional Team Coaching booking:
+  https://cal.com/jason-phillips-u5rvya/professional-team-coaching
+- Both calendars are embedded directly into group-coaching.html.
+- Offer cards switch the embedded calendar without sending visitors off-site.
+- Goal-Based Group Programme remains enquiry/quote-led.
