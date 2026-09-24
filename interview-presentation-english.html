@@ -19,4 +19,86 @@
 <section class="light"><div class="wrap"><div class="eyebrow">How it works</div><h2 class="title">A clear coaching process.</h2><div class="steps"><div class="step"><b>01 · Diagnose</b><h3>Start with the real goal</h3><p>We identify the communication situations, weaknesses and deadline that matter most.</p></div><div class="step"><b>02 · Practise</b><h3>Use English actively</h3><p>Sessions are built around realistic speaking, rehearsal, correction and targeted language development.</p></div><div class="step"><b>03 · Refine</b><h3>Turn feedback into progress</h3><p>You leave with clear corrections, better language choices and practical priorities for the next step.</p></div></div></div></section>
 <section class="light"><div class="wrap"><div class="eyebrow">Frequently asked questions</div><h2 class="title">Questions before you start.</h2><div class="faq"><article><h3>Can we do a mock interview?</h3><p>Yes. We can rehearse realistic questions, analyse your answers and improve content, grammar, vocabulary, pronunciation and delivery.</p></article><article><h3>Can you help with a presentation I already have?</h3><p>Yes. We can work directly with your presentation, refine the language and practise how you deliver it.</p></article><article><h3>How many sessions do I need?</h3><p>It depends on the deadline and your current level. A single session can solve a focused problem, while the three-session Performance Intensive is designed for high-stakes preparation.</p></article><article><h3>Can you help with confidence as well as language?</h3><p>Yes. Confidence improves when your language, structure and rehearsal are stronger, so the coaching addresses both performance and English.</p></article></div></div></section>
 <section class="cta"><div class="wrap"><div class="eyebrow">Start coaching</div><h2>Make your English work for the opportunity in front of you.</h2><p>Choose a single private session or a structured coaching programme. If you are not sure which route fits, send me your goal first.</p><a class="button" href="book.html">View coaching & availability →</a></div></section>
-<footer><div class="wrap">PHILLIPS ENGLISH · British English & Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026<div class="footer-links"><a href="business-english-coaching.html">Business English</a><a href="ielts-coaching.html">IELTS</a><a href="interview-presentation-english.html">Interviews & Presentations</a><a href="pronunciation-fluency-coaching.html">Pronunciation & Fluency</a><a href="aviation-english-coaching.html">Aviation English</a><a href="group-coaching.html">Group Coaching</a><a href="contact.html">Contact</a></div></div></footer></body></html>
+<footer><div class="wrap">PHILLIPS ENGLISH · British English & Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026<div class="footer-links"><a href="business-english-coaching.html">Business English</a><a href="ielts-coaching.html">IELTS</a><a href="interview-presentation-english.html">Interviews & Presentations</a><a href="pronunciation-fluency-coaching.html">Pronunciation & Fluency</a><a href="aviation-english-coaching.html">Aviation English</a><a href="group-coaching.html">Group Coaching</a><a href="contact.html">Contact</a></div></div></footer><!-- Phillips English GA4 conversion tracking -->
+<script>
+(function () {
+  function sendEvent(name, params) {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', name, params || {});
+    }
+  }
+
+  function cleanText(value) {
+    return (value || '').replace(/\s+/g, ' ').trim().slice(0, 120);
+  }
+
+  function detectOffer(element) {
+    var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .offer, .pricing-card') : null;
+    var text = cleanText((node && node.textContent) || (element && element.textContent) || '').toLowerCase();
+    if (text.indexOf('professional english accelerator') !== -1 || text.indexOf('accelerator') !== -1) return 'Professional English Accelerator';
+    if (text.indexOf('performance intensive') !== -1 || text.indexOf('intensive') !== -1) return 'Performance Intensive';
+    if (text.indexOf('group coaching') !== -1 || text.indexOf('private group') !== -1) return 'Group Coaching';
+    if (text.indexOf('private english coaching') !== -1 || text.indexOf('single session') !== -1 || text.indexOf('pay as you go') !== -1) return 'Private English Coaching';
+    return '';
+  }
+
+  document.addEventListener('click', function (event) {
+    var link = event.target && event.target.closest ? event.target.closest('a') : null;
+    if (!link) return;
+
+    var rawHref = link.getAttribute('href') || '';
+    var absoluteHref = link.href || rawHref;
+    var linkText = cleanText(link.textContent);
+    var offer = detectOffer(link);
+
+    if (/book\.html(?:$|[?#])/.test(rawHref) || /\/book(?:\.html)?(?:$|[?#])/.test(absoluteHref)) {
+      sendEvent('booking_intent', {
+        link_text: linkText,
+        link_url: absoluteHref,
+        page_path: window.location.pathname
+      });
+    }
+
+    if (absoluteHref.indexOf('cal.com/') !== -1) {
+      sendEvent('cal_booking_click', {
+        package_name: offer || 'Private English Coaching',
+        link_text: linkText,
+        link_url: absoluteHref,
+        page_path: window.location.pathname
+      });
+    }
+
+    if (offer && (offer === 'Professional English Accelerator' || offer === 'Performance Intensive' || offer === 'Group Coaching')) {
+      sendEvent('package_interest', {
+        package_name: offer,
+        link_text: linkText,
+        link_url: absoluteHref,
+        page_path: window.location.pathname
+      });
+    }
+  }, true);
+
+  document.addEventListener('submit', function (event) {
+    var form = event.target;
+    if (!form || form.tagName !== 'FORM') return;
+    var action = form.getAttribute('action') || '';
+    if (action.indexOf('formspree.io') === -1) return;
+
+    var formName = 'enquiry';
+    if (window.location.pathname.indexOf('contact') !== -1) formName = 'contact';
+    if (window.location.pathname.indexOf('work-with-me') !== -1) formName = 'work_with_me';
+    if (window.location.pathname.indexOf('book') !== -1) formName = 'booking_enquiry';
+
+    sendEvent('generate_lead', {
+      form_name: formName,
+      page_path: window.location.pathname
+    });
+  }, true);
+
+  if (/\/book(?:\.html)?$/.test(window.location.pathname)) {
+    sendEvent('view_booking_page', { page_path: window.location.pathname });
+  }
+})();
+</script>
+
+</body></html>
