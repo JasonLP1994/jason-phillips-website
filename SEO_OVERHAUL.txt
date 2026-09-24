@@ -1,0 +1,17 @@
+Phillips English — Deep SEO & Traffic Pass
+Date: 24 September 2026
+
+Key work completed:
+- Reworked titles, descriptions, H1s and search intent across all public pages.
+- Added strong internal linking between service areas.
+- Added five substantive specialist landing pages: Business English, IELTS, Interviews & Presentations, Pronunciation & Fluency, Aviation English.
+- Strengthened Group Coaching for team/small-group search intent and added visible FAQ content.
+- Added/expanded Schema.org ProfessionalService, Person, WebSite, Service, BreadcrumbList and FAQPage structured data.
+- Added full Open Graph/Twitter metadata and a local social-sharing image.
+- Added en-GB, canonical and hreflang signals.
+- Added sitemap lastmod dates and all new public URLs.
+- Preserved legal pages as noindex/follow.
+- Extracted large embedded base64 images into reusable WebP assets, deduplicated them and added dimensions/lazy-loading to improve page weight and Core Web Vitals.
+- Added Cal.com preconnect on booking pages.
+
+No search ranking is guaranteed. This pass improves technical quality, crawlability, relevance, internal linking and long-tail landing-page coverage.
