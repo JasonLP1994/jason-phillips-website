@@ -1,149 +1,25 @@
 <!doctype html><html lang="en-GB"><head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NHQ8S263EP"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-NHQ8S263EP');
-</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>English Learning Guides | Phillips English</title><meta name="description" content="Practical guides for clearer, more confident English."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.phillipsenglish.com/guides.html"><style>body{margin:0;background:#071521;color:#fff;font-family:Arial,sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #213746}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}.links{display:flex;gap:18px;font-size:13px}.btn{display:inline-block;background:#8bc8ef;color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800}.hero{padding:90px 0}.hero h1{font-size:clamp(44px,6vw,70px);line-height:1;letter-spacing:-.05em}.hero p{font-size:19px;color:#cbd4da;max-width:760px}.light{background:#f5f2eb;color:#0b1b27;padding:74px 0}.dark{padding:74px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{background:#0e2738;padding:26px}.card p{color:#aebbc4}footer{border-top:1px solid #213746;padding:32px 0;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.grid{grid-template-columns:1fr}}</style></head><body><div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div><header class="hero"><div class="wrap"><h1>English Learning Guides</h1><p>Practical guides for clearer, more confident English.</p></div></header><section class="light"><div class="wrap"><h2>English Learning Guides</h2><p>Explore focused resources for Business English, IELTS, presentations and pronunciation.</p></div></section><section class="dark"><div class="wrap"><div class="grid"><article class="card"><h2><a href="business-english-meetings.html">Business English meetings</a></h2><p>Open the guide →</p></article><article class="card"><h2><a href="ielts-speaking-fluency.html">IELTS speaking fluency</a></h2><p>Open the guide →</p></article><article class="card"><h2><a href="english-presentation-phrases.html">Presentation English</a></h2><p>Open the guide →</p></article><article class="card"><h2><a href="british-english-pronunciation-guide.html">British English pronunciation</a></h2><p>Open the guide →</p></article></div><p style="margin-top:28px"><a class="btn" href="book.html">Book personalised coaching →</a></p></div></section><footer><div class="wrap">PHILLIPS ENGLISH · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer><!-- Phillips English GA4 conversion tracking -->
-<script>
-(function () {
-  var lastCalEventAt = 0;
-
-  function sendEvent(name, params) {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', name, params || {});
-    }
-  }
-
-  function cleanText(value) {
-    return (value || '').replace(/\s+/g, ' ').trim().slice(0, 120);
-  }
-
-  function detectOffer(element) {
-    var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .premium-route, .offer, .pricing-card') : null;
-    var text = cleanText((node && node.textContent) || (element && element.textContent) || '').toLowerCase();
-    if (text.indexOf('professional english accelerator') !== -1 || text.indexOf('accelerator') !== -1) return 'Professional English Accelerator';
-    if (text.indexOf('performance intensive') !== -1 || text.indexOf('intensive') !== -1) return 'Performance Intensive';
-    if (text.indexOf('group coaching') !== -1 || text.indexOf('private group') !== -1) return 'Group Coaching';
-    if (text.indexOf('private english coaching') !== -1 || text.indexOf('single session') !== -1 || text.indexOf('pay as you go') !== -1) return 'Private English Coaching';
-    return '';
-  }
-
-  function fireCalBookingClick(element, url) {
-    var now = Date.now();
-    if (now - lastCalEventAt < 1200) return;
-    lastCalEventAt = now;
-    sendEvent('cal_booking_click', {
-      package_name: detectOffer(element) || 'Private English Coaching',
-      link_text: cleanText(element && element.textContent),
-      link_url: url || '',
-      page_path: window.location.pathname
-    });
-  }
-
-  document.addEventListener('click', function (event) {
-    var target = event.target;
-    var link = target && target.closest ? target.closest('a') : null;
-    var route = target && target.closest ? target.closest('.premium-route[data-url], [data-url*="cal.com/"]') : null;
-
-    if (route) {
-      var routeUrl = route.getAttribute('data-url') || '';
-      fireCalBookingClick(route, routeUrl);
-      var routeOffer = detectOffer(route);
-      if (routeOffer && routeOffer !== 'Private English Coaching') {
-        sendEvent('package_interest', {
-          package_name: routeOffer,
-          link_text: cleanText(route.textContent),
-          link_url: routeUrl,
-          page_path: window.location.pathname
-        });
-      }
-    }
-
-    if (!link) return;
-    var rawHref = link.getAttribute('href') || '';
-    var absoluteHref = link.href || rawHref;
-    var linkText = cleanText(link.textContent);
-    var offer = detectOffer(link);
-
-    if (/book\.html(?:$|[?#])/.test(rawHref) || /\/book(?:\.html)?(?:$|[?#])/.test(absoluteHref)) {
-      sendEvent('booking_intent', {
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-
-    if (absoluteHref.indexOf('cal.com/') !== -1) {
-      fireCalBookingClick(link, absoluteHref);
-    }
-
-    if (offer && (offer === 'Professional English Accelerator' || offer === 'Performance Intensive' || offer === 'Group Coaching')) {
-      sendEvent('package_interest', {
-        package_name: offer,
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-  }, true);
-
-  window.addEventListener('blur', function () {
-    setTimeout(function () {
-      var active = document.activeElement;
-      if (!active || active.tagName !== 'IFRAME') return;
-      var src = active.getAttribute('src') || '';
-      if (src.indexOf('cal.com/') !== -1) {
-        fireCalBookingClick(active, src);
-      }
-    }, 0);
-  });
-
-  document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
-    var pending = false;
-    var sent = false;
-    var status = form.querySelector('.form-status');
-    var formName = 'enquiry';
-    if (window.location.pathname.indexOf('contact') !== -1) formName = 'contact';
-    if (window.location.pathname.indexOf('work-with-me') !== -1) formName = 'work_with_me';
-    if (window.location.pathname.indexOf('book') !== -1) formName = 'booking_enquiry';
-
-    form.addEventListener('submit', function () {
-      pending = true;
-      sent = false;
-      if (!status) {
-        setTimeout(function () {
-          if (pending && !sent) {
-            sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-            sent = true;
-            pending = false;
-          }
-        }, 1500);
-      }
-    }, true);
-
-    if (status) {
-      new MutationObserver(function () {
-        if (!pending || sent) return;
-        var text = (status.textContent || '').toLowerCase();
-        if (text.indexOf('success') !== -1 || text.indexOf('sent') !== -1 || text.indexOf('thank') !== -1) {
-          sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-          sent = true;
-          pending = false;
-        }
-      }).observe(status, { childList: true, subtree: true, characterData: true });
-    }
-  });
-
-  if (/\/book(?:\.html)?$/.test(window.location.pathname)) {
-    sendEvent('view_booking_page', { page_path: window.location.pathname });
-  }
-})();
-</script>
-
-
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NHQ8S263EP');</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English Learning Guides for Professionals & IELTS | Phillips English</title>
+<meta name="description" content="Free English guides for Business English, meetings, presentations, IELTS Speaking and British pronunciation from Phillips English.">
+<meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="https://www.phillipsenglish.com/guides.html">
+<meta property="og:title" content="English Learning Guides | Phillips English"><meta property="og:description" content="Practical Business English, IELTS, presentation and pronunciation guides."><meta property="og:type" content="website"><meta property="og:url" content="https://www.phillipsenglish.com/guides.html"><meta property="og:image" content="https://www.phillipsenglish.com/assets/phillips-english-social.webp">
+<style>:root{--ink:#071521;--ink2:#0e2738;--ice:#8bc8ef;--paper:#f5f2eb;--muted:#aebbc4;--line:#213746}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:#fff;font-family:Arial,Helvetica,sans-serif;line-height:1.7}a{color:inherit}.wrap{max-width:1120px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:20px}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}.links{display:flex;gap:18px;font-size:13px}.links a{text-decoration:none}.btn{display:inline-block;background:var(--ice);color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800;text-decoration:none}.hero{padding:95px 0 78px}.eyebrow{color:var(--ice);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:clamp(44px,6vw,72px);line-height:.98;letter-spacing:-.05em;max-width:900px;margin:16px 0 24px}.hero p{font-size:20px;color:#cbd4da;max-width:760px}.light{background:var(--paper);color:#0b1b27;padding:78px 0}.intro{max-width:760px}.intro h2{font-size:42px;letter-spacing:-.035em;line-height:1.05}.intro p{font-size:18px;color:#4c5d66}.guides{padding:80px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{background:var(--ink2);padding:30px;min-height:245px;border:1px solid rgba(255,255,255,.06)}.card .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice);font-weight:800}.card h2{font-size:29px;line-height:1.08;margin:13px 0}.card p{color:var(--muted);font-size:16px}.card a{color:var(--ice);text-decoration:none;font-weight:800}.cta{padding:70px 0;text-align:center;background:#0a1d2b}.cta h2{font-size:42px;letter-spacing:-.035em;max-width:760px;margin:0 auto 18px}.cta p{color:var(--muted);max-width:700px;margin:0 auto 24px}footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.grid{grid-template-columns:1fr}}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"English Learning Guides","url":"https://www.phillipsenglish.com/guides.html","description":"Practical English guides for professionals and IELTS candidates.","publisher":{"@type":"Organization","name":"Phillips English"}}</script>
+</head><body>
+<div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div>
+<header class="hero"><div class="wrap"><div class="eyebrow">Free English resources</div><h1>Practical English guides for work, exams and confident communication.</h1><p>Use these guides to improve the English you actually need: professional meetings, presentations, IELTS Speaking and clearer British English pronunciation.</p></div></header>
+<section class="light"><div class="wrap"><div class="intro"><div class="eyebrow">Phillips English guides</div><h2>Useful language you can practise immediately.</h2><p>These resources focus on real communication rather than isolated grammar rules. Each guide gives you reusable language, examples and a clear way to practise. If you need personalised correction, the guides also connect directly to the relevant coaching options.</p></div></div></section>
+<section class="guides"><div class="wrap"><div class="grid">
+<article class="card"><div class="tag">Business English</div><h2>Business English for Meetings</h2><p>40 natural phrases for giving opinions, interrupting, clarifying, agreeing, disagreeing and moving a discussion forward.</p><a href="business-english-meetings.html">Read the meetings guide →</a></article>
+<article class="card"><div class="tag">Professional communication</div><h2>English Presentation Phrases</h2><p>Practical language for opening, signposting, explaining data, handling difficult questions and closing a presentation confidently.</p><a href="english-presentation-phrases.html">Read the presentation guide →</a></article>
+<article class="card"><div class="tag">IELTS</div><h2>IELTS Speaking Fluency</h2><p>Learn how to extend answers in Parts 1, 2 and 3 without sounding memorised, with structures for reasons, examples and comparisons.</p><a href="ielts-speaking-fluency.html">Read the IELTS fluency guide →</a></article>
+<article class="card"><div class="tag">Pronunciation</div><h2>British English Pronunciation</h2><p>Work on word stress, sentence rhythm, schwa, connected speech and the sounds that most affect clarity.</p><a href="british-english-pronunciation-guide.html">Read the pronunciation guide →</a></article>
+</div></div></section>
+<section class="cta"><div class="wrap"><div class="eyebrow">Need personalised feedback?</div><h2>Use the guides for practice. Use coaching when the English really matters.</h2><p>Private coaching can focus on your real meeting, presentation, interview, exam or communication goal.</p><a class="btn" href="book.html">View coaching & availability →</a></div></section>
+<footer><div class="wrap">PHILLIPS ENGLISH · British English & Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer>
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a&&/book\.html/.test(a.getAttribute('href')||'')){gtag('event','booking_intent',{link_text:(a.textContent||'').trim(),page_path:location.pathname});}},true);</script>
 </body></html>
