@@ -22,6 +22,8 @@
 <footer><div class="wrap">PHILLIPS ENGLISH · British English & Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026<div class="footer-links"><a href="business-english-coaching.html">Business English</a><a href="ielts-coaching.html">IELTS</a><a href="interview-presentation-english.html">Interviews & Presentations</a><a href="pronunciation-fluency-coaching.html">Pronunciation & Fluency</a><a href="aviation-english-coaching.html">Aviation English</a><a href="group-coaching.html">Group Coaching</a><a href="contact.html">Contact</a></div></div></footer><!-- Phillips English GA4 conversion tracking -->
 <script>
 (function () {
+  var lastCalEventAt = 0;
+
   function sendEvent(name, params) {
     if (typeof window.gtag === 'function') {
       window.gtag('event', name, params || {});
@@ -33,7 +35,7 @@
   }
 
   function detectOffer(element) {
-    var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .offer, .pricing-card') : null;
+    var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .premium-route, .offer, .pricing-card') : null;
     var text = cleanText((node && node.textContent) || (element && element.textContent) || '').toLowerCase();
     if (text.indexOf('professional english accelerator') !== -1 || text.indexOf('accelerator') !== -1) return 'Professional English Accelerator';
     if (text.indexOf('performance intensive') !== -1 || text.indexOf('intensive') !== -1) return 'Performance Intensive';
@@ -42,10 +44,38 @@
     return '';
   }
 
-  document.addEventListener('click', function (event) {
-    var link = event.target && event.target.closest ? event.target.closest('a') : null;
-    if (!link) return;
+  function fireCalBookingClick(element, url) {
+    var now = Date.now();
+    if (now - lastCalEventAt < 1200) return;
+    lastCalEventAt = now;
+    sendEvent('cal_booking_click', {
+      package_name: detectOffer(element) || 'Private English Coaching',
+      link_text: cleanText(element && element.textContent),
+      link_url: url || '',
+      page_path: window.location.pathname
+    });
+  }
 
+  document.addEventListener('click', function (event) {
+    var target = event.target;
+    var link = target && target.closest ? target.closest('a') : null;
+    var route = target && target.closest ? target.closest('.premium-route[data-url], [data-url*="cal.com/"]') : null;
+
+    if (route) {
+      var routeUrl = route.getAttribute('data-url') || '';
+      fireCalBookingClick(route, routeUrl);
+      var routeOffer = detectOffer(route);
+      if (routeOffer && routeOffer !== 'Private English Coaching') {
+        sendEvent('package_interest', {
+          package_name: routeOffer,
+          link_text: cleanText(route.textContent),
+          link_url: routeUrl,
+          page_path: window.location.pathname
+        });
+      }
+    }
+
+    if (!link) return;
     var rawHref = link.getAttribute('href') || '';
     var absoluteHref = link.href || rawHref;
     var linkText = cleanText(link.textContent);
@@ -60,12 +90,7 @@
     }
 
     if (absoluteHref.indexOf('cal.com/') !== -1) {
-      sendEvent('cal_booking_click', {
-        package_name: offer || 'Private English Coaching',
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
+      fireCalBookingClick(link, absoluteHref);
     }
 
     if (offer && (offer === 'Professional English Accelerator' || offer === 'Performance Intensive' || offer === 'Group Coaching')) {
@@ -78,27 +103,58 @@
     }
   }, true);
 
-  document.addEventListener('submit', function (event) {
-    var form = event.target;
-    if (!form || form.tagName !== 'FORM') return;
-    var action = form.getAttribute('action') || '';
-    if (action.indexOf('formspree.io') === -1) return;
+  window.addEventListener('blur', function () {
+    setTimeout(function () {
+      var active = document.activeElement;
+      if (!active || active.tagName !== 'IFRAME') return;
+      var src = active.getAttribute('src') || '';
+      if (src.indexOf('cal.com/') !== -1) {
+        fireCalBookingClick(active, src);
+      }
+    }, 0);
+  });
 
+  document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
+    var pending = false;
+    var sent = false;
+    var status = form.querySelector('.form-status');
     var formName = 'enquiry';
     if (window.location.pathname.indexOf('contact') !== -1) formName = 'contact';
     if (window.location.pathname.indexOf('work-with-me') !== -1) formName = 'work_with_me';
     if (window.location.pathname.indexOf('book') !== -1) formName = 'booking_enquiry';
 
-    sendEvent('generate_lead', {
-      form_name: formName,
-      page_path: window.location.pathname
-    });
-  }, true);
+    form.addEventListener('submit', function () {
+      pending = true;
+      sent = false;
+      if (!status) {
+        setTimeout(function () {
+          if (pending && !sent) {
+            sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
+            sent = true;
+            pending = false;
+          }
+        }, 1500);
+      }
+    }, true);
+
+    if (status) {
+      new MutationObserver(function () {
+        if (!pending || sent) return;
+        var text = (status.textContent || '').toLowerCase();
+        if (text.indexOf('success') !== -1 || text.indexOf('sent') !== -1 || text.indexOf('thank') !== -1) {
+          sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
+          sent = true;
+          pending = false;
+        }
+      }).observe(status, { childList: true, subtree: true, characterData: true });
+    }
+  });
 
   if (/\/book(?:\.html)?$/.test(window.location.pathname)) {
     sendEvent('view_booking_page', { page_path: window.location.pathname });
   }
 })();
 </script>
+
 
 </body></html>
