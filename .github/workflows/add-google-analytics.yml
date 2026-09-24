@@ -16,10 +16,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Add GA4 tag and conversion tracking to HTML pages
+      - name: Refresh GA4 conversion tracking on HTML pages
         shell: python
         run: |
           from pathlib import Path
+          import re
 
           measurement_id = "G-NHQ8S263EP"
           ga_snippet = '''<!-- Google tag (gtag.js) -->
@@ -36,6 +37,8 @@ jobs:
           event_snippet = r'''<!-- Phillips English GA4 conversion tracking -->
           <script>
           (function () {
+            var lastCalEventAt = 0;
+
             function sendEvent(name, params) {
               if (typeof window.gtag === 'function') {
                 window.gtag('event', name, params || {});
@@ -47,7 +50,7 @@ jobs:
             }
 
             function detectOffer(element) {
-              var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .offer, .pricing-card') : null;
+              var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .premium-route, .offer, .pricing-card') : null;
               var text = cleanText((node && node.textContent) || (element && element.textContent) || '').toLowerCase();
               if (text.indexOf('professional english accelerator') !== -1 || text.indexOf('accelerator') !== -1) return 'Professional English Accelerator';
               if (text.indexOf('performance intensive') !== -1 || text.indexOf('intensive') !== -1) return 'Performance Intensive';
@@ -56,10 +59,38 @@ jobs:
               return '';
             }
 
-            document.addEventListener('click', function (event) {
-              var link = event.target && event.target.closest ? event.target.closest('a') : null;
-              if (!link) return;
+            function fireCalBookingClick(element, url) {
+              var now = Date.now();
+              if (now - lastCalEventAt < 1200) return;
+              lastCalEventAt = now;
+              sendEvent('cal_booking_click', {
+                package_name: detectOffer(element) || 'Private English Coaching',
+                link_text: cleanText(element && element.textContent),
+                link_url: url || '',
+                page_path: window.location.pathname
+              });
+            }
 
+            document.addEventListener('click', function (event) {
+              var target = event.target;
+              var link = target && target.closest ? target.closest('a') : null;
+              var route = target && target.closest ? target.closest('.premium-route[data-url], [data-url*="cal.com/"]') : null;
+
+              if (route) {
+                var routeUrl = route.getAttribute('data-url') || '';
+                fireCalBookingClick(route, routeUrl);
+                var routeOffer = detectOffer(route);
+                if (routeOffer && routeOffer !== 'Private English Coaching') {
+                  sendEvent('package_interest', {
+                    package_name: routeOffer,
+                    link_text: cleanText(route.textContent),
+                    link_url: routeUrl,
+                    page_path: window.location.pathname
+                  });
+                }
+              }
+
+              if (!link) return;
               var rawHref = link.getAttribute('href') || '';
               var absoluteHref = link.href || rawHref;
               var linkText = cleanText(link.textContent);
@@ -74,12 +105,7 @@ jobs:
               }
 
               if (absoluteHref.indexOf('cal.com/') !== -1) {
-                sendEvent('cal_booking_click', {
-                  package_name: offer || 'Private English Coaching',
-                  link_text: linkText,
-                  link_url: absoluteHref,
-                  page_path: window.location.pathname
-                });
+                fireCalBookingClick(link, absoluteHref);
               }
 
               if (offer && (offer === 'Professional English Accelerator' || offer === 'Performance Intensive' || offer === 'Group Coaching')) {
@@ -92,22 +118,55 @@ jobs:
               }
             }, true);
 
-            document.addEventListener('submit', function (event) {
-              var form = event.target;
-              if (!form || form.tagName !== 'FORM') return;
-              var action = form.getAttribute('action') || '';
-              if (action.indexOf('formspree.io') === -1) return;
+            // Cal.com is embedded in a cross-origin iframe, so clicks inside it are
+            // invisible to the parent page. Detect focus entering the iframe instead.
+            window.addEventListener('blur', function () {
+              setTimeout(function () {
+                var active = document.activeElement;
+                if (!active || active.tagName !== 'IFRAME') return;
+                var src = active.getAttribute('src') || '';
+                if (src.indexOf('cal.com/') !== -1) {
+                  fireCalBookingClick(active, src);
+                }
+              }, 0);
+            });
 
+            // Track a lead only after the Formspree AJAX status confirms success.
+            document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
+              var pending = false;
+              var sent = false;
+              var status = form.querySelector('.form-status');
               var formName = 'enquiry';
               if (window.location.pathname.indexOf('contact') !== -1) formName = 'contact';
               if (window.location.pathname.indexOf('work-with-me') !== -1) formName = 'work_with_me';
               if (window.location.pathname.indexOf('book') !== -1) formName = 'booking_enquiry';
 
-              sendEvent('generate_lead', {
-                form_name: formName,
-                page_path: window.location.pathname
-              });
-            }, true);
+              form.addEventListener('submit', function () {
+                pending = true;
+                sent = false;
+                if (!status) {
+                  setTimeout(function () {
+                    if (pending && !sent) {
+                      sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
+                      sent = true;
+                      pending = false;
+                    }
+                  }, 1500);
+                }
+              }, true);
+
+              if (status) {
+                new MutationObserver(function () {
+                  if (!pending || sent) return;
+                  var text = (status.textContent || '').toLowerCase();
+                  if (text.indexOf('success') !== -1 || text.indexOf('sent') !== -1 || text.indexOf('thank') !== -1) {
+                    sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
+                    sent = true;
+                    pending = false;
+                  }
+                }).observe(status, { childList: true, subtree: true, characterData: true });
+              }
+            });
 
             if (/\/book(?:\.html)?$/.test(window.location.pathname)) {
               sendEvent('view_booking_page', { page_path: window.location.pathname });
@@ -117,6 +176,8 @@ jobs:
           '''
 
           changed = []
+          pattern = re.compile(r'<!-- Phillips English GA4 conversion tracking -->.*?</script>', re.S)
+
           for path in sorted(Path('.').glob('*.html')):
               text = path.read_text(encoding='utf-8')
               original = text
@@ -127,11 +188,12 @@ jobs:
                   elif '</head>' in text:
                       text = text.replace('</head>', ga_snippet + '\n</head>', 1)
 
-              if event_marker not in text:
-                  if '</body>' in text:
-                      text = text.replace('</body>', event_snippet + '\n</body>', 1)
-                  elif '</html>' in text:
-                      text = text.replace('</html>', event_snippet + '\n</html>', 1)
+              if event_marker in text:
+                  text = pattern.sub(event_snippet, text, count=1)
+              elif '</body>' in text:
+                  text = text.replace('</body>', event_snippet + '\n</body>', 1)
+              elif '</html>' in text:
+                  text = text.replace('</html>', event_snippet + '\n</html>', 1)
 
               if text != original:
                   path.write_text(text, encoding='utf-8')
@@ -150,5 +212,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add '*.html'
-          git commit -m "Add GA4 conversion tracking across website"
+          git commit -m "Improve GA4 booking and lead tracking"
           git push
