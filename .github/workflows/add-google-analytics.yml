@@ -118,8 +118,6 @@ jobs:
               }
             }, true);
 
-            // Cal.com is embedded in a cross-origin iframe, so clicks inside it are
-            // invisible to the parent page. Detect focus entering the iframe instead.
             window.addEventListener('blur', function () {
               setTimeout(function () {
                 var active = document.activeElement;
@@ -131,7 +129,6 @@ jobs:
               }, 0);
             });
 
-            // Track a lead only after the Formspree AJAX status confirms success.
             document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
               var pending = false;
               var sent = false;
@@ -189,7 +186,7 @@ jobs:
                       text = text.replace('</head>', ga_snippet + '\n</head>', 1)
 
               if event_marker in text:
-                  text = pattern.sub(event_snippet, text, count=1)
+                  text = pattern.sub(lambda m: event_snippet, text, count=1)
               elif '</body>' in text:
                   text = text.replace('</body>', event_snippet + '\n</body>', 1)
               elif '</html>' in text:
