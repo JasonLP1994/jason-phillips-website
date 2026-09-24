@@ -1,0 +1,126 @@
+name: Apply Phillips English SEO
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-seo.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  seo:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply SEO metadata without changing visible content
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, json, html
+          from urllib.parse import urljoin
+
+          base = 'https://www.phillipsenglish.com/'
+          pages = {
+            'index.html': ('British English Coaching for Professionals & Groups | Phillips English', 'Premium British English coaching for professionals, ambitious learners and small groups. Business English, fluency, pronunciation, IELTS and career communication.', ''),
+            'about.html': ('About Jason Phillips | British English Coach | Phillips English', 'Meet Jason Phillips, a British English coach with 13+ years of international teaching, leadership and language-centre experience.', 'about.html'),
+            'coaching.html': ('Private English Coaching | Business English, IELTS & Fluency', 'Personalised British English coaching for Business English, fluency, pronunciation, interviews, presentations, IELTS, aviation and specialist communication.', 'coaching.html'),
+            'results.html': ('English Coaching Results & Client Reviews | Phillips English', 'Read client results and reviews from coaching for professional communication, confidence, pronunciation, IELTS, interviews and presentations.', 'results.html'),
+            'work-with-me.html': ('English Coaching Programmes & Pricing | Phillips English', 'Explore Phillips English private coaching programmes, including single sessions, the Professional English Accelerator, Performance Intensive and group coaching.', 'work-with-me.html'),
+            'book.html': ('Book English Coaching Online | Phillips English', 'Book private British English coaching online. Choose a single session, Professional English Accelerator or Performance Intensive and view live availability.', 'book.html'),
+            'group-coaching.html': ('Group English Coaching for Teams & Small Groups | Phillips English', 'Premium group English coaching for friends, small groups and professional teams. Improve meetings, presentations, fluency, pronunciation, IELTS and shared goals.', 'group-coaching.html'),
+            'contact.html': ('Contact Phillips English | English Coaching Enquiries', 'Contact Phillips English about private coaching, group coaching, programme pricing, bookings or current-client support.', 'contact.html'),
+            'privacy.html': ('Privacy Policy | Phillips English', 'Privacy information for Phillips English coaching services and website visitors.', 'privacy.html'),
+            'terms.html': ('Terms & Conditions | Phillips English', 'Terms and conditions for Phillips English private and group coaching services.', 'terms.html'),
+            'cancellation.html': ('Cancellation & Refund Policy | Phillips English', 'Cancellation, rescheduling and refund policy for Phillips English coaching services.', 'cancellation.html'),
+          }
+          legal = {'privacy.html', 'terms.html', 'cancellation.html'}
+
+          business = {
+            '@context':'https://schema.org','@type':'ProfessionalService','@id':base+'#business',
+            'name':'Phillips English','url':base,'email':'hello@phillipsenglish.com',
+            'description':'Premium British English coaching for professionals, ambitious learners and small groups.',
+            'founder':{'@type':'Person','@id':base+'#jason-phillips','name':'Jason Phillips','jobTitle':'British English Coach'},
+            'address':{'@type':'PostalAddress','streetAddress':'17 Dacombe Close','addressLocality':'Upton','addressRegion':'Dorset','addressCountry':'GB'},
+            'areaServed':'Worldwide',
+            'serviceType':['Private English Coaching','Business English Coaching','Group English Coaching','Professional Team English Coaching','IELTS Preparation','Pronunciation Coaching','Interview Preparation','Presentation Coaching']
+          }
+          private_catalog = {
+            '@context':'https://schema.org','@type':'OfferCatalog','name':'Phillips English Private Coaching',
+            'itemListElement':[
+              {'@type':'Offer','price':'45','priceCurrency':'GBP','url':base+'book.html?service=single#booking','itemOffered':{'@type':'Service','name':'Private English Coaching'}},
+              {'@type':'Offer','price':'495','priceCurrency':'GBP','url':base+'book.html?service=accelerator#booking','itemOffered':{'@type':'Service','name':'Professional English Accelerator'}},
+              {'@type':'Offer','price':'225','priceCurrency':'GBP','url':base+'book.html?service=intensive#booking','itemOffered':{'@type':'Service','name':'Performance Intensive'}}
+            ]
+          }
+          group = {
+            '@context':'https://schema.org','@type':'Service','name':'Group English Coaching','provider':{'@id':base+'#business'},
+            'url':base+'group-coaching.html','areaServed':'Worldwide',
+            'description':'Premium online group English coaching for friends, small private groups and professional teams.',
+            'serviceType':['Small Group English Coaching','Professional Team English Coaching','Group Business English','Group IELTS Preparation','Group Fluency and Pronunciation Coaching'],
+            'offers':[
+              {'@type':'Offer','name':'Private Small Group','price':'90','priceCurrency':'GBP','description':'From £90 per 60-minute session for 2–4 learners.'},
+              {'@type':'Offer','name':'Professional Team Coaching','price':'120','priceCurrency':'GBP','description':'From £120 per 60-minute professional team session.'}
+            ]
+          }
+
+          remove_patterns = [
+            r'<meta[^>]+name=["\']description["\'][^>]*>\s*',
+            r'<meta[^>]+name=["\']robots["\'][^>]*>\s*',
+            r'<link[^>]+rel=["\']canonical["\'][^>]*>\s*',
+            r'<link[^>]+rel=["\']alternate["\'][^>]+hreflang=["\'][^"\']+["\'][^>]*>\s*',
+            r'<meta[^>]+property=["\']og:[^"\']+["\'][^>]*>\s*',
+            r'<meta[^>]+name=["\']twitter:[^"\']+["\'][^>]*>\s*',
+            r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>.*?</script>\s*'
+          ]
+
+          for filename, (title, desc, rel) in pages.items():
+            p = Path(filename)
+            if not p.exists():
+              continue
+            text = p.read_text(encoding='utf-8')
+            text = re.sub(r'<html\s+lang=["\'][^"\']+["\']', '<html lang="en-GB"', text, count=1, flags=re.I)
+            m = re.search(r'<head>(.*?)</head>', text, flags=re.I|re.S)
+            if not m:
+              continue
+            head = m.group(1)
+            for pat in remove_patterns:
+              head = re.sub(pat, '', head, flags=re.I|re.S)
+            head = re.sub(r'<title>.*?</title>', f'<title>{html.escape(title)}</title>', head, count=1, flags=re.I|re.S)
+            canonical = urljoin(base, rel)
+            robots = 'noindex, follow' if filename in legal else 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+            meta = f'''\n<meta name="description" content="{html.escape(desc, quote=True)}">\n<meta name="robots" content="{robots}">\n<link rel="canonical" href="{canonical}">\n<link rel="alternate" hreflang="en-gb" href="{canonical}">\n<meta property="og:site_name" content="Phillips English">\n<meta property="og:type" content="website">\n<meta property="og:title" content="{html.escape(title, quote=True)}">\n<meta property="og:description" content="{html.escape(desc, quote=True)}">\n<meta property="og:url" content="{canonical}">\n<meta name="twitter:card" content="summary">\n<meta name="twitter:title" content="{html.escape(title, quote=True)}">\n<meta name="twitter:description" content="{html.escape(desc, quote=True)}">\n'''
+            schemas = [business]
+            if filename in {'index.html','work-with-me.html','book.html'}:
+              schemas.append(private_catalog)
+            if filename == 'group-coaching.html':
+              schemas.append(group)
+            schema_html = '\n'.join('<script type="application/ld+json">'+json.dumps(x, ensure_ascii=False, separators=(',',':'))+'</script>' for x in schemas)
+            new_head = '<head>'+head+meta+schema_html+'</head>'
+            text = text[:m.start()] + new_head + text[m.end():]
+            p.write_text(text, encoding='utf-8')
+
+          Path('robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: https://www.phillipsenglish.com/sitemap.xml\n', encoding='utf-8')
+          public = ['', 'about.html','coaching.html','results.html','work-with-me.html','book.html','group-coaching.html','contact.html']
+          xml = ['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+          for rel in public:
+            xml += ['  <url>', f'    <loc>{urljoin(base, rel)}</loc>', '  </url>']
+          xml.append('</urlset>')
+          Path('sitemap.xml').write_text('\n'.join(xml)+'\n', encoding='utf-8')
+          PY
+      - name: Commit SEO changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add *.html robots.txt sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No SEO changes needed"
+          else
+            git commit -m "Apply Phillips English SEO metadata"
+            git push
+          fi
