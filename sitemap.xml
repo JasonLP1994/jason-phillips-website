@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.phillipsenglish.com/</loc></url>
-  <url><loc>https://www.phillipsenglish.com/about.html</loc></url>
-  <url><loc>https://www.phillipsenglish.com/coaching.html</loc></url>
-  <url><loc>https://www.phillipsenglish.com/results.html</loc></url>
-  <url><loc>https://www.phillipsenglish.com/work-with-me.html</loc></url>
-  <url><loc>https://www.phillipsenglish.com/book.html</loc></url>
-  <url><loc>https://www.phillipsenglish.com/group-coaching.html</loc></url>
-  <url><loc>https://www.phillipsenglish.com/contact.html</loc></url>
+  <url>
+    <loc>https://www.phillipsenglish.com/</loc>
+  </url>
+  <url>
+    <loc>https://www.phillipsenglish.com/about.html</loc>
+  </url>
+  <url>
+    <loc>https://www.phillipsenglish.com/coaching.html</loc>
+  </url>
+  <url>
+    <loc>https://www.phillipsenglish.com/results.html</loc>
+  </url>
+  <url>
+    <loc>https://www.phillipsenglish.com/work-with-me.html</loc>
+  </url>
+  <url>
+    <loc>https://www.phillipsenglish.com/book.html</loc>
+  </url>
+  <url>
+    <loc>https://www.phillipsenglish.com/group-coaching.html</loc>
+  </url>
+  <url>
+    <loc>https://www.phillipsenglish.com/contact.html</loc>
+  </url>
 </urlset>
