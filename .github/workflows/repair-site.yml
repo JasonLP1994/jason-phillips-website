@@ -1,0 +1,124 @@
+name: Repair Phillips English site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/repair-site.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair assets, missing pages and internal links
+        run: |
+          set -e
+          mkdir -p assets/images
+
+          copy_if_exists () {
+            src="$1"; dst="$2"
+            if [ -f "$src" ]; then cp "$src" "$dst"; fi
+          }
+
+          copy_if_exists apax-teaching-team-35f0fe.webp assets/images/apax-teaching-team.webp
+          copy_if_exists executive-communication-and-international-opportunity-b19cc3.webp assets/images/executive-english-communication.webp
+          copy_if_exists global-communication-leadership-and-professional-development-72e6e2.webp assets/images/global-professional-communication.webp
+          copy_if_exists immersive-projection-dome-learning-experience-at-star-language-edd57e.webp assets/images/immersive-projection-dome.webp
+          copy_if_exists jason-with-students-and-an-ielts-preparation-book-at-star-language-3bbeec.webp assets/images/jason-ielts-preparation.webp
+          copy_if_exists jason-phillips-british-english-coach-558abe.webp assets/images/jason-phillips-british-english-coach.webp
+          copy_if_exists jason-phillips-55620d.webp assets/images/jason-phillips-english-coach-portrait.webp
+          copy_if_exists jason-phillips-with-a-teaching-team-in-vietnam-a75a61.webp assets/images/jason-phillips-teaching-team-vietnam.webp
+          copy_if_exists jason-phillips-being-interviewed-by-vtv-in-vietnam-afe47b.webp assets/images/jason-phillips-vtv-interview.webp
+          copy_if_exists jason-teaching-79cd8d.webp assets/images/jason-teaching-english-student.webp
+          copy_if_exists jason-phillips-teaching-an-older-student-at-star-language-28ebb4.webp assets/images/jason-teaching-older-student.webp
+          copy_if_exists jason-supporting-a-young-english-learner-44d7e9.webp assets/images/jason-teaching-young-learner.webp
+          copy_if_exists premium-professional-communication-workspace-de6460.webp assets/images/professional-english-communication.webp
+          copy_if_exists star-language-d2a9a1.webp assets/images/star-language-da-nang.webp
+          copy_if_exists premium-professional-communication-workspace-de6460.webp assets/images/business-english-coaching-background.webp
+          copy_if_exists phillips-english-social.webp assets/images/phillips-english-social.webp
+          mkdir -p assets
+          copy_if_exists phillips-english-social.webp assets/phillips-english-social.webp
+
+          if [ ! -f favicon.svg ]; then
+            cat > favicon.svg <<'EOF'
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#071521"/><text x="32" y="41" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#8bc8ef">PE</text></svg>
+          EOF
+          fi
+
+          python - <<'PY'
+          from pathlib import Path
+          import re, html
+
+          base_css = '''
+          :root{--ink:#071521;--ice:#8bc8ef;--paper:#f5f2eb;--muted:#aebbc4;--line:#213746}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:#fff;font-family:Arial,Helvetica,sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}.wrap{max-width:1120px;margin:auto;padding:0 30px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:22px}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}.navlinks{display:flex;gap:20px;font-size:13px}.button{display:inline-block;background:var(--ice);color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800}.hero{padding:92px 0 70px}.hero h1{font-size:clamp(44px,6vw,70px);line-height:1;letter-spacing:-.05em;max-width:900px;margin:14px 0 22px}.hero p{font-size:19px;color:#cbd4da;max-width:760px}.eyebrow{color:var(--ice);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}section{padding:76px 0}.light{background:var(--paper);color:#0b1b27}.light p,.light li{color:#52616a}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#0e2738;padding:26px}.card p{color:var(--muted)}h2{font-size:clamp(34px,4vw,50px);letter-spacing:-.04em;line-height:1.06}footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#82949f;font-size:12px}@media(max-width:800px){.navlinks{display:none}.grid{grid-template-columns:1fr}.wrap{padding:0 22px}}
+          '''
+
+          pages = {
+            'guides.html': ('English Learning Guides | Phillips English','Practical English guides for professionals and ambitious learners.','English Learning Guides','Practical guides for clearer, more confident English.','Explore focused resources for Business English, IELTS, presentations, pronunciation and fluency.',[
+              ('Business English meetings','business-english-meetings.html'),('IELTS speaking & fluency','ielts-speaking-fluency.html'),('Presentation English','english-presentation-phrases.html'),('British English pronunciation','british-english-pronunciation-guide.html')]),
+            'business-english-meetings.html': ('Business English for Meetings | Phillips English','Useful Business English for meetings, discussions, agreeing, disagreeing and presenting ideas clearly.','Business English for Meetings','Sound clearer and more confident in professional meetings.','Build practical language for contributing, clarifying, agreeing, disagreeing and moving discussions forward.',[]),
+            'ielts-speaking-fluency.html': ('IELTS Speaking Fluency Guide | Phillips English','Improve IELTS Speaking fluency, coherence and confidence with practical strategies and examples.','IELTS Speaking Fluency','Speak with more control, structure and confidence in IELTS.','Focus on extending answers naturally, linking ideas clearly and avoiding memorised-sounding responses.',[]),
+            'english-presentation-phrases.html': ('English Presentation Phrases | Phillips English','Useful English phrases for opening, structuring, explaining and closing professional presentations.','English Presentation Phrases','Useful language for professional presentations.','Use clear, natural phrases to guide your audience through introductions, key points, transitions and conclusions.',[]),
+            'british-english-pronunciation-guide.html': ('British English Pronunciation Guide | Phillips English','A practical guide to clearer British English pronunciation, stress, rhythm and connected speech.','British English Pronunciation Guide','Improve clarity without trying to erase your accent.','Work on stress, rhythm, vowel and consonant clarity, connected speech and the sounds that most affect understanding.',[]),
+          }
+
+          for filename,(title,desc,h1,lead,body,cards) in pages.items():
+            p=Path(filename)
+            if p.exists():
+              continue
+            card_html=''.join(f'<article class="card"><h3><a href="{href}">{html.escape(label)}</a></h3><p>Open the guide →</p></article>' for label,href in cards)
+            if not card_html:
+              card_html='''<article class="card"><h3>Use it actively</h3><p>Practise the language aloud and apply it to a real situation.</p></article><article class="card"><h3>Notice patterns</h3><p>Focus on useful structures, pronunciation and natural combinations of words.</p></article><article class="card"><h3>Get feedback</h3><p>For personalised correction and coaching, book a private session with Jason.</p></article>'''
+            content=f'''<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc,quote=True)}"><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.phillipsenglish.com/{filename}"><link rel="icon" href="favicon.svg"><style>{base_css}</style></head><body><div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="navlinks"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="button" href="book.html">Book coaching</a></nav></div><header class="hero"><div class="wrap"><div class="eyebrow">Phillips English Guide</div><h1>{html.escape(h1)}</h1><p>{html.escape(lead)}</p></div></header><section class="light"><div class="wrap"><h2>{html.escape(h1)}</h2><p>{html.escape(body)}</p></div></section><section><div class="wrap"><div class="grid">{card_html}</div><p style="margin-top:32px"><a class="button" href="book.html">Book personalised English coaching →</a></p></div></section><footer><div class="wrap">PHILLIPS ENGLISH · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer></body></html>'''
+            p.write_text(content,encoding='utf-8')
+
+          # Fix any accidental references to the social image in the wrong folder.
+          for p in Path('.').glob('*.html'):
+            text=p.read_text(encoding='utf-8')
+            text=text.replace('https://www.phillipsenglish.com/assets/images/phillips-english-social.webp','https://www.phillipsenglish.com/assets/phillips-english-social.webp')
+            p.write_text(text,encoding='utf-8')
+
+          public=['','about.html','coaching.html','results.html','work-with-me.html','book.html','group-coaching.html','contact.html','business-english-coaching.html','ielts-coaching.html','interview-presentation-english.html','pronunciation-fluency-coaching.html','aviation-english-coaching.html','guides.html','business-english-meetings.html','ielts-speaking-fluency.html','english-presentation-phrases.html','british-english-pronunciation-guide.html']
+          xml=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+          for rel in public:
+            loc='https://www.phillipsenglish.com/'+rel
+            xml += ['  <url>',f'    <loc>{loc}</loc>','  </url>']
+          xml.append('</urlset>')
+          Path('sitemap.xml').write_text('\n'.join(xml)+'\n',encoding='utf-8')
+
+          # Validate local href/src references. Ignore external links, mailto, protocol-relative and pure anchors.
+          missing=[]
+          for p in Path('.').glob('*.html'):
+            text=p.read_text(encoding='utf-8')
+            for attr,target in re.findall(r'\b(href|src)=["\']([^"\']+)["\']',text,re.I):
+              if target.startswith(('http://','https://','mailto:','tel:','//','#','data:','javascript:')):
+                continue
+              clean=target.split('#',1)[0].split('?',1)[0]
+              if not clean:
+                continue
+              ref=(p.parent/clean).resolve()
+              if not ref.exists():
+                missing.append((p.name,target))
+          if missing:
+            print('Missing local references:')
+            for item in missing: print(item)
+            raise SystemExit(1)
+          print('Local link and asset validation passed.')
+          PY
+
+      - name: Commit repaired site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets favicon.svg *.html sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No repair changes needed"
+          else
+            git commit -m "Repair site assets and broken internal links"
+            git push
+          fi
