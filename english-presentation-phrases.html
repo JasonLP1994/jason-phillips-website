@@ -1,149 +1,75 @@
 <!doctype html><html lang="en-GB"><head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NHQ8S263EP"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-NHQ8S263EP');
-</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>English Presentation Phrases | Phillips English</title><meta name="description" content="Useful language for professional presentations."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.phillipsenglish.com/english-presentation-phrases.html"><style>body{margin:0;background:#071521;color:#fff;font-family:Arial,sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #213746}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}.links{display:flex;gap:18px;font-size:13px}.btn{display:inline-block;background:#8bc8ef;color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800}.hero{padding:90px 0}.hero h1{font-size:clamp(44px,6vw,70px);line-height:1;letter-spacing:-.05em}.hero p{font-size:19px;color:#cbd4da;max-width:760px}.light{background:#f5f2eb;color:#0b1b27;padding:74px 0}.dark{padding:74px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{background:#0e2738;padding:26px}.card p{color:#aebbc4}footer{border-top:1px solid #213746;padding:32px 0;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.grid{grid-template-columns:1fr}}</style></head><body><div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div><header class="hero"><div class="wrap"><h1>English Presentation Phrases</h1><p>Useful language for professional presentations.</p></div></header><section class="light"><div class="wrap"><h2>English Presentation Phrases</h2><p>Natural phrases for opening, structuring, transitioning and closing presentations.</p></div></section><section class="dark"><div class="wrap"><div class="grid"><article class="card"><h2>Practise actively</h2><p>Use the language aloud in a realistic situation.</p></article><article class="card"><h2>Get precise feedback</h2><p>For personalised correction, book a private coaching session.</p></article></div><p style="margin-top:28px"><a class="btn" href="book.html">Book personalised coaching →</a></p></div></section><footer><div class="wrap">PHILLIPS ENGLISH · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer><!-- Phillips English GA4 conversion tracking -->
-<script>
-(function () {
-  var lastCalEventAt = 0;
-
-  function sendEvent(name, params) {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', name, params || {});
-    }
-  }
-
-  function cleanText(value) {
-    return (value || '').replace(/\s+/g, ' ').trim().slice(0, 120);
-  }
-
-  function detectOffer(element) {
-    var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .premium-route, .offer, .pricing-card') : null;
-    var text = cleanText((node && node.textContent) || (element && element.textContent) || '').toLowerCase();
-    if (text.indexOf('professional english accelerator') !== -1 || text.indexOf('accelerator') !== -1) return 'Professional English Accelerator';
-    if (text.indexOf('performance intensive') !== -1 || text.indexOf('intensive') !== -1) return 'Performance Intensive';
-    if (text.indexOf('group coaching') !== -1 || text.indexOf('private group') !== -1) return 'Group Coaching';
-    if (text.indexOf('private english coaching') !== -1 || text.indexOf('single session') !== -1 || text.indexOf('pay as you go') !== -1) return 'Private English Coaching';
-    return '';
-  }
-
-  function fireCalBookingClick(element, url) {
-    var now = Date.now();
-    if (now - lastCalEventAt < 1200) return;
-    lastCalEventAt = now;
-    sendEvent('cal_booking_click', {
-      package_name: detectOffer(element) || 'Private English Coaching',
-      link_text: cleanText(element && element.textContent),
-      link_url: url || '',
-      page_path: window.location.pathname
-    });
-  }
-
-  document.addEventListener('click', function (event) {
-    var target = event.target;
-    var link = target && target.closest ? target.closest('a') : null;
-    var route = target && target.closest ? target.closest('.premium-route[data-url], [data-url*="cal.com/"]') : null;
-
-    if (route) {
-      var routeUrl = route.getAttribute('data-url') || '';
-      fireCalBookingClick(route, routeUrl);
-      var routeOffer = detectOffer(route);
-      if (routeOffer && routeOffer !== 'Private English Coaching') {
-        sendEvent('package_interest', {
-          package_name: routeOffer,
-          link_text: cleanText(route.textContent),
-          link_url: routeUrl,
-          page_path: window.location.pathname
-        });
-      }
-    }
-
-    if (!link) return;
-    var rawHref = link.getAttribute('href') || '';
-    var absoluteHref = link.href || rawHref;
-    var linkText = cleanText(link.textContent);
-    var offer = detectOffer(link);
-
-    if (/book\.html(?:$|[?#])/.test(rawHref) || /\/book(?:\.html)?(?:$|[?#])/.test(absoluteHref)) {
-      sendEvent('booking_intent', {
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-
-    if (absoluteHref.indexOf('cal.com/') !== -1) {
-      fireCalBookingClick(link, absoluteHref);
-    }
-
-    if (offer && (offer === 'Professional English Accelerator' || offer === 'Performance Intensive' || offer === 'Group Coaching')) {
-      sendEvent('package_interest', {
-        package_name: offer,
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-  }, true);
-
-  window.addEventListener('blur', function () {
-    setTimeout(function () {
-      var active = document.activeElement;
-      if (!active || active.tagName !== 'IFRAME') return;
-      var src = active.getAttribute('src') || '';
-      if (src.indexOf('cal.com/') !== -1) {
-        fireCalBookingClick(active, src);
-      }
-    }, 0);
-  });
-
-  document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
-    var pending = false;
-    var sent = false;
-    var status = form.querySelector('.form-status');
-    var formName = 'enquiry';
-    if (window.location.pathname.indexOf('contact') !== -1) formName = 'contact';
-    if (window.location.pathname.indexOf('work-with-me') !== -1) formName = 'work_with_me';
-    if (window.location.pathname.indexOf('book') !== -1) formName = 'booking_enquiry';
-
-    form.addEventListener('submit', function () {
-      pending = true;
-      sent = false;
-      if (!status) {
-        setTimeout(function () {
-          if (pending && !sent) {
-            sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-            sent = true;
-            pending = false;
-          }
-        }, 1500);
-      }
-    }, true);
-
-    if (status) {
-      new MutationObserver(function () {
-        if (!pending || sent) return;
-        var text = (status.textContent || '').toLowerCase();
-        if (text.indexOf('success') !== -1 || text.indexOf('sent') !== -1 || text.indexOf('thank') !== -1) {
-          sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-          sent = true;
-          pending = false;
-        }
-      }).observe(status, { childList: true, subtree: true, characterData: true });
-    }
-  });
-
-  if (/\/book(?:\.html)?$/.test(window.location.pathname)) {
-    sendEvent('view_booking_page', { page_path: window.location.pathname });
-  }
-})();
-</script>
-
-
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NHQ8S263EP');</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English Presentation Phrases: Open, Signpost & Handle Q&A | Phillips English</title>
+<meta name="description" content="Useful English presentation phrases for professionals: opening, signposting, explaining data, transitioning, handling questions and closing confidently.">
+<meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="https://www.phillipsenglish.com/english-presentation-phrases.html">
+<meta property="og:title" content="English Presentation Phrases for Professionals"><meta property="og:description" content="Practical phrases for structuring and delivering professional presentations in English."><meta property="og:type" content="article"><meta property="og:url" content="https://www.phillipsenglish.com/english-presentation-phrases.html"><meta property="og:image" content="https://www.phillipsenglish.com/assets/phillips-english-social.webp">
+<style>:root{--ink:#071521;--ink2:#0e2738;--ice:#8bc8ef;--paper:#f5f2eb;--muted:#aebbc4;--line:#213746}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:#fff;font-family:Arial,Helvetica,sans-serif;line-height:1.7}a{color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:20px}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}.links{display:flex;gap:18px;font-size:13px}.links a{text-decoration:none}.btn{display:inline-block;background:var(--ice);color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800;text-decoration:none}.hero{padding:95px 0 70px}.eyebrow{color:var(--ice);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:clamp(44px,6vw,72px);line-height:.98;letter-spacing:-.05em;max-width:920px;margin:16px 0 24px}.hero p{font-size:20px;color:#cbd4da;max-width:780px}.article{background:var(--paper);color:#0b1b27;padding:78px 0}.content{max-width:820px;margin:auto}.content h2{font-size:34px;line-height:1.1;margin:52px 0 16px;letter-spacing:-.025em}.content p,.content li{font-size:17px;color:#41515b}.phrase{background:#fff;border-left:4px solid #8bc8ef;padding:18px 20px;margin:14px 0}.phrase strong{display:block;color:#0b1b27}.phrase span{color:#5b6972}.tip{background:#e9f3f8;padding:22px;margin:26px 0}.related{padding:72px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--ink2);padding:26px}.card p{color:var(--muted)}.card a{color:var(--ice)}footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.cards{grid-template-columns:1fr}}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"English Presentation Phrases for Professionals","author":{"@type":"Person","name":"Jason Phillips"},"publisher":{"@type":"Organization","name":"Phillips English"},"mainEntityOfPage":"https://www.phillipsenglish.com/english-presentation-phrases.html","description":"Practical English presentation phrases for professionals."}</script>
+</head><body>
+<div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div>
+<header class="hero"><div class="wrap"><div class="eyebrow">Professional English guide</div><h1>English presentation phrases that help you sound clear, natural and confident.</h1><p>Practical language for opening a presentation, signposting your structure, explaining data, moving between points, handling questions and finishing strongly.</p></div></header>
+<main class="article"><div class="wrap"><article class="content">
+<p>A strong presentation is not about using complicated vocabulary. It is about making your audience feel that you know where you are going. In English, that usually means clear signposting, controlled transitions and language you can produce comfortably under pressure.</p>
+<p>Use the phrases below as flexible building blocks rather than a script. Adapt them to your subject, audience and level of formality.</p>
+<h2>1. Opening your presentation</h2>
+<div class="phrase"><strong>“Good morning everyone. Thanks for being here.”</strong><span>Simple, natural and suitable for most professional settings.</span></div>
+<div class="phrase"><strong>“Today I’d like to focus on…”</strong><span>Clear way to introduce the main topic.</span></div>
+<div class="phrase"><strong>“The purpose of today’s presentation is to…”</strong><span>Useful when the presentation has a specific business objective.</span></div>
+<div class="phrase"><strong>“I’m going to cover three main areas.”</strong><span>Signals structure immediately.</span></div>
+<div class="phrase"><strong>“By the end, I’d like you to have a clear picture of…”</strong><span>Audience-focused and confident.</span></div>
+<h2>2. Signposting the structure</h2>
+<div class="phrase"><strong>“I’ll start by looking at…”</strong><span>Introduce your first section.</span></div>
+<div class="phrase"><strong>“Then I’ll move on to…”</strong><span>Preview the next stage.</span></div>
+<div class="phrase"><strong>“Finally, I’ll finish with…”</strong><span>Sets expectations clearly.</span></div>
+<div class="phrase"><strong>“There are two points I want to highlight here.”</strong><span>Useful when simplifying a complex slide.</span></div>
+<div class="phrase"><strong>“The key thing to remember is…”</strong><span>Directs attention to the most important message.</span></div>
+<h2>3. Moving between points</h2>
+<div class="phrase"><strong>“That brings me to my next point.”</strong><span>A reliable transition.</span></div>
+<div class="phrase"><strong>“Let’s move on to…”</strong><span>Natural and direct.</span></div>
+<div class="phrase"><strong>“This leads directly into…”</strong><span>Useful when two sections are closely connected.</span></div>
+<div class="phrase"><strong>“Before I move on, I’d like to add one final point.”</strong><span>Helps you close a section cleanly.</span></div>
+<div class="phrase"><strong>“So, with that in mind, let’s look at…”</strong><span>Makes your presentation sound connected rather than like separate slides.</span></div>
+<h2>4. Explaining charts and data</h2>
+<div class="phrase"><strong>“As you can see from this chart…”</strong><span>Useful for directing attention.</span></div>
+<div class="phrase"><strong>“What stands out here is…”</strong><span>Focuses the audience on the key insight.</span></div>
+<div class="phrase"><strong>“There are two trends worth noting.”</strong><span>Good for structured data commentary.</span></div>
+<div class="phrase"><strong>“The figure rose from X to Y over the period.”</strong><span>Precise language for change.</span></div>
+<div class="phrase"><strong>“The important point is not the number itself, but…”</strong><span>Useful when interpreting rather than simply describing data.</span></div>
+<div class="tip"><strong>Presentation tip:</strong> Avoid reading every number on a slide. Tell the audience what the number means and why it matters.</div>
+<h2>5. Giving examples and elaborating</h2>
+<div class="phrase"><strong>“To give you a practical example…”</strong><span>Moves from abstract ideas to something concrete.</span></div>
+<div class="phrase"><strong>“What I mean by that is…”</strong><span>Useful when you want to rephrase.</span></div>
+<div class="phrase"><strong>“Let me put that into context.”</strong><span>Professional way to add background.</span></div>
+<div class="phrase"><strong>“A good example of this would be…”</strong><span>Natural example language.</span></div>
+<div class="phrase"><strong>“The reason this matters is…”</strong><span>Connects detail back to your main message.</span></div>
+<h2>6. Handling questions</h2>
+<div class="phrase"><strong>“That’s a good question. The short answer is…”</strong><span>Buys a moment to organise your response.</span></div>
+<div class="phrase"><strong>“If I understand you correctly, you’re asking…”</strong><span>Checks the question before answering.</span></div>
+<div class="phrase"><strong>“There are two parts to that.”</strong><span>Useful for complex questions.</span></div>
+<div class="phrase"><strong>“I don’t have that figure with me, but I can follow up afterwards.”</strong><span>Confident alternative to guessing.</span></div>
+<div class="phrase"><strong>“I’d separate those two issues.”</strong><span>Useful when the question combines different topics.</span></div>
+<h2>7. Managing difficult questions diplomatically</h2>
+<div class="phrase"><strong>“I can see why you’d raise that.”</strong><span>Acknowledges the concern before responding.</span></div>
+<div class="phrase"><strong>“I’d look at it slightly differently.”</strong><span>Disagree without sounding defensive.</span></div>
+<div class="phrase"><strong>“That’s outside the scope of today’s presentation, but…”</strong><span>Helps you stay in control.</span></div>
+<div class="phrase"><strong>“I’d rather not speculate without the data.”</strong><span>Professional and credible.</span></div>
+<div class="phrase"><strong>“Let’s come back to that at the end.”</strong><span>Useful when a question interrupts the flow.</span></div>
+<h2>8. Closing your presentation</h2>
+<div class="phrase"><strong>“To summarise, there are three key takeaways.”</strong><span>Signals a clear conclusion.</span></div>
+<div class="phrase"><strong>“If you remember one thing from today, it should be…”</strong><span>Strong final emphasis.</span></div>
+<div class="phrase"><strong>“The action I’d recommend is…”</strong><span>Useful for decision-focused presentations.</span></div>
+<div class="phrase"><strong>“That brings me to the end of my presentation.”</strong><span>Simple and conventional.</span></div>
+<div class="phrase"><strong>“Thank you for your time. I’m happy to take any questions.”</strong><span>Professional final line.</span></div>
+<h2>How to make these phrases sound natural</h2>
+<p>Do not memorise an entire presentation word for word. Prepare your structure, key vocabulary and a small number of reliable phrases. Then practise the transitions aloud. This gives you enough structure to sound controlled without making your delivery robotic.</p>
+<p>If you have an important work presentation coming up, I can help you rehearse the real presentation, refine the language and prepare for likely questions through <a href="interview-presentation-english.html"><strong>interview and presentation English coaching</strong></a>.</p>
+<p><a class="btn" href="book.html">Book presentation coaching →</a></p>
+</article></div></main>
+<section class="related"><div class="wrap"><div class="eyebrow">Related guides</div><h2>Build stronger professional English</h2><div class="cards"><article class="card"><h3><a href="business-english-meetings.html">Business English for meetings</a></h3><p>Language for contributing, disagreeing, clarifying and moving discussion forward.</p></article><article class="card"><h3><a href="british-english-pronunciation-guide.html">British English pronunciation</a></h3><p>Improve clarity, stress, rhythm and connected speech.</p></article><article class="card"><h3><a href="guides.html">All English guides</a></h3><p>Explore Phillips English resources for professionals and exam candidates.</p></article></div></div></section>
+<footer><div class="wrap">PHILLIPS ENGLISH · British English & Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer>
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a&&/book\.html/.test(a.getAttribute('href')||'')){gtag('event','booking_intent',{link_text:(a.textContent||'').trim(),page_path:location.pathname});}},true);</script>
 </body></html>
