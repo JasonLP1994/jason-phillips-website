@@ -1,149 +1,47 @@
 <!doctype html><html lang="en-GB"><head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NHQ8S263EP"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-NHQ8S263EP');
-</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IELTS Speaking Fluency Guide | Phillips English</title><meta name="description" content="Speak with more control, structure and confidence in IELTS."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.phillipsenglish.com/ielts-speaking-fluency.html"><style>body{margin:0;background:#071521;color:#fff;font-family:Arial,sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #213746}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}.links{display:flex;gap:18px;font-size:13px}.btn{display:inline-block;background:#8bc8ef;color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800}.hero{padding:90px 0}.hero h1{font-size:clamp(44px,6vw,70px);line-height:1;letter-spacing:-.05em}.hero p{font-size:19px;color:#cbd4da;max-width:760px}.light{background:#f5f2eb;color:#0b1b27;padding:74px 0}.dark{padding:74px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{background:#0e2738;padding:26px}.card p{color:#aebbc4}footer{border-top:1px solid #213746;padding:32px 0;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.grid{grid-template-columns:1fr}}</style></head><body><div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div><header class="hero"><div class="wrap"><h1>IELTS Speaking Fluency</h1><p>Speak with more control, structure and confidence in IELTS.</p></div></header><section class="light"><div class="wrap"><h2>IELTS Speaking Fluency</h2><p>Focus on extending answers naturally, linking ideas clearly and avoiding memorised-sounding responses.</p></div></section><section class="dark"><div class="wrap"><div class="grid"><article class="card"><h2>Practise actively</h2><p>Use the language aloud in a realistic situation.</p></article><article class="card"><h2>Get precise feedback</h2><p>For personalised correction, book a private coaching session.</p></article></div><p style="margin-top:28px"><a class="btn" href="book.html">Book personalised coaching →</a></p></div></section><footer><div class="wrap">PHILLIPS ENGLISH · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer><!-- Phillips English GA4 conversion tracking -->
-<script>
-(function () {
-  var lastCalEventAt = 0;
-
-  function sendEvent(name, params) {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', name, params || {});
-    }
-  }
-
-  function cleanText(value) {
-    return (value || '').replace(/\s+/g, ' ').trim().slice(0, 120);
-  }
-
-  function detectOffer(element) {
-    var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .premium-route, .offer, .pricing-card') : null;
-    var text = cleanText((node && node.textContent) || (element && element.textContent) || '').toLowerCase();
-    if (text.indexOf('professional english accelerator') !== -1 || text.indexOf('accelerator') !== -1) return 'Professional English Accelerator';
-    if (text.indexOf('performance intensive') !== -1 || text.indexOf('intensive') !== -1) return 'Performance Intensive';
-    if (text.indexOf('group coaching') !== -1 || text.indexOf('private group') !== -1) return 'Group Coaching';
-    if (text.indexOf('private english coaching') !== -1 || text.indexOf('single session') !== -1 || text.indexOf('pay as you go') !== -1) return 'Private English Coaching';
-    return '';
-  }
-
-  function fireCalBookingClick(element, url) {
-    var now = Date.now();
-    if (now - lastCalEventAt < 1200) return;
-    lastCalEventAt = now;
-    sendEvent('cal_booking_click', {
-      package_name: detectOffer(element) || 'Private English Coaching',
-      link_text: cleanText(element && element.textContent),
-      link_url: url || '',
-      page_path: window.location.pathname
-    });
-  }
-
-  document.addEventListener('click', function (event) {
-    var target = event.target;
-    var link = target && target.closest ? target.closest('a') : null;
-    var route = target && target.closest ? target.closest('.premium-route[data-url], [data-url*="cal.com/"]') : null;
-
-    if (route) {
-      var routeUrl = route.getAttribute('data-url') || '';
-      fireCalBookingClick(route, routeUrl);
-      var routeOffer = detectOffer(route);
-      if (routeOffer && routeOffer !== 'Private English Coaching') {
-        sendEvent('package_interest', {
-          package_name: routeOffer,
-          link_text: cleanText(route.textContent),
-          link_url: routeUrl,
-          page_path: window.location.pathname
-        });
-      }
-    }
-
-    if (!link) return;
-    var rawHref = link.getAttribute('href') || '';
-    var absoluteHref = link.href || rawHref;
-    var linkText = cleanText(link.textContent);
-    var offer = detectOffer(link);
-
-    if (/book\.html(?:$|[?#])/.test(rawHref) || /\/book(?:\.html)?(?:$|[?#])/.test(absoluteHref)) {
-      sendEvent('booking_intent', {
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-
-    if (absoluteHref.indexOf('cal.com/') !== -1) {
-      fireCalBookingClick(link, absoluteHref);
-    }
-
-    if (offer && (offer === 'Professional English Accelerator' || offer === 'Performance Intensive' || offer === 'Group Coaching')) {
-      sendEvent('package_interest', {
-        package_name: offer,
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-  }, true);
-
-  window.addEventListener('blur', function () {
-    setTimeout(function () {
-      var active = document.activeElement;
-      if (!active || active.tagName !== 'IFRAME') return;
-      var src = active.getAttribute('src') || '';
-      if (src.indexOf('cal.com/') !== -1) {
-        fireCalBookingClick(active, src);
-      }
-    }, 0);
-  });
-
-  document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
-    var pending = false;
-    var sent = false;
-    var status = form.querySelector('.form-status');
-    var formName = 'enquiry';
-    if (window.location.pathname.indexOf('contact') !== -1) formName = 'contact';
-    if (window.location.pathname.indexOf('work-with-me') !== -1) formName = 'work_with_me';
-    if (window.location.pathname.indexOf('book') !== -1) formName = 'booking_enquiry';
-
-    form.addEventListener('submit', function () {
-      pending = true;
-      sent = false;
-      if (!status) {
-        setTimeout(function () {
-          if (pending && !sent) {
-            sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-            sent = true;
-            pending = false;
-          }
-        }, 1500);
-      }
-    }, true);
-
-    if (status) {
-      new MutationObserver(function () {
-        if (!pending || sent) return;
-        var text = (status.textContent || '').toLowerCase();
-        if (text.indexOf('success') !== -1 || text.indexOf('sent') !== -1 || text.indexOf('thank') !== -1) {
-          sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-          sent = true;
-          pending = false;
-        }
-      }).observe(status, { childList: true, subtree: true, characterData: true });
-    }
-  });
-
-  if (/\/book(?:\.html)?$/.test(window.location.pathname)) {
-    sendEvent('view_booking_page', { page_path: window.location.pathname });
-  }
-})();
-</script>
-
-
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NHQ8S263EP');</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Speaking Fluency: How to Extend Answers Naturally | Phillips English</title>
+<meta name="description" content="Improve IELTS Speaking fluency with practical structures for Parts 1, 2 and 3. Learn how to extend answers naturally without sounding memorised.">
+<meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="https://www.phillipsenglish.com/ielts-speaking-fluency.html">
+<meta property="og:title" content="IELTS Speaking Fluency: Extend Answers Naturally"><meta property="og:description" content="Practical ways to build longer, clearer IELTS Speaking answers without memorising scripts."><meta property="og:type" content="article"><meta property="og:url" content="https://www.phillipsenglish.com/ielts-speaking-fluency.html"><meta property="og:image" content="https://www.phillipsenglish.com/assets/phillips-english-social.webp">
+<style>:root{--ink:#071521;--ink2:#0e2738;--ice:#8bc8ef;--paper:#f5f2eb;--muted:#aebbc4;--line:#213746}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:#fff;font-family:Arial,Helvetica,sans-serif;line-height:1.7}a{color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:20px}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}.links{display:flex;gap:18px;font-size:13px}.links a{text-decoration:none}.btn{display:inline-block;background:var(--ice);color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800;text-decoration:none}.hero{padding:95px 0 70px}.eyebrow{color:var(--ice);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:clamp(44px,6vw,72px);line-height:.98;letter-spacing:-.05em;max-width:900px;margin:16px 0 24px}.hero p{font-size:20px;color:#cbd4da;max-width:780px}.article{background:var(--paper);color:#0b1b27;padding:78px 0}.content{max-width:820px;margin:auto}.content h2{font-size:34px;line-height:1.1;margin:52px 0 16px;letter-spacing:-.025em}.content h3{font-size:22px;margin-top:28px}.content p,.content li{font-size:17px;color:#41515b}.example{background:#fff;padding:20px;margin:15px 0;border-left:4px solid #8bc8ef}.weak{color:#7b4b4b}.strong{color:#24566f}.formula{background:#e9f3f8;padding:22px;margin:26px 0}.related{padding:72px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--ink2);padding:26px}.card p{color:var(--muted)}.card a{color:var(--ice)}footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.cards{grid-template-columns:1fr}}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"IELTS Speaking Fluency: How to Extend Answers Naturally","author":{"@type":"Person","name":"Jason Phillips"},"publisher":{"@type":"Organization","name":"Phillips English"},"mainEntityOfPage":"https://www.phillipsenglish.com/ielts-speaking-fluency.html","description":"Practical IELTS Speaking fluency strategies for Parts 1, 2 and 3."}</script>
+</head><body>
+<div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div>
+<header class="hero"><div class="wrap"><div class="eyebrow">IELTS Speaking guide</div><h1>IELTS Speaking fluency: extend your answers without sounding memorised.</h1><p>Learn how to answer with more control, detail and structure in Parts 1, 2 and 3 — while still sounding natural.</p></div></header>
+<main class="article"><div class="wrap"><article class="content">
+<p>Many IELTS candidates know enough grammar and vocabulary to give a good answer, but their responses are too short, too repetitive or too obviously memorised. Fluency is not about speaking as fast as possible. It is about keeping your answer moving while organising your ideas clearly.</p>
+<div class="formula"><strong>A useful speaking structure:</strong><br>Answer → Elaborate → Example → Opinion / result.<br><br>You do not need every stage in every answer, but this structure gives you somewhere to go when your first sentence feels too short.</div>
+<h2>Part 1: give a direct answer, then add one or two details</h2>
+<p>Part 1 questions are personal and familiar. You usually do not need a long speech. The aim is to avoid one-line answers while staying natural.</p>
+<div class="example"><p class="weak"><strong>Too short:</strong> “Yes, I like cooking.”</p><p class="strong"><strong>Better:</strong> “Yes, I do. I cook most evenings because I prefer making my own food, and recently I’ve been trying a few new Italian recipes.”</p></div>
+<h3>Useful ways to extend Part 1 answers</h3>
+<ul><li>give a reason: “mainly because…”</li><li>add frequency: “I usually…”, “every now and then…”</li><li>compare past and present: “I used to…, but now…”</li><li>give a small example: “for example, last weekend…”</li><li>add a preference: “if I had to choose, I’d probably…”</li></ul>
+<h2>Part 2: use the one-minute preparation time to create a route</h2>
+<p>In Part 2, the biggest fluency problem is often running out of ideas rather than running out of English. During the preparation minute, write keywords rather than complete sentences. A simple route might be: background → what happened → details → feelings → why it mattered.</p>
+<div class="example"><p><strong>Topic:</strong> Describe a memorable journey.</p><p><strong>Notes:</strong> Vietnam → motorbike trip → mountains → heavy rain → wrong road → amazing view → unforgettable.</p></div>
+<p>Those notes give you a sequence. You can then use linking language such as “To begin with…”, “What happened next was…”, “The thing I remember most clearly is…” and “Looking back, I think…”</p>
+<h2>Part 3: develop ideas with reasons, effects, comparisons and examples</h2>
+<p>Part 3 is more analytical. A strong answer often needs more than a personal opinion. When you get stuck, ask yourself one of four questions: Why? What effect does that have? How is it different from the past? Can I give an example?</p>
+<div class="example"><p><strong>Question:</strong> Why do some people prefer working from home?</p><p><strong>Answer:</strong> “I think flexibility is probably the main reason. People can often manage their time more efficiently and avoid commuting. That can reduce stress, especially in large cities where people might spend two hours a day travelling. On the other hand, some people find it harder to separate work from their personal life.”</p></div>
+<h2>Use linking language, but do not overuse it</h2>
+<p>Linking phrases should make your answer easier to follow. If every sentence starts with “Moreover”, “Furthermore” or “In addition”, your speech can sound rehearsed.</p>
+<ul><li><strong>Adding:</strong> “also”, “on top of that”, “another reason is…”</li><li><strong>Contrasting:</strong> “having said that”, “on the other hand”, “whereas…”</li><li><strong>Giving an example:</strong> “for instance”, “a good example would be…”</li><li><strong>Explaining:</strong> “what I mean is…”, “in other words…”</li><li><strong>Speculating:</strong> “I’d imagine…”, “it’s likely that…”, “we’ll probably see…”</li></ul>
+<h2>What to do when you need thinking time</h2>
+<p>Short pauses are normal. Instead of filling every gap with “umm”, use a natural thinking phrase occasionally:</p>
+<ul><li>“That’s an interesting question.”</li><li>“I’ve never really thought about that, but…”</li><li>“I suppose the first thing that comes to mind is…”</li><li>“It depends, really.”</li></ul>
+<p>Do not use a thinking phrase before every answer. The examiner should hear your ideas, not a collection of memorised fillers.</p>
+<h2>Common fluency mistakes</h2>
+<ul><li><strong>Speaking too fast:</strong> speed can reduce clarity and create more grammar errors.</li><li><strong>Repeating the question:</strong> answer it rather than using time to paraphrase every word.</li><li><strong>Memorised paragraphs:</strong> they often fail when the question changes slightly.</li><li><strong>Overthinking vocabulary:</strong> a clear, natural word is better than stopping for ten seconds to find a sophisticated one.</li><li><strong>Giving lists instead of development:</strong> two developed ideas are usually stronger than six undeveloped points.</li></ul>
+<h2>A 10-minute IELTS Speaking practice routine</h2>
+<ol><li>Choose three Part 1 questions and answer each for 20–30 seconds.</li><li>Choose one Part 2 card, prepare for one minute, then speak for up to two minutes.</li><li>Choose two related Part 3 questions and practise reason → example → effect.</li><li>Record yourself and listen for repeated words, long pauses and unfinished sentences.</li><li>Repeat one answer, making it clearer rather than simply longer.</li></ol>
+<p>If you are preparing for the test and want personalised feedback on fluency, vocabulary, grammar and pronunciation, see my <a href="ielts-coaching.html"><strong>IELTS coaching</strong></a> page.</p>
+<p><a class="btn" href="book.html">Book IELTS coaching →</a></p>
+</article></div></main>
+<section class="related"><div class="wrap"><div class="eyebrow">Related guides</div><h2>Keep building your spoken English</h2><div class="cards"><article class="card"><h3><a href="british-english-pronunciation-guide.html">British English pronunciation</a></h3><p>Improve clarity, stress and rhythm without trying to erase your accent.</p></article><article class="card"><h3><a href="english-presentation-phrases.html">Presentation English</a></h3><p>Useful language for structured, confident professional speaking.</p></article><article class="card"><h3><a href="guides.html">All English guides</a></h3><p>Explore more Phillips English resources.</p></article></div></div></section>
+<footer><div class="wrap">PHILLIPS ENGLISH · British English & Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer>
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a&&/book\.html/.test(a.getAttribute('href')||'')){gtag('event','booking_intent',{link_text:(a.textContent||'').trim(),page_path:location.pathname});}},true);</script>
 </body></html>
