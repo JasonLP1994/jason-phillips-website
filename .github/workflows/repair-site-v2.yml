@@ -1,0 +1,109 @@
+name: Repair Phillips English site v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/repair-site-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair site
+        run: |
+          set -e
+          mkdir -p assets/images assets
+          cp apax-teaching-team-35f0fe.webp assets/apax-teaching-team-35f0fe.webp
+          cp executive-communication-and-international-opportunity-b19cc3.webp assets/executive-communication-and-international-opportunity-b19cc3.webp
+          cp global-communication-leadership-and-professional-development-72e6e2.webp assets/global-communication-leadership-and-professional-development-72e6e2.webp
+          cp immersive-projection-dome-learning-experience-at-star-language-edd57e.webp assets/immersive-projection-dome-learning-experience-at-star-language-edd57e.webp
+          cp jason-with-students-and-an-ielts-preparation-book-at-star-language-3bbeec.webp assets/jason-with-students-and-an-ielts-preparation-book-at-star-language-3bbeec.webp
+          cp jason-phillips-british-english-coach-558abe.webp assets/jason-phillips-british-english-coach-558abe.webp
+          cp jason-phillips-55620d.webp assets/jason-phillips-55620d.webp
+          cp jason-phillips-with-a-teaching-team-in-vietnam-a75a61.webp assets/jason-phillips-with-a-teaching-team-in-vietnam-a75a61.webp
+          cp jason-phillips-being-interviewed-by-vtv-in-vietnam-afe47b.webp assets/jason-phillips-being-interviewed-by-vtv-in-vietnam-afe47b.webp
+          cp jason-teaching-79cd8d.webp assets/jason-teaching-79cd8d.webp
+          cp jason-phillips-teaching-an-older-student-at-star-language-28ebb4.webp assets/jason-phillips-teaching-an-older-student-at-star-language-28ebb4.webp
+          cp jason-supporting-a-young-english-learner-44d7e9.webp assets/jason-supporting-a-young-english-learner-44d7e9.webp
+          cp premium-professional-communication-workspace-de6460.webp assets/premium-professional-communication-workspace-de6460.webp
+          cp star-language-d2a9a1.webp assets/star-language-d2a9a1.webp
+          cp phillips-english-social.webp assets/phillips-english-social.webp
+
+          cp apax-teaching-team-35f0fe.webp assets/images/apax-teaching-team.webp
+          cp executive-communication-and-international-opportunity-b19cc3.webp assets/images/executive-english-communication.webp
+          cp global-communication-leadership-and-professional-development-72e6e2.webp assets/images/global-professional-communication.webp
+          cp immersive-projection-dome-learning-experience-at-star-language-edd57e.webp assets/images/immersive-projection-dome.webp
+          cp jason-with-students-and-an-ielts-preparation-book-at-star-language-3bbeec.webp assets/images/jason-ielts-preparation.webp
+          cp jason-phillips-british-english-coach-558abe.webp assets/images/jason-phillips-british-english-coach.webp
+          cp jason-phillips-55620d.webp assets/images/jason-phillips-english-coach-portrait.webp
+          cp jason-phillips-with-a-teaching-team-in-vietnam-a75a61.webp assets/images/jason-phillips-teaching-team-vietnam.webp
+          cp jason-phillips-being-interviewed-by-vtv-in-vietnam-afe47b.webp assets/images/jason-phillips-vtv-interview.webp
+          cp jason-teaching-79cd8d.webp assets/images/jason-teaching-english-student.webp
+          cp jason-phillips-teaching-an-older-student-at-star-language-28ebb4.webp assets/images/jason-teaching-older-student.webp
+          cp jason-supporting-a-young-english-learner-44d7e9.webp assets/images/jason-teaching-young-learner.webp
+          cp premium-professional-communication-workspace-de6460.webp assets/images/professional-english-communication.webp
+          cp premium-professional-communication-workspace-de6460.webp assets/images/business-english-coaching-background.webp
+          cp star-language-d2a9a1.webp assets/images/star-language-da-nang.webp
+          cp phillips-english-social.webp assets/images/phillips-english-social.webp
+
+          python - <<'PY'
+          from pathlib import Path
+          import re, html
+
+          guides = {
+            'guides.html': ('English Learning Guides | Phillips English','English Learning Guides','Practical guides for clearer, more confident English.','Explore focused resources for Business English, IELTS, presentations and pronunciation.'),
+            'business-english-meetings.html': ('Business English for Meetings | Phillips English','Business English for Meetings','Sound clearer and more confident in professional meetings.','Practical language for contributing, clarifying, agreeing, disagreeing and moving discussions forward.'),
+            'ielts-speaking-fluency.html': ('IELTS Speaking Fluency Guide | Phillips English','IELTS Speaking Fluency','Speak with more control, structure and confidence in IELTS.','Focus on extending answers naturally, linking ideas clearly and avoiding memorised-sounding responses.'),
+            'english-presentation-phrases.html': ('English Presentation Phrases | Phillips English','English Presentation Phrases','Useful language for professional presentations.','Natural phrases for opening, structuring, transitioning and closing presentations.'),
+            'british-english-pronunciation-guide.html': ('British English Pronunciation Guide | Phillips English','British English Pronunciation Guide','Improve clarity without trying to erase your accent.','Work on stress, rhythm, connected speech and the sounds that most affect understanding.'),
+          }
+          css='''body{margin:0;background:#071521;color:#fff;font-family:Arial,sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #213746}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}.links{display:flex;gap:18px;font-size:13px}.btn{display:inline-block;background:#8bc8ef;color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800}.hero{padding:90px 0}.hero h1{font-size:clamp(44px,6vw,70px);line-height:1;letter-spacing:-.05em}.hero p{font-size:19px;color:#cbd4da;max-width:760px}.light{background:#f5f2eb;color:#0b1b27;padding:74px 0}.dark{padding:74px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{background:#0e2738;padding:26px}.card p{color:#aebbc4}footer{border-top:1px solid #213746;padding:32px 0;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.grid{grid-template-columns:1fr}}'''
+          guide_links=[('Business English meetings','business-english-meetings.html'),('IELTS speaking fluency','ielts-speaking-fluency.html'),('Presentation English','english-presentation-phrases.html'),('British English pronunciation','british-english-pronunciation-guide.html')]
+          for fn,(title,h1,lead,body) in guides.items():
+            if Path(fn).exists():
+              continue
+            if fn=='guides.html':
+              cards=''.join(f'<article class="card"><h2><a href="{u}">{html.escape(t)}</a></h2><p>Open the guide →</p></article>' for t,u in guide_links)
+            else:
+              cards='<article class="card"><h2>Practise actively</h2><p>Use the language aloud in a realistic situation.</p></article><article class="card"><h2>Get precise feedback</h2><p>For personalised correction, book a private coaching session.</p></article>'
+            page=f'''<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="{html.escape(lead,quote=True)}"><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.phillipsenglish.com/{fn}"><style>{css}</style></head><body><div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div><header class="hero"><div class="wrap"><h1>{html.escape(h1)}</h1><p>{html.escape(lead)}</p></div></header><section class="light"><div class="wrap"><h2>{html.escape(h1)}</h2><p>{html.escape(body)}</p></div></section><section class="dark"><div class="wrap"><div class="grid">{cards}</div><p style="margin-top:28px"><a class="btn" href="book.html">Book personalised coaching →</a></p></div></section><footer><div class="wrap">PHILLIPS ENGLISH · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer></body></html>'''
+            Path(fn).write_text(page,encoding='utf-8')
+
+          # Keep all public pages in the sitemap.
+          public=['','about.html','coaching.html','results.html','work-with-me.html','book.html','group-coaching.html','contact.html','business-english-coaching.html','ielts-coaching.html','interview-presentation-english.html','pronunciation-fluency-coaching.html','aviation-english-coaching.html','guides.html','business-english-meetings.html','ielts-speaking-fluency.html','english-presentation-phrases.html','british-english-pronunciation-guide.html']
+          xml=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+          for rel in public:
+            xml += ['  <url>',f'    <loc>https://www.phillipsenglish.com/{rel}</loc>','  </url>']
+          xml.append('</urlset>')
+          Path('sitemap.xml').write_text('\n'.join(xml)+'\n',encoding='utf-8')
+
+          # Validate every local href/src so this repair cannot publish broken internal references.
+          missing=[]
+          for p in Path('.').glob('*.html'):
+            text=p.read_text(encoding='utf-8')
+            for _,target in re.findall(r'\b(href|src)=["\']([^"\']+)["\']',text,re.I):
+              if target.startswith(('http://','https://','mailto:','tel:','//','#','data:','javascript:')):
+                continue
+              clean=target.split('#',1)[0].split('?',1)[0]
+              if clean and not (p.parent/clean).exists():
+                missing.append((p.name,target))
+          if missing:
+            print('Missing local references:')
+            for x in missing: print(x)
+            raise SystemExit(1)
+          print('Validation passed: no broken local href/src references.')
+          PY
+
+      - name: Commit repair
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets *.html sitemap.xml
+          git commit -m "Fix missing site assets and broken internal links"
+          git push
