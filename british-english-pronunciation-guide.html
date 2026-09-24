@@ -1,149 +1,66 @@
 <!doctype html><html lang="en-GB"><head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NHQ8S263EP"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-NHQ8S263EP');
-</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>British English Pronunciation Guide | Phillips English</title><meta name="description" content="Improve clarity without trying to erase your accent."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.phillipsenglish.com/british-english-pronunciation-guide.html"><style>body{margin:0;background:#071521;color:#fff;font-family:Arial,sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #213746}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}.links{display:flex;gap:18px;font-size:13px}.btn{display:inline-block;background:#8bc8ef;color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800}.hero{padding:90px 0}.hero h1{font-size:clamp(44px,6vw,70px);line-height:1;letter-spacing:-.05em}.hero p{font-size:19px;color:#cbd4da;max-width:760px}.light{background:#f5f2eb;color:#0b1b27;padding:74px 0}.dark{padding:74px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{background:#0e2738;padding:26px}.card p{color:#aebbc4}footer{border-top:1px solid #213746;padding:32px 0;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.grid{grid-template-columns:1fr}}</style></head><body><div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div><header class="hero"><div class="wrap"><h1>British English Pronunciation Guide</h1><p>Improve clarity without trying to erase your accent.</p></div></header><section class="light"><div class="wrap"><h2>British English Pronunciation Guide</h2><p>Work on stress, rhythm, connected speech and the sounds that most affect understanding.</p></div></section><section class="dark"><div class="wrap"><div class="grid"><article class="card"><h2>Practise actively</h2><p>Use the language aloud in a realistic situation.</p></article><article class="card"><h2>Get precise feedback</h2><p>For personalised correction, book a private coaching session.</p></article></div><p style="margin-top:28px"><a class="btn" href="book.html">Book personalised coaching →</a></p></div></section><footer><div class="wrap">PHILLIPS ENGLISH · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer><!-- Phillips English GA4 conversion tracking -->
-<script>
-(function () {
-  var lastCalEventAt = 0;
-
-  function sendEvent(name, params) {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', name, params || {});
-    }
-  }
-
-  function cleanText(value) {
-    return (value || '').replace(/\s+/g, ' ').trim().slice(0, 120);
-  }
-
-  function detectOffer(element) {
-    var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .premium-route, .offer, .pricing-card') : null;
-    var text = cleanText((node && node.textContent) || (element && element.textContent) || '').toLowerCase();
-    if (text.indexOf('professional english accelerator') !== -1 || text.indexOf('accelerator') !== -1) return 'Professional English Accelerator';
-    if (text.indexOf('performance intensive') !== -1 || text.indexOf('intensive') !== -1) return 'Performance Intensive';
-    if (text.indexOf('group coaching') !== -1 || text.indexOf('private group') !== -1) return 'Group Coaching';
-    if (text.indexOf('private english coaching') !== -1 || text.indexOf('single session') !== -1 || text.indexOf('pay as you go') !== -1) return 'Private English Coaching';
-    return '';
-  }
-
-  function fireCalBookingClick(element, url) {
-    var now = Date.now();
-    if (now - lastCalEventAt < 1200) return;
-    lastCalEventAt = now;
-    sendEvent('cal_booking_click', {
-      package_name: detectOffer(element) || 'Private English Coaching',
-      link_text: cleanText(element && element.textContent),
-      link_url: url || '',
-      page_path: window.location.pathname
-    });
-  }
-
-  document.addEventListener('click', function (event) {
-    var target = event.target;
-    var link = target && target.closest ? target.closest('a') : null;
-    var route = target && target.closest ? target.closest('.premium-route[data-url], [data-url*="cal.com/"]') : null;
-
-    if (route) {
-      var routeUrl = route.getAttribute('data-url') || '';
-      fireCalBookingClick(route, routeUrl);
-      var routeOffer = detectOffer(route);
-      if (routeOffer && routeOffer !== 'Private English Coaching') {
-        sendEvent('package_interest', {
-          package_name: routeOffer,
-          link_text: cleanText(route.textContent),
-          link_url: routeUrl,
-          page_path: window.location.pathname
-        });
-      }
-    }
-
-    if (!link) return;
-    var rawHref = link.getAttribute('href') || '';
-    var absoluteHref = link.href || rawHref;
-    var linkText = cleanText(link.textContent);
-    var offer = detectOffer(link);
-
-    if (/book\.html(?:$|[?#])/.test(rawHref) || /\/book(?:\.html)?(?:$|[?#])/.test(absoluteHref)) {
-      sendEvent('booking_intent', {
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-
-    if (absoluteHref.indexOf('cal.com/') !== -1) {
-      fireCalBookingClick(link, absoluteHref);
-    }
-
-    if (offer && (offer === 'Professional English Accelerator' || offer === 'Performance Intensive' || offer === 'Group Coaching')) {
-      sendEvent('package_interest', {
-        package_name: offer,
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-  }, true);
-
-  window.addEventListener('blur', function () {
-    setTimeout(function () {
-      var active = document.activeElement;
-      if (!active || active.tagName !== 'IFRAME') return;
-      var src = active.getAttribute('src') || '';
-      if (src.indexOf('cal.com/') !== -1) {
-        fireCalBookingClick(active, src);
-      }
-    }, 0);
-  });
-
-  document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
-    var pending = false;
-    var sent = false;
-    var status = form.querySelector('.form-status');
-    var formName = 'enquiry';
-    if (window.location.pathname.indexOf('contact') !== -1) formName = 'contact';
-    if (window.location.pathname.indexOf('work-with-me') !== -1) formName = 'work_with_me';
-    if (window.location.pathname.indexOf('book') !== -1) formName = 'booking_enquiry';
-
-    form.addEventListener('submit', function () {
-      pending = true;
-      sent = false;
-      if (!status) {
-        setTimeout(function () {
-          if (pending && !sent) {
-            sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-            sent = true;
-            pending = false;
-          }
-        }, 1500);
-      }
-    }, true);
-
-    if (status) {
-      new MutationObserver(function () {
-        if (!pending || sent) return;
-        var text = (status.textContent || '').toLowerCase();
-        if (text.indexOf('success') !== -1 || text.indexOf('sent') !== -1 || text.indexOf('thank') !== -1) {
-          sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-          sent = true;
-          pending = false;
-        }
-      }).observe(status, { childList: true, subtree: true, characterData: true });
-    }
-  });
-
-  if (/\/book(?:\.html)?$/.test(window.location.pathname)) {
-    sendEvent('view_booking_page', { page_path: window.location.pathname });
-  }
-})();
-</script>
-
-
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NHQ8S263EP');</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>British English Pronunciation: Stress, Rhythm & Clear Speech | Phillips English</title>
+<meta name="description" content="A practical British English pronunciation guide covering word stress, sentence stress, schwa, connected speech and common sounds that affect clarity.">
+<meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="https://www.phillipsenglish.com/british-english-pronunciation-guide.html">
+<meta property="og:title" content="British English Pronunciation: Stress, Rhythm & Clear Speech"><meta property="og:description" content="Improve clarity, rhythm and natural spoken English without trying to erase your accent."><meta property="og:type" content="article"><meta property="og:url" content="https://www.phillipsenglish.com/british-english-pronunciation-guide.html"><meta property="og:image" content="https://www.phillipsenglish.com/assets/phillips-english-social.webp">
+<style>:root{--ink:#071521;--ink2:#0e2738;--ice:#8bc8ef;--paper:#f5f2eb;--muted:#aebbc4;--line:#213746}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:#fff;font-family:Arial,Helvetica,sans-serif;line-height:1.7}a{color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:20px}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}.links{display:flex;gap:18px;font-size:13px}.links a{text-decoration:none}.btn{display:inline-block;background:var(--ice);color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800;text-decoration:none}.hero{padding:95px 0 70px}.eyebrow{color:var(--ice);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:clamp(44px,6vw,72px);line-height:.98;letter-spacing:-.05em;max-width:920px;margin:16px 0 24px}.hero p{font-size:20px;color:#cbd4da;max-width:790px}.article{background:var(--paper);color:#0b1b27;padding:78px 0}.content{max-width:820px;margin:auto}.content h2{font-size:34px;line-height:1.1;margin:52px 0 16px;letter-spacing:-.025em}.content h3{font-size:22px;margin-top:28px}.content p,.content li{font-size:17px;color:#41515b}.sound{background:#fff;border-left:4px solid #8bc8ef;padding:18px 20px;margin:14px 0}.sound strong{display:block;color:#0b1b27}.tip{background:#e9f3f8;padding:22px;margin:26px 0}.related{padding:72px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--ink2);padding:26px}.card p{color:var(--muted)}.card a{color:var(--ice)}footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.cards{grid-template-columns:1fr}}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"British English Pronunciation: Stress, Rhythm and Clear Speech","author":{"@type":"Person","name":"Jason Phillips"},"publisher":{"@type":"Organization","name":"Phillips English"},"mainEntityOfPage":"https://www.phillipsenglish.com/british-english-pronunciation-guide.html","description":"A practical British English pronunciation guide for clearer speech."}</script>
+</head><body>
+<div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div>
+<header class="hero"><div class="wrap"><div class="eyebrow">Pronunciation guide</div><h1>British English pronunciation: improve clarity, stress and rhythm.</h1><p>You do not need to lose your accent to speak excellent English. Focus on the features that make you easier to understand: stress, rhythm, connected speech and the sounds that matter most.</p></div></header>
+<main class="article"><div class="wrap"><article class="content">
+<p>Pronunciation improvement is often misunderstood. Learners sometimes try to copy every tiny feature of a native accent, but that is rarely the best use of time. A clearer goal is intelligibility: can people understand you easily, especially when you speak at normal speed?</p>
+<p>For most learners, the biggest gains come from a combination of individual sounds and the rhythm of whole sentences.</p>
+<h2>1. Word stress matters as much as individual sounds</h2>
+<p>English words usually have one syllable that is stronger than the others. If the stress falls in the wrong place, even a correctly pronounced word can be difficult to recognise.</p>
+<div class="sound"><strong>STRAt-e-gic</strong>Practise the stressed syllable clearly, then reduce the weaker syllables.</div>
+<div class="sound"><strong>CON-fi-dent</strong>Do not give every syllable equal weight.</div>
+<div class="sound"><strong>AC-tion-a-ble</strong>Keep the main stress strong and the middle syllables lighter.</div>
+<p>When learning new vocabulary, learn the stress pattern at the same time as the meaning.</p>
+<h2>2. Sentence stress creates natural rhythm</h2>
+<p>English is stress-timed. Important words usually receive more emphasis, while grammar words are often shorter and weaker.</p>
+<div class="sound"><strong>“I SENT the REPORT on MONday.”</strong>The key information carries the stress.</div>
+<div class="sound"><strong>“We NEED to CHANGE the DEADline.”</strong>The stressed words carry the message.</div>
+<p>If you stress every word equally, your speech can sound slow and mechanical. If you remove too much stress, important information can become unclear.</p>
+<h2>3. The schwa /ə/ is one of the most useful sounds in English</h2>
+<p>The schwa is the weak vowel sound found in many unstressed syllables. It appears constantly in natural British English.</p>
+<ul><li><strong>about</strong> → the first vowel is weak</li><li><strong>support</strong> → the first syllable is reduced</li><li><strong>problem</strong> → the final syllable is often weak</li><li><strong>professional</strong> → several unstressed syllables reduce</li></ul>
+<p>Trying to pronounce every written vowel fully often makes English sound overly careful. Learning where vowels reduce can improve both rhythm and listening comprehension.</p>
+<h2>4. Connected speech: words do not live separately</h2>
+<p>In real speech, words connect. Final consonants can link into the next vowel, sounds can become weaker, and common combinations are produced as one rhythm unit.</p>
+<div class="sound"><strong>“pick it up”</strong>Practise the phrase as one connected chunk rather than three separate words.</div>
+<div class="sound"><strong>“an important issue”</strong>Link the final consonant into the following vowel where natural.</div>
+<div class="sound"><strong>“want to” / “going to”</strong>In informal speech, function words are often reduced. Keep clarity appropriate to the setting.</div>
+<div class="tip"><strong>Professional context:</strong> You do not need extremely casual reductions in a presentation or interview. The goal is natural, clear connected speech rather than slang for its own sake.</div>
+<h2>5. The TH sounds</h2>
+<p>English has two common TH sounds: the unvoiced sound in <em>think</em> and the voiced sound in <em>this</em>. For both, the tongue comes lightly between the teeth.</p>
+<ul><li><strong>think, three, method, something</strong></li><li><strong>this, those, other, together</strong></li></ul>
+<p>Practise the sound in complete phrases, not only isolated words: “three different methods”, “those other options”, “I think this works”.</p>
+<h2>6. S, Z, SH and CH</h2>
+<p>These sounds can create misunderstandings because they are close in the mouth but carry different meanings.</p>
+<ul><li><strong>/s/</strong>: see, process, place</li><li><strong>/z/</strong>: zero, reason, present</li><li><strong>/ʃ/</strong>: she, pressure, professional</li><li><strong>/tʃ/</strong>: change, choice, approach</li></ul>
+<p>Use minimal pairs and short phrases, then move quickly into normal sentences.</p>
+<h2>7. Final consonants and grammatical endings</h2>
+<p>Dropping final sounds can affect meaning, particularly with plurals, third-person verbs and past tense endings.</p>
+<ul><li><strong>work / worked</strong></li><li><strong>need / needs</strong></li><li><strong>method / methods</strong></li><li><strong>recipe / recipes</strong></li></ul>
+<p>The goal is not to exaggerate the ending. Make it audible enough that the listener receives the grammatical information.</p>
+<h2>8. The -ed ending has three common pronunciations</h2>
+<ul><li><strong>/t/</strong>: worked, watched</li><li><strong>/d/</strong>: played, changed</li><li><strong>/ɪd/</strong>: wanted, needed</li></ul>
+<p>Practise the ending as part of the whole word. Adding a full extra syllable to every -ed word can make speech sound unnatural.</p>
+<h2>9. Intonation changes meaning and attitude</h2>
+<p>Intonation is the movement of your voice. It helps listeners understand whether you are finishing a point, checking information, showing contrast or keeping the floor.</p>
+<p>In professional communication, intonation also affects how confident, engaged or diplomatic you sound. A sentence can be grammatically perfect but still sound uncertain if your voice rises in the wrong place.</p>
+<h2>10. A practical pronunciation routine</h2>
+<ol><li>Choose one target sound or stress pattern.</li><li>Practise five words containing it.</li><li>Put those words into short phrases.</li><li>Record one 30-second answer using the phrases naturally.</li><li>Listen back once for clarity, not perfection.</li><li>Repeat the answer with one specific improvement.</li></ol>
+<p>Pronunciation becomes more reliable when you practise it inside the kind of English you actually use — meetings, presentations, interviews or everyday conversation.</p>
+<p>If you want targeted feedback on your own speech, see my <a href="pronunciation-fluency-coaching.html"><strong>pronunciation and fluency coaching</strong></a> page.</p>
+<p><a class="btn" href="book.html">Book pronunciation coaching →</a></p>
+</article></div></main>
+<section class="related"><div class="wrap"><div class="eyebrow">Related guides</div><h2>Use pronunciation in real communication</h2><div class="cards"><article class="card"><h3><a href="business-english-meetings.html">Business English meetings</a></h3><p>Practise clear pronunciation inside real meeting language.</p></article><article class="card"><h3><a href="english-presentation-phrases.html">Presentation English</a></h3><p>Combine clear delivery with strong signposting language.</p></article><article class="card"><h3><a href="guides.html">All English guides</a></h3><p>Explore more Phillips English resources.</p></article></div></div></section>
+<footer><div class="wrap">PHILLIPS ENGLISH · British English & Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer>
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a&&/book\.html/.test(a.getAttribute('href')||'')){gtag('event','booking_intent',{link_text:(a.textContent||'').trim(),page_path:location.pathname});}},true);</script>
 </body></html>
