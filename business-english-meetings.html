@@ -1,149 +1,75 @@
 <!doctype html><html lang="en-GB"><head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NHQ8S263EP"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-NHQ8S263EP');
-</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Business English for Meetings | Phillips English</title><meta name="description" content="Sound clearer and more confident in professional meetings."><meta name="robots" content="index, follow"><link rel="canonical" href="https://www.phillipsenglish.com/business-english-meetings.html"><style>body{margin:0;background:#071521;color:#fff;font-family:Arial,sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #213746}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase}.links{display:flex;gap:18px;font-size:13px}.btn{display:inline-block;background:#8bc8ef;color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800}.hero{padding:90px 0}.hero h1{font-size:clamp(44px,6vw,70px);line-height:1;letter-spacing:-.05em}.hero p{font-size:19px;color:#cbd4da;max-width:760px}.light{background:#f5f2eb;color:#0b1b27;padding:74px 0}.dark{padding:74px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{background:#0e2738;padding:26px}.card p{color:#aebbc4}footer{border-top:1px solid #213746;padding:32px 0;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.grid{grid-template-columns:1fr}}</style></head><body><div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div><header class="hero"><div class="wrap"><h1>Business English for Meetings</h1><p>Sound clearer and more confident in professional meetings.</p></div></header><section class="light"><div class="wrap"><h2>Business English for Meetings</h2><p>Practical language for contributing, clarifying, agreeing, disagreeing and moving discussions forward.</p></div></section><section class="dark"><div class="wrap"><div class="grid"><article class="card"><h2>Practise actively</h2><p>Use the language aloud in a realistic situation.</p></article><article class="card"><h2>Get precise feedback</h2><p>For personalised correction, book a private coaching session.</p></article></div><p style="margin-top:28px"><a class="btn" href="book.html">Book personalised coaching →</a></p></div></section><footer><div class="wrap">PHILLIPS ENGLISH · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer><!-- Phillips English GA4 conversion tracking -->
-<script>
-(function () {
-  var lastCalEventAt = 0;
-
-  function sendEvent(name, params) {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', name, params || {});
-    }
-  }
-
-  function cleanText(value) {
-    return (value || '').replace(/\s+/g, ' ').trim().slice(0, 120);
-  }
-
-  function detectOffer(element) {
-    var node = element && element.closest ? element.closest('article, section, .card, .booking-card, .route-card, .premium-route, .offer, .pricing-card') : null;
-    var text = cleanText((node && node.textContent) || (element && element.textContent) || '').toLowerCase();
-    if (text.indexOf('professional english accelerator') !== -1 || text.indexOf('accelerator') !== -1) return 'Professional English Accelerator';
-    if (text.indexOf('performance intensive') !== -1 || text.indexOf('intensive') !== -1) return 'Performance Intensive';
-    if (text.indexOf('group coaching') !== -1 || text.indexOf('private group') !== -1) return 'Group Coaching';
-    if (text.indexOf('private english coaching') !== -1 || text.indexOf('single session') !== -1 || text.indexOf('pay as you go') !== -1) return 'Private English Coaching';
-    return '';
-  }
-
-  function fireCalBookingClick(element, url) {
-    var now = Date.now();
-    if (now - lastCalEventAt < 1200) return;
-    lastCalEventAt = now;
-    sendEvent('cal_booking_click', {
-      package_name: detectOffer(element) || 'Private English Coaching',
-      link_text: cleanText(element && element.textContent),
-      link_url: url || '',
-      page_path: window.location.pathname
-    });
-  }
-
-  document.addEventListener('click', function (event) {
-    var target = event.target;
-    var link = target && target.closest ? target.closest('a') : null;
-    var route = target && target.closest ? target.closest('.premium-route[data-url], [data-url*="cal.com/"]') : null;
-
-    if (route) {
-      var routeUrl = route.getAttribute('data-url') || '';
-      fireCalBookingClick(route, routeUrl);
-      var routeOffer = detectOffer(route);
-      if (routeOffer && routeOffer !== 'Private English Coaching') {
-        sendEvent('package_interest', {
-          package_name: routeOffer,
-          link_text: cleanText(route.textContent),
-          link_url: routeUrl,
-          page_path: window.location.pathname
-        });
-      }
-    }
-
-    if (!link) return;
-    var rawHref = link.getAttribute('href') || '';
-    var absoluteHref = link.href || rawHref;
-    var linkText = cleanText(link.textContent);
-    var offer = detectOffer(link);
-
-    if (/book\.html(?:$|[?#])/.test(rawHref) || /\/book(?:\.html)?(?:$|[?#])/.test(absoluteHref)) {
-      sendEvent('booking_intent', {
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-
-    if (absoluteHref.indexOf('cal.com/') !== -1) {
-      fireCalBookingClick(link, absoluteHref);
-    }
-
-    if (offer && (offer === 'Professional English Accelerator' || offer === 'Performance Intensive' || offer === 'Group Coaching')) {
-      sendEvent('package_interest', {
-        package_name: offer,
-        link_text: linkText,
-        link_url: absoluteHref,
-        page_path: window.location.pathname
-      });
-    }
-  }, true);
-
-  window.addEventListener('blur', function () {
-    setTimeout(function () {
-      var active = document.activeElement;
-      if (!active || active.tagName !== 'IFRAME') return;
-      var src = active.getAttribute('src') || '';
-      if (src.indexOf('cal.com/') !== -1) {
-        fireCalBookingClick(active, src);
-      }
-    }, 0);
-  });
-
-  document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
-    var pending = false;
-    var sent = false;
-    var status = form.querySelector('.form-status');
-    var formName = 'enquiry';
-    if (window.location.pathname.indexOf('contact') !== -1) formName = 'contact';
-    if (window.location.pathname.indexOf('work-with-me') !== -1) formName = 'work_with_me';
-    if (window.location.pathname.indexOf('book') !== -1) formName = 'booking_enquiry';
-
-    form.addEventListener('submit', function () {
-      pending = true;
-      sent = false;
-      if (!status) {
-        setTimeout(function () {
-          if (pending && !sent) {
-            sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-            sent = true;
-            pending = false;
-          }
-        }, 1500);
-      }
-    }, true);
-
-    if (status) {
-      new MutationObserver(function () {
-        if (!pending || sent) return;
-        var text = (status.textContent || '').toLowerCase();
-        if (text.indexOf('success') !== -1 || text.indexOf('sent') !== -1 || text.indexOf('thank') !== -1) {
-          sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-          sent = true;
-          pending = false;
-        }
-      }).observe(status, { childList: true, subtree: true, characterData: true });
-    }
-  });
-
-  if (/\/book(?:\.html)?$/.test(window.location.pathname)) {
-    sendEvent('view_booking_page', { page_path: window.location.pathname });
-  }
-})();
-</script>
-
-
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NHQ8S263EP');</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Business English for Meetings: 40 Useful Phrases | Phillips English</title>
+<meta name="description" content="40 natural Business English phrases for meetings: opening, interrupting, clarifying, agreeing, disagreeing, giving opinions and moving discussion forward.">
+<meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="https://www.phillipsenglish.com/business-english-meetings.html">
+<meta property="og:title" content="Business English for Meetings: 40 Useful Phrases"><meta property="og:description" content="Natural English for contributing confidently in professional meetings."><meta property="og:type" content="article"><meta property="og:url" content="https://www.phillipsenglish.com/business-english-meetings.html"><meta property="og:image" content="https://www.phillipsenglish.com/assets/phillips-english-social.webp">
+<style>:root{--ink:#071521;--ink2:#0e2738;--ice:#8bc8ef;--paper:#f5f2eb;--muted:#aebbc4;--line:#213746}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:#fff;font-family:Arial,Helvetica,sans-serif;line-height:1.7}a{color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 28px}nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:20px}.brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}.links{display:flex;gap:18px;font-size:13px}.links a{text-decoration:none}.btn{display:inline-block;background:var(--ice);color:#06131d;padding:13px 21px;border-radius:999px;font-weight:800;text-decoration:none}.hero{padding:95px 0 70px}.eyebrow{color:var(--ice);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:clamp(44px,6vw,72px);line-height:.98;letter-spacing:-.05em;max-width:900px;margin:16px 0 24px}.hero p{font-size:20px;color:#cbd4da;max-width:760px}.article{background:var(--paper);color:#0b1b27;padding:78px 0}.content{max-width:820px;margin:auto}.content h2{font-size:34px;line-height:1.1;margin:52px 0 16px;letter-spacing:-.025em}.content h3{font-size:22px;margin:28px 0 10px}.content p,.content li{font-size:17px;color:#41515b}.content ul{padding-left:22px}.phrase{background:#fff;border-left:4px solid #8bc8ef;padding:18px 20px;margin:14px 0}.phrase strong{display:block;color:#0b1b27}.phrase span{color:#5b6972}.tip{background:#e9f3f8;padding:22px;margin:26px 0;border-radius:2px}.related{padding:72px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--ink2);padding:26px}.card p{color:var(--muted)}.card a{color:var(--ice)}footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#82949f;font-size:12px}@media(max-width:800px){.links{display:none}.cards{grid-template-columns:1fr}}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Business English for Meetings: 40 Useful Phrases","author":{"@type":"Person","name":"Jason Phillips"},"publisher":{"@type":"Organization","name":"Phillips English"},"mainEntityOfPage":"https://www.phillipsenglish.com/business-english-meetings.html","description":"Natural Business English phrases for professional meetings."}</script>
+</head><body>
+<div class="wrap"><nav><a class="brand" href="index.html">Phillips English</a><div class="links"><a href="index.html">Home</a><a href="coaching.html">Coaching</a><a href="group-coaching.html">Group Coaching</a><a href="guides.html">Guides</a><a href="contact.html">Contact</a></div><a class="btn" href="book.html">Book coaching</a></nav></div>
+<header class="hero"><div class="wrap"><div class="eyebrow">Business English guide</div><h1>Business English for meetings: 40 phrases that sound natural at work.</h1><p>Useful language for contributing, clarifying, interrupting, agreeing, disagreeing and moving a professional discussion forward without sounding scripted.</p></div></header>
+<main class="article"><div class="wrap"><article class="content">
+<p>Knowing Business English vocabulary is useful, but meetings are usually difficult for a different reason: you have to react in real time. You need language that helps you enter the discussion, make your point clearly and respond diplomatically when you disagree.</p>
+<p>This guide focuses on phrases you can actually reuse in meetings. Choose a few from each section and practise them aloud until they feel automatic.</p>
+<h2>1. Opening a meeting or introducing a topic</h2>
+<div class="phrase"><strong>“Shall we get started?”</strong><span>A natural way to begin when everyone is ready.</span></div>
+<div class="phrase"><strong>“The main thing I’d like us to look at today is…”</strong><span>Useful when you are leading the discussion.</span></div>
+<div class="phrase"><strong>“Before we move on, I’d like to clarify one point.”</strong><span>Good for controlling the structure without sounding abrupt.</span></div>
+<div class="phrase"><strong>“Just to give everyone a bit of context…”</strong><span>Use this before explaining background information.</span></div>
+<div class="phrase"><strong>“What I’d like to achieve by the end of this meeting is…”</strong><span>Clear and professional when setting an objective.</span></div>
+<h2>2. Giving your opinion clearly</h2>
+<div class="phrase"><strong>“From my perspective, the main issue is…”</strong><span>Professional and slightly more measured than “I think”.</span></div>
+<div class="phrase"><strong>“The way I see it, we have two realistic options.”</strong><span>Natural for presenting a judgement.</span></div>
+<div class="phrase"><strong>“My concern would be…”</strong><span>A diplomatic way to introduce a problem or risk.</span></div>
+<div class="phrase"><strong>“I’d be inclined to…”</strong><span>Useful when expressing a preference without sounding too forceful.</span></div>
+<div class="phrase"><strong>“What makes the most sense to me is…”</strong><span>Good for practical recommendations.</span></div>
+<h2>3. Agreeing without repeating “I agree”</h2>
+<div class="phrase"><strong>“That’s a fair point.”</strong><span>Acknowledge someone’s argument even if you want to add something.</span></div>
+<div class="phrase"><strong>“I’m with you on that.”</strong><span>Natural and slightly less formal.</span></div>
+<div class="phrase"><strong>“That ties in with what I was going to say.”</strong><span>Useful when building on another speaker’s idea.</span></div>
+<div class="phrase"><strong>“I think that’s the right direction.”</strong><span>Good for supporting a proposed action.</span></div>
+<div class="phrase"><strong>“Exactly — and I’d add that…”</strong><span>Helps you agree and then extend the point.</span></div>
+<h2>4. Disagreeing diplomatically</h2>
+<div class="phrase"><strong>“I see where you’re coming from, but…”</strong><span>Shows you understand before challenging the idea.</span></div>
+<div class="phrase"><strong>“I’m not sure I’d go that far.”</strong><span>Useful when you think a conclusion is too strong.</span></div>
+<div class="phrase"><strong>“I’d look at it slightly differently.”</strong><span>A professional alternative to “I disagree”.</span></div>
+<div class="phrase"><strong>“My only hesitation is…”</strong><span>Good for raising one specific concern.</span></div>
+<div class="phrase"><strong>“I think we may be overlooking…”</strong><span>Useful when adding a missing factor.</span></div>
+<div class="tip"><strong>Professional tip:</strong> In international meetings, disagreement usually sounds stronger than you think. Softening phrases such as “I’m not sure”, “my concern would be” and “I’d look at it differently” can make your English sound more confident, not weaker.</div>
+<h2>5. Interrupting politely</h2>
+<div class="phrase"><strong>“Can I just jump in there?”</strong><span>Common and natural in spoken business English.</span></div>
+<div class="phrase"><strong>“Sorry to interrupt, but can I clarify something?”</strong><span>Useful when you need to stop confusion early.</span></div>
+<div class="phrase"><strong>“If I can come in for a second…”</strong><span>Polite but confident.</span></div>
+<div class="phrase"><strong>“Before we move on, could I add one thing?”</strong><span>Good when the topic is about to change.</span></div>
+<div class="phrase"><strong>“Just on that point…”</strong><span>A short way to enter the conversation and stay on topic.</span></div>
+<h2>6. Asking for clarification</h2>
+<div class="phrase"><strong>“When you say X, do you mean…?”</strong><span>Checks meaning without admitting you did not understand everything.</span></div>
+<div class="phrase"><strong>“Could you talk me through that in a bit more detail?”</strong><span>Natural when you need a fuller explanation.</span></div>
+<div class="phrase"><strong>“Just so I’m clear, are we saying that…?”</strong><span>Excellent for confirming decisions.</span></div>
+<div class="phrase"><strong>“What would that look like in practice?”</strong><span>Useful when a proposal is too general.</span></div>
+<div class="phrase"><strong>“Could you give me an example?”</strong><span>Simple, direct and effective.</span></div>
+<h2>7. Moving the discussion forward</h2>
+<div class="phrase"><strong>“So where does that leave us?”</strong><span>Brings the discussion back to the decision.</span></div>
+<div class="phrase"><strong>“What do we need to do next?”</strong><span>Clear action-focused language.</span></div>
+<div class="phrase"><strong>“Can we agree on the next step?”</strong><span>Useful when discussion is going in circles.</span></div>
+<div class="phrase"><strong>“Let’s park that for the moment and come back to it.”</strong><span>Common meeting language for postponing a topic.</span></div>
+<div class="phrase"><strong>“I think we’ve covered that. Shall we move on?”</strong><span>Polite way to control time.</span></div>
+<h2>8. Summarising and closing</h2>
+<div class="phrase"><strong>“Just to recap, we’ve agreed that…”</strong><span>Useful before confirming actions.</span></div>
+<div class="phrase"><strong>“The key takeaway for me is…”</strong><span>Good for highlighting the main conclusion.</span></div>
+<div class="phrase"><strong>“So the next steps are…”</strong><span>Simple and clear.</span></div>
+<div class="phrase"><strong>“Is everyone happy with that?”</strong><span>Natural when checking final agreement.</span></div>
+<div class="phrase"><strong>“Thanks everyone — I think we can leave it there.”</strong><span>A natural way to close.</span></div>
+<h2>How to practise these phrases</h2>
+<p>Do not try to memorise all 40 at once. Pick five that match situations you regularly face. Create a realistic meeting scenario and say each phrase aloud several times. Then practise answering an unexpected follow-up question. The goal is to make the language available under pressure, not simply recognise it on a page.</p>
+<p>If meetings are one of the main reasons you use English professionally, see my <a href="business-english-coaching.html"><strong>Business English coaching</strong></a> page. Coaching can use your real meeting situations, presentations and communication challenges rather than generic textbook exercises.</p>
+<p><a class="btn" href="book.html">Book private English coaching →</a></p>
+</article></div></main>
+<section class="related"><div class="wrap"><div class="eyebrow">Keep improving</div><h2>Related Phillips English guides</h2><div class="cards"><article class="card"><h3><a href="english-presentation-phrases.html">English presentation phrases</a></h3><p>Language for opening, signposting, explaining data and handling questions.</p></article><article class="card"><h3><a href="british-english-pronunciation-guide.html">British English pronunciation</a></h3><p>Practical pronunciation priorities for clearer professional speech.</p></article><article class="card"><h3><a href="guides.html">All English guides</a></h3><p>Explore Business English, IELTS and communication resources.</p></article></div></div></section>
+<footer><div class="wrap">PHILLIPS ENGLISH · British English & Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · © 2026</div></footer>
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a&&/book\.html/.test(a.getAttribute('href')||'')){gtag('event','booking_intent',{link_text:(a.textContent||'').trim(),page_path:location.pathname});}},true);</script>
 </body></html>
