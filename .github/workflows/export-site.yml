@@ -1,0 +1,26 @@
+name: Export site
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/export-site.yml'
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create website ZIP
+        run: |
+          mkdir -p export/phillips-english-site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='export' ./ export/phillips-english-site/
+          cd export
+          zip -qr phillips-english-updated-site.zip phillips-english-site
+      - name: Upload website ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: phillips-english-updated-site
+          path: export/phillips-english-updated-site.zip
+          if-no-files-found: error
+          retention-days: 7
