@@ -1,5 +1,13 @@
 /* Phillips English shared site helpers */
 (function(){
+  function loadContrastStyles(){
+    if(document.querySelector('link[href="assets/contrast-fix.css"]')) return;
+    var link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href='assets/contrast-fix.css';
+    document.head.appendChild(link);
+  }
+
   function addTranslator(){
     if(document.querySelector('.pe-translate')) return;
     var wrap=document.createElement('div');
@@ -19,6 +27,55 @@
     style.id='pe-runtime-contrast';
     style.textContent='\n.contact-card.featured,.contact-card.featured h1,.contact-card.featured h2,.contact-card.featured h3,.contact-card.featured strong,.contact-card.featured li,.contact-card.featured .email,.contact-card.featured .email a{color:#fff!important}.contact-card.featured p,.contact-card.featured .label{color:#d6e0e5!important}.contact-card.featured a{color:#fff!important}\n';
     document.head.appendChild(style);
+  }
+
+  function rgb(value){
+    var m=(value||'').match(/rgba?\((\d+)[, ]+\s*(\d+)[, ]+\s*(\d+)/i);
+    return m ? [Number(m[1]),Number(m[2]),Number(m[3])] : null;
+  }
+
+  function luminance(c){
+    return c.map(function(v){
+      v/=255;
+      return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);
+    }).reduce(function(sum,v,i){return sum+v*[.2126,.7152,.0722][i];},0);
+  }
+
+  function contrast(a,b){
+    var l1=luminance(a),l2=luminance(b);
+    return (Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05);
+  }
+
+  function effectiveBackground(el){
+    var node=el;
+    while(node && node!==document.documentElement){
+      var value=getComputedStyle(node).backgroundColor;
+      var parsed=rgb(value);
+      if(parsed && value!=='transparent' && !/rgba\([^)]*,\s*0(?:\.0+)?\)/i.test(value)) return parsed;
+      node=node.parentElement;
+    }
+    return [18,24,32];
+  }
+
+  function hasDirectText(el){
+    for(var i=0;i<el.childNodes.length;i++){
+      if(el.childNodes[i].nodeType===3 && el.childNodes[i].nodeValue.trim()) return true;
+    }
+    return false;
+  }
+
+  function enforceReadableContrast(){
+    var selector='h1,h2,h3,h4,h5,h6,p,li,span,strong,b,small,a,label,blockquote,div';
+    document.querySelectorAll(selector).forEach(function(el){
+      if(!hasDirectText(el)) return;
+      if(el.closest('.button,.navcta,.btn,button,input,select,textarea')) return;
+      var bg=effectiveBackground(el);
+      var fg=rgb(getComputedStyle(el).color);
+      if(!fg) return;
+      if(luminance(bg)<.24 && contrast(bg,fg)<4.8){
+        el.style.setProperty('color','#f7f8f6','important');
+      }
+    });
   }
 
   function addGroupBooking(){
@@ -79,6 +136,7 @@
       if(text) text.textContent=descriptions[service];
       if(summary) summary.textContent=summaries[service];
       if(scroll && section) section.scrollIntoView({behavior:'smooth',block:'start'});
+      setTimeout(enforceReadableContrast,150);
     }
 
     document.querySelectorAll('.group-book-btn').forEach(function(btn){
@@ -96,6 +154,16 @@
     select(requested==='team'?'team':'private',false);
   }
 
-  function init(){addTranslator();addContrastFixes();addGroupBooking();}
+  function init(){
+    loadContrastStyles();
+    addTranslator();
+    addContrastFixes();
+    addGroupBooking();
+    enforceReadableContrast();
+    setTimeout(enforceReadableContrast,400);
+    setTimeout(enforceReadableContrast,1400);
+  }
+
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  window.addEventListener('load',enforceReadableContrast);
 })();
