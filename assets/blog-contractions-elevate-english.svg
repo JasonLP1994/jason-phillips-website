@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Why contractions instantly elevate your English</title>
+<desc id="desc">A Phillips English visual showing simple spoken English upgrades such as was not to wasn't, did not to didn't, I am to I'm, and we are to we're.</desc>
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f7faf9"/><stop offset="1" stop-color="#cfe9ee"/></linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8d1d9"/><stop offset="1" stop-color="#7eaeb9"/></linearGradient>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<rect y="650" width="1600" height="250" fill="url(#water)" opacity=".55"/>
+<g opacity=".22" fill="#274859">
+  <rect x="1040" y="355" width="42" height="280"/><rect x="1110" y="300" width="60" height="335"/><rect x="1185" y="390" width="55" height="245"/><rect x="1260" y="330" width="72" height="305"/><rect x="1345" y="245" width="75" height="390"/><polygon points="1382,165 1418,245 1347,245"/>
+  <rect x="975" y="430" width="630" height="205"/>
+</g>
+<text x="70" y="95" font-family="Arial,sans-serif" font-size="18" letter-spacing="7" fill="#39758b">ENGLISH COACHING</text>
+<text x="70" y="230" font-family="Georgia,serif" font-size="88" font-weight="700" fill="#0d1b38">Why contractions</text>
+<text x="70" y="325" font-family="Georgia,serif" font-size="88" font-weight="700" fill="#4f92a2">instantly elevate</text>
+<text x="70" y="420" font-family="Georgia,serif" font-size="88" font-weight="700" fill="#0d1b38">your English</text>
+<text x="70" y="505" font-family="Georgia,serif" font-size="30" fill="#1a2a42">Simple changes like “was not” → “wasn't” make your</text>
+<text x="70" y="545" font-family="Georgia,serif" font-size="30" fill="#1a2a42">English sound more natural, fluent and confident.</text>
+<g font-family="Georgia,serif" font-size="31" fill="#21334f">
+  <rect x="70" y="610" width="175" height="70" rx="16" fill="#eef3f4"/><text x="157" y="655" text-anchor="middle">was not</text>
+  <text x="275" y="655">→</text><rect x="325" y="610" width="190" height="70" rx="16" fill="#d5ebea"/><text x="420" y="655" text-anchor="middle" font-weight="700">wasn't</text>
+  <rect x="70" y="705" width="175" height="70" rx="16" fill="#eef3f4"/><text x="157" y="750" text-anchor="middle">I am</text>
+  <text x="275" y="750">→</text><rect x="325" y="705" width="190" height="70" rx="16" fill="#d5ebea"/><text x="420" y="750" text-anchor="middle" font-weight="700">I'm</text>
+  <rect x="555" y="610" width="175" height="70" rx="16" fill="#eef3f4"/><text x="642" y="655" text-anchor="middle">did not</text>
+  <text x="760" y="655">→</text><rect x="810" y="610" width="190" height="70" rx="16" fill="#d5ebea"/><text x="905" y="655" text-anchor="middle" font-weight="700">didn't</text>
+  <rect x="555" y="705" width="175" height="70" rx="16" fill="#eef3f4"/><text x="642" y="750" text-anchor="middle">we are</text>
+  <text x="760" y="750">→</text><rect x="810" y="705" width="190" height="70" rx="16" fill="#d5ebea"/><text x="905" y="750" text-anchor="middle" font-weight="700">we're</text>
+</g>
+<text x="1160" y="160" font-family="Georgia,serif" font-size="34" font-style="italic" fill="#4f92a2">More natural.</text>
+<text x="1195" y="205" font-family="Georgia,serif" font-size="34" font-style="italic" fill="#4f92a2">More fluent.</text>
+<text x="1235" y="250" font-family="Georgia,serif" font-size="34" font-style="italic" fill="#4f92a2">More you.</text>
+</svg>
