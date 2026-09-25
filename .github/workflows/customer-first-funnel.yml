@@ -1,0 +1,288 @@
+name: Customer-first website rebuild
+on:
+  push:
+    paths:
+      - '.github/workflows/customer-first-funnel.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild homepage and booking journey
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          INDEX_BODY = r'''
+          <div class="wrap">
+            <nav>
+              <a class="brand" href="index.html"><span class="brand-lockup"><span class="brand-name">Phillips English</span><span class="brand-sub">Private English Coaching</span></span></a>
+              <div class="navlinks">
+                <a href="index.html">Home</a>
+                <a href="coaching.html">Coaching</a>
+                <a href="results.html">Results</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+              </div>
+              <a class="button navcta" href="book.html">Book coaching</a>
+            </nav>
+          </div>
+
+          <main>
+            <section class="pe-home-hero">
+              <div class="wrap pe-hero-grid">
+                <div class="pe-hero-copy">
+                  <div class="eyebrow">Online British English coaching</div>
+                  <h1>Confident English for the moments that matter.</h1>
+                  <p>Private 1-to-1 coaching with Jason Phillips for professionals, IELTS candidates and ambitious learners who want to speak more clearly, perform with confidence and make measurable progress.</p>
+                  <div class="pe-actions">
+                    <a class="button" href="book.html">Book coaching</a>
+                    <a class="pe-secondary" href="#coaching-options">View coaching options</a>
+                  </div>
+                  <p class="pe-hero-note">British coach · 13+ years international experience · Online worldwide</p>
+                </div>
+                <div class="pe-hero-photo">
+                  <img src="assets/jason-phillips-british-english-coach-558abe.webp" alt="Jason Phillips, British English coach" width="1024" height="1536" loading="eager" fetchpriority="high" decoding="async">
+                </div>
+              </div>
+            </section>
+
+            <section class="pe-proof" aria-label="Professional experience">
+              <div class="wrap pe-proof-grid">
+                <div><strong>13+ years</strong><span>international teaching experience</span></div>
+                <div><strong>1,000+</strong><span>professionals trained</span></div>
+                <div><strong>Founder</strong><span>built and ran a 150+ student language centre</span></div>
+                <div><strong>38</strong><span>five-star Preply reviews</span></div>
+              </div>
+            </section>
+
+            <section class="pe-section pe-options" id="coaching-options">
+              <div class="wrap">
+                <div class="pe-section-head">
+                  <div class="eyebrow">Private coaching</div>
+                  <h2>Choose the level of support you need.</h2>
+                  <p>Every session is 50 minutes, followed by a 10-minute scheduling buffer. Choose a single session, a structured programme or focused preparation for an important deadline.</p>
+                </div>
+                <div class="pe-package-grid">
+                  <article class="pe-package-card">
+                    <div><span class="pe-kicker">Pay as you go</span><h3>Private English Coaching</h3><p>Focused help with the English you need right now — fluency, pronunciation, grammar, professional communication or exam preparation.</p></div>
+                    <div><div class="pe-price">£45 <small>/ session</small></div><div class="pe-meta">1 × 50-minute private session</div><a class="button" href="book.html?service=single#booking">Book £45 session</a></div>
+                  </article>
+                  <article class="pe-package-card pe-featured">
+                    <div><span class="pe-kicker">Flagship programme</span><h3>Professional English Accelerator</h3><p>Twelve private sessions for sustained improvement in professional communication, fluency, accuracy and confidence.</p></div>
+                    <div><div class="pe-price">£495 <small>/ programme</small></div><div class="pe-meta">12 × 50-minute private sessions</div><a class="button" href="book.html?service=accelerator#booking">Start the Accelerator</a></div>
+                  </article>
+                  <article class="pe-package-card">
+                    <div><span class="pe-kicker">High-stakes preparation</span><h3>Performance Intensive</h3><p>Three focused sessions for an interview, presentation, assessment, airline recruitment process or another important deadline.</p></div>
+                    <div><div class="pe-price">£225 <small>/ programme</small></div><div class="pe-meta">3 × 50-minute private sessions</div><a class="button" href="book.html?service=intensive#booking">Book the Intensive</a></div>
+                  </article>
+                </div>
+                <p class="pe-inline-link">Learning with colleagues, friends or a team? <a href="group-coaching.html">Explore group coaching →</a></p>
+              </div>
+            </section>
+
+            <section class="pe-section pe-goals">
+              <div class="wrap">
+                <div class="pe-section-head">
+                  <div class="eyebrow">Coaching built around real outcomes</div>
+                  <h2>Use English with more confidence in the situations that matter to you.</h2>
+                </div>
+                <div class="pe-goal-grid">
+                  <a href="business-english-coaching.html" class="pe-goal-card"><span>01</span><h3>Business &amp; Professional English</h3><p>Meetings, presentations, negotiations, leadership communication and the language you need to work internationally.</p><b>Explore Business English →</b></a>
+                  <a href="interview-presentation-english.html" class="pe-goal-card"><span>02</span><h3>Interviews &amp; Presentations</h3><p>Rehearsal, stronger answers, clearer delivery and precise feedback for high-stakes professional opportunities.</p><b>Explore interview coaching →</b></a>
+                  <a href="ielts-coaching.html" class="pe-goal-card"><span>03</span><h3>IELTS &amp; Exam Performance</h3><p>Targeted preparation based on your current level, required score, recurring mistakes and exam strategy.</p><b>Explore IELTS coaching →</b></a>
+                  <a href="pronunciation-fluency-coaching.html" class="pe-goal-card"><span>04</span><h3>Pronunciation &amp; Fluency</h3><p>Build clearer speech, more natural phrasing and the confidence to express yourself without overthinking every sentence.</p><b>Explore fluency coaching →</b></a>
+                </div>
+                <p class="pe-inline-link">Specialist support is also available for <a href="aviation-english-coaching.html">aviation English</a> and <a href="group-coaching.html">teams and small groups</a>.</p>
+              </div>
+            </section>
+
+            <section class="pe-section pe-profile">
+              <div class="wrap pe-profile-grid">
+                <div class="pe-profile-photo"><img src="assets/jason-phillips-with-a-teaching-team-in-vietnam-a75a61.webp" alt="Jason Phillips with a teaching team in Vietnam" loading="lazy" decoding="async"></div>
+                <div>
+                  <div class="eyebrow">Experience behind the coaching</div>
+                  <h2>More than classroom experience.</h2>
+                  <p>I'm a British English coach with more than 13 years of international teaching experience across the UK and Asia. I have taught children, university students, adults, professionals and senior executives; led teaching teams; trained teachers; and built and ran my own language centre in Da Nang, Vietnam.</p>
+                  <p>That experience shapes the way I coach. Lessons are practical, personalised and built around what you actually need English to do — whether that is leading a meeting, passing IELTS, preparing for an airline interview, presenting with authority or simply speaking with more confidence.</p>
+                  <div class="pe-credential-row"><span>Business English</span><span>IELTS</span><span>Interviews</span><span>Presentations</span><span>Aviation English</span><span>Pronunciation</span></div>
+                  <a class="pe-text-link" href="about.html">Read more about Jason →</a>
+                </div>
+              </div>
+            </section>
+
+            <section class="pe-section pe-reviews">
+              <div class="wrap">
+                <div class="pe-section-head">
+                  <div class="eyebrow">Student results</div>
+                  <h2>Professional coaching that transfers into real life.</h2>
+                  <p>Selected feedback from Jason's verified Preply reviews.</p>
+                </div>
+                <div class="pe-review-grid">
+                  <article><p>“The lessons focus on conversations and situations that I actually face at work. I recently used the meeting phrases Jason taught me and felt much more relaxed and confident.”</p><strong>Katrin</strong><span>★★★★★ · June 2026</span></article>
+                  <article><p>“He prepares challenging and thought-provoking topics that help me expand my vocabulary, improve my fluency and develop confidence in expressing complex ideas in English.”</p><strong>Olia</strong><span>★★★★★ · June 2026</span></article>
+                  <article><p>“His lessons develop from the student's actual level, using mistakes as a starting point. I noticed an improvement from the first lesson.”</p><strong>Luisa</strong><span>★★★★★ · May 2026</span></article>
+                </div>
+                <a class="pe-text-link" href="results.html">See more results and reviews →</a>
+              </div>
+            </section>
+
+            <section class="pe-section pe-seo-depth">
+              <div class="wrap pe-seo-grid">
+                <div>
+                  <div class="eyebrow">Online English coaching</div>
+                  <h2>Clear goals. Practical coaching. Measurable progress.</h2>
+                </div>
+                <div>
+                  <p>Phillips English provides private online British English coaching for learners who want their English to work in real situations. Professional clients can develop the language of meetings, presentations, negotiations, interviews and international communication. IELTS candidates can work on speaking, writing, fluency, vocabulary, grammar and exam strategy with focused feedback.</p>
+                  <p>Coaching can also target pronunciation, natural spoken English, confidence, aviation English and specialist communication. Instead of following a generic course, sessions are shaped around your goals, current level and recurring mistakes, so the language you practise is useful outside the lesson.</p>
+                  <p>Explore the specialist coaching pages for <a href="business-english-coaching.html">Business English</a>, <a href="ielts-coaching.html">IELTS</a>, <a href="interview-presentation-english.html">interviews and presentations</a>, <a href="pronunciation-fluency-coaching.html">pronunciation and fluency</a>, or <a href="aviation-english-coaching.html">aviation English</a>.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="pe-final-cta">
+              <div class="wrap pe-final-inner">
+                <div><div class="eyebrow">Ready to start?</div><h2>Choose your coaching and book your first session.</h2><p>See live availability, choose a time and complete payment securely without leaving Phillips English.</p></div>
+                <a class="button" href="book.html">Book coaching</a>
+              </div>
+            </section>
+          </main>
+
+          <footer><div class="wrap">PHILLIPS ENGLISH · British English &amp; Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="cancellation.html">Cancellation</a> · © 2026</div></footer>
+          '''
+
+          BOOK_BODY = r'''
+          <div class="wrap">
+            <nav>
+              <a class="brand" href="index.html"><span class="brand-lockup"><span class="brand-name">Phillips English</span><span class="brand-sub">Private English Coaching</span></span></a>
+              <div class="navlinks">
+                <a href="index.html">Home</a>
+                <a href="coaching.html">Coaching</a>
+                <a href="results.html">Results</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+              </div>
+              <a class="button navcta" href="#booking">Book coaching</a>
+            </nav>
+          </div>
+
+          <main>
+            <header class="pe-book-hero">
+              <div class="wrap">
+                <div class="eyebrow">Book private English coaching</div>
+                <h1>Choose your coaching. Book your first session.</h1>
+                <p>Select the support that fits your goal, then choose a time and complete payment securely in the embedded booking calendar below.</p>
+                <div class="pe-book-trust"><span>50-minute sessions</span><span>Live Zoom coaching</span><span>Secure online payment</span><span>13+ years' experience</span></div>
+              </div>
+            </header>
+
+            <section class="pe-book-options" id="routes">
+              <div class="wrap">
+                <div class="pe-section-head compact"><div class="eyebrow">Step 1</div><h2>Choose your coaching option.</h2></div>
+                <div class="premium-routes pe-book-card-grid">
+                  <button aria-selected="true" class="premium-route pe-book-card active" data-service="single" data-url="https://cal.com/jason-phillips-u5rvya/private-english-coaching-single-session" type="button">
+                    <span class="pe-kicker">Pay as you go</span><h3>Private English Coaching</h3><p class="route-desc">Focused help with the English you need right now.</p><div class="pe-price">£45</div><div class="route-meta">1 × 50-minute session</div><div class="route-cta">Select &amp; book →</div>
+                  </button>
+                  <button aria-selected="false" class="premium-route pe-book-card featured" data-service="accelerator" data-url="https://cal.com/jason-phillips-u5rvya/private-english-accelerator" type="button">
+                    <span class="pe-kicker">Flagship programme</span><h3>Professional English Accelerator</h3><p class="route-desc">Structured coaching for sustained progress in professional communication, fluency and confidence.</p><div class="pe-price">£495</div><div class="route-meta">12 × 50-minute sessions · paid once upfront</div><div class="route-cta">Select &amp; book →</div>
+                  </button>
+                  <button aria-selected="false" class="premium-route pe-book-card" data-service="intensive" data-url="https://cal.com/jason-phillips-u5rvya/jason-phillips-u5rvya-performance-intensive" type="button">
+                    <span class="pe-kicker">High-stakes preparation</span><h3>Performance Intensive</h3><p class="route-desc">Focused preparation for an interview, presentation, assessment or important deadline.</p><div class="pe-price">£225</div><div class="route-meta">3 × 50-minute sessions · paid once upfront</div><div class="route-cta">Select &amp; book →</div>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section class="booking-stage pe-booking-stage" id="booking">
+              <div class="wrap">
+                <div class="pe-booking-head">
+                  <div><div class="eyebrow">Step 2 · Live availability</div><h2 id="selectedTitle">Private English Coaching</h2><p id="selectedSummary">Book one 50-minute private coaching session for £45.</p></div>
+                  <div class="purchase-summary pe-purchase-summary"><span>Due at booking</span><strong id="selectedPrice">£45</strong><small id="selectedCoverage">Includes 1 × 50-minute private session</small></div>
+                </div>
+                <div class="pe-book-explainer"><strong id="explainerTitle">Simple pay-as-you-go coaching.</strong><p id="explainerText">Choose any available time below. If you want to continue afterwards, simply book another session when you need it.</p></div>
+                <div class="premium-calendar-shell pe-calendar-shell">
+                  <iframe id="calBookingFrame" src="https://cal.com/jason-phillips-u5rvya/private-english-coaching-single-session" title="Phillips English secure booking calendar" loading="eager" allow="payment *"></iframe>
+                </div>
+                <p class="pe-booking-note">You stay on Phillips English while choosing your time and completing payment. Package clients book Session 1 now; after that first Zoom session, Jason arranges the remaining sessions with you. Those sessions are already included in the package price.</p>
+              </div>
+            </section>
+
+            <section class="pe-book-help">
+              <div class="wrap pe-help-grid">
+                <div><div class="eyebrow">Not sure which option fits?</div><h2>Start with your goal.</h2></div>
+                <div><p><strong>Choose Private Coaching</strong> if you want flexible, focused support one session at a time.</p><p><strong>Choose the Accelerator</strong> if you want a structured programme and sustained improvement over 12 sessions.</p><p><strong>Choose the Intensive</strong> if you have an interview, presentation, assessment or deadline coming up soon.</p><p>For teams and small groups, <a href="group-coaching.html">view Group Coaching</a>.</p></div>
+              </div>
+            </section>
+          </main>
+
+          <footer><div class="wrap">PHILLIPS ENGLISH · British English &amp; Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="cancellation.html">Cancellation</a> · © 2026</div></footer>
+
+          <script>
+          (function(){
+            const cards=[...document.querySelectorAll('.premium-route')];
+            const frame=document.getElementById('calBookingFrame');
+            const title=document.getElementById('selectedTitle');
+            const summary=document.getElementById('selectedSummary');
+            const price=document.getElementById('selectedPrice');
+            const coverage=document.getElementById('selectedCoverage');
+            const eTitle=document.getElementById('explainerTitle');
+            const eText=document.getElementById('explainerText');
+            const data={
+              single:{title:'Private English Coaching',summary:'Book one 50-minute private coaching session for £45.',price:'£45',coverage:'Includes 1 × 50-minute private session',explainTitle:'Simple pay-as-you-go coaching.',explainText:'Choose any available time below. If you want to continue afterwards, simply book another session when you need it.'},
+              accelerator:{title:'Professional English Accelerator',summary:'Start your 12-session professional English programme. The full £495 programme is paid once upfront.',price:'£495',coverage:'Includes all 12 × 50-minute private sessions',explainTitle:'One payment covers the complete 12-session programme.',explainText:'Choose the time for Session 1 below. After your first Zoom session, Jason will arrange Sessions 2–12 with you. They are already included in the programme price.'},
+              intensive:{title:'Performance Intensive',summary:'Start your 3-session intensive. The full £225 programme is paid once upfront.',price:'£225',coverage:'Includes all 3 × 50-minute private sessions',explainTitle:'One payment covers all three focused sessions.',explainText:'Choose the time for Session 1 below. Jason will then arrange the remaining two sessions around your deadline and preparation needs.'}
+            };
+            function activate(card,scroll){
+              if(!card) return;
+              const key=card.dataset.service;
+              const d=data[key];
+              cards.forEach(c=>{const on=c===card;c.classList.toggle('active',on);c.setAttribute('aria-selected',on?'true':'false')});
+              frame.src=card.dataset.url;
+              title.textContent=d.title;summary.textContent=d.summary;price.textContent=d.price;coverage.textContent=d.coverage;eTitle.textContent=d.explainTitle;eText.textContent=d.explainText;
+              const url=new URL(window.location.href);url.searchParams.set('service',key);history.replaceState({},'',url.pathname+'?'+url.searchParams.toString()+'#booking');
+              if(scroll) document.getElementById('booking').scrollIntoView({behavior:'smooth',block:'start'});
+            }
+            cards.forEach(card=>card.addEventListener('click',()=>activate(card,true)));
+            const requested=new URLSearchParams(location.search).get('service');
+            const initial=cards.find(c=>c.dataset.service===requested)||cards[0];
+            activate(initial,false);
+          })();
+          </script>
+          '''
+
+          def replace_body(path, body):
+              p=Path(path)
+              raw=p.read_text()
+              marker='<!-- Phillips English GA4 conversion tracking -->'
+              if marker not in raw:
+                  raise SystemExit(f'Missing GA marker in {path}')
+              new=re.sub(r'<body[^>]*>.*?(?='+re.escape(marker)+r')', '<body>\n'+body.strip()+'\n', raw, count=1, flags=re.S|re.I)
+              p.write_text(new)
+
+          replace_body('index.html', INDEX_BODY)
+          replace_body('book.html', BOOK_BODY)
+
+          # Keep navigation simple across customer-facing and SEO pages.
+          for p in Path('.').glob('*.html'):
+              raw=p.read_text()
+              raw=re.sub(r'\s*<a[^>]+href=["\']book\.html["\'][^>]*>Book</a>', '', raw, flags=re.I)
+              raw=re.sub(r'\s*<a[^>]+href=["\']work-with-me\.html["\'][^>]*>Work With Me</a>', '', raw, flags=re.I)
+              raw=raw.replace('>Work with Jason<','>Book coaching<')
+              p.write_text(raw)
+          PY
+      - name: Commit customer-first rebuild
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html book.html *.html
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Rebuild customer journey while preserving SEO depth"
+            git push
+          fi
