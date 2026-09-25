@@ -1,0 +1,70 @@
+name: Mobile and booking polish
+
+on:
+  push:
+    paths:
+      - '.github/workflows/mobile-polish.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply shared polish and booking copy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          css_tag = '<!-- Phillips English shared polish -->\n<link rel="stylesheet" href="assets/site-polish.css">'
+          js_tag = '<script defer src="assets/site-polish.js"></script>'
+
+          changed = []
+          for path in Path('.').glob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              if 'assets/site-polish.css' not in text and '</head>' in text:
+                  text = text.replace('</head>', css_tag + '\n</head>', 1)
+              if 'assets/site-polish.js' not in text and '</body>' in text:
+                  text = text.replace('</body>', js_tag + '\n</body>', 1)
+
+              if path.name == 'book.html':
+                  replacements = [
+                      ('<div class="route-meta">One session · No commitment</div>', '<div class="route-meta">1 × 50-minute session · No commitment</div>'),
+                      ('Twelve private sessions for professionals who want measurable progress in confidence, fluency and high-level communication.', 'Twelve 50-minute private sessions for professionals who want measurable progress in confidence, fluency and high-level communication.'),
+                      ('Three focused sessions for an interview, presentation, assessment or another important deadline.', 'Three focused 50-minute sessions for an interview, presentation, assessment or another important deadline.'),
+                      ('<div class="route-meta">Paid once upfront · Session 1 booked now</div>', '<div class="route-meta">12 × 50-minute sessions · Paid once upfront · Session 1 booked now</div>'),
+                      ('<div class="route-meta">Paid once upfront · Session 1 booked now</div>', '<div class="route-meta">3 × 50-minute sessions · Paid once upfront · Session 1 booked now</div>'),
+                      ("coverage:'Covers 1 private session'", "coverage:'Includes 1 × 50-minute private session'"),
+                      ("coverage:'Covers all 12 coaching sessions'", "coverage:'Includes all 12 × 50-minute coaching sessions'"),
+                      ("coverage:'Covers all 3 intensive sessions'", "coverage:'Includes all 3 × 50-minute intensive sessions'"),
+                      ("summary:'Your booking below reserves Session 1 of your 12-session programme. The full £495 programme investment is paid once upfront.'", "summary:'Your booking below reserves Session 1 of your 12-session programme. Each session is 50 minutes, with a 10-minute scheduling buffer afterwards. The full £495 programme investment is paid once upfront.'"),
+                      ("summary:'Your booking below reserves Session 1 of your 3-session intensive. The full £225 programme investment is paid once upfront.'", "summary:'Your booking below reserves Session 1 of your 3-session intensive. Each session is 50 minutes, with a 10-minute scheduling buffer afterwards. The full £225 programme investment is paid once upfront.'")
+                  ]
+                  for old, new in replacements:
+                      if old in text:
+                          text = text.replace(old, new, 1)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(path.name)
+
+          print('Updated:', ', '.join(changed))
+          PY
+
+      - name: Commit website polish
+        run: |
+          if git diff --quiet; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html'
+          git commit -m "Polish mobile layout, booking clarity and translation"
+          git push
