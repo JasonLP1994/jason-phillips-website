@@ -1,0 +1,97 @@
+name: Streamline Phillips English
+on:
+  push:
+    paths:
+      - '.github/workflows/streamline-site.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  streamline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove repetitive content and simplify navigation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          def strip_sections_by_class(text, classes):
+              for cls in classes:
+                  pat=rf'<section\b(?=[^>]*class=["\'][^"\']*\b{re.escape(cls)}\b[^"\']*["\'])[^>]*>.*?</section>'
+                  text=re.sub(pat,'',text,flags=re.I|re.S)
+              return text
+
+          def strip_section_by_heading(text, heading):
+              pat=r'<section\b[^>]*>.*?</section>'
+              def repl(m):
+                  block=m.group(0)
+                  clean=re.sub(r'<[^>]+>',' ',block)
+                  clean=' '.join(clean.split())
+                  return '' if heading.lower() in clean.lower() else block
+              return re.sub(pat,repl,text,flags=re.I|re.S)
+
+          def simplify_nav(text):
+              navpat=r'<nav\b.*?</nav>'
+              def nav_repl(m):
+                  nav=m.group(0)
+                  # Remove the redundant Work With Me menu item; the main CTA handles booking.
+                  nav=re.sub(r'<a\b[^>]*href=["\']work-with-me\.html["\'][^>]*>\s*Work\s+With\s+Me\s*</a>','',nav,flags=re.I|re.S)
+                  # Make the main action explicit and useful.
+                  def cta(mm):
+                      tag=mm.group(0)
+                      tag=re.sub(r'href=["\'][^"\']*["\']','href="book.html"',tag,count=1,flags=re.I)
+                      tag=re.sub(r'>\s*Work with Jason\s*<','>Book coaching<',tag,flags=re.I)
+                      return tag
+                  nav=re.sub(r'<a\b[^>]*>\s*Work with Jason\s*</a>',cta,nav,flags=re.I|re.S)
+                  return nav
+              return re.sub(navpat,nav_repl,text,count=1,flags=re.I|re.S)
+
+          # Homepage: keep hero, services, reviews and group option; move the longer story/proof to About/Results.
+          p=Path('index.html'); t=p.read_text(errors='ignore')
+          compact='''<section class="pe-proof"><div class="wrap pe-proof-grid">
+          <div><strong>13+ years</strong><span>international teaching</span></div>
+          <div><strong>1,000+</strong><span>professionals trained</span></div>
+          <div><strong>Founder</strong><span>former language-centre owner</span></div>
+          <div><strong>38</strong><span>five-star tutor reviews</span></div>
+          </div></section>'''
+          t=re.sub(r'<section\b(?=[^>]*class=["\'][^"\']*\blight\b[^"\']*["\'])[^>]*>.*?</section>',compact,t,count=1,flags=re.I|re.S)
+          t=strip_sections_by_class(t,['results','quote','curated-wide'])
+          t=strip_section_by_heading(t,'Ready to make your English work harder for you?')
+          t=simplify_nav(t); p.write_text(t)
+
+          # Booking should be transactional: choose, book, then manage existing sessions.
+          p=Path('book.html'); t=p.read_text(errors='ignore')
+          t=strip_sections_by_class(t,['journey-section','clarity-section','application-secondary','seo-specialisms'])
+          t=simplify_nav(t); p.write_text(t)
+
+          # Work With Me: keep packages, fit and enquiry form; remove duplicate explanations already covered elsewhere.
+          p=Path('work-with-me.html'); t=p.read_text(errors='ignore')
+          t=strip_sections_by_class(t,['funnel-strip','sales-intro','pathways','quote-band','faq-premium','seo-specialisms'])
+          t=strip_section_by_heading(t,'Book the first session now. Build the rest of the schedule with me.')
+          t=strip_section_by_heading(t,'Learning as a group?')
+          t=simplify_nav(t); p.write_text(t)
+
+          # Group page: retain the proposition, offers, enquiry and useful FAQs.
+          p=Path('group-coaching.html'); t=p.read_text(errors='ignore')
+          t=strip_sections_by_class(t,['group-process','group-position','group-booking','seo-specialisms'])
+          t=simplify_nav(t); p.write_text(t)
+
+          # Simplify the main navigation everywhere else without changing page content.
+          for p in Path('.').glob('*.html'):
+              if p.name in {'index.html','book.html','work-with-me.html','group-coaching.html'}: continue
+              t=p.read_text(errors='ignore'); nt=simplify_nav(t)
+              if nt!=t: p.write_text(nt)
+          PY
+      - name: Commit streamlined site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html'
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Streamline core pages and simplify navigation"
+            git push
+          fi
