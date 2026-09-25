@@ -1,0 +1,55 @@
+name: Content audit
+on:
+  push:
+    paths:
+      - '.github/workflows/content-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit page structure
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          import re
+
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.stack=[]; self.headings=[]; self.text=[]; self.in_script=False; self.in_style=False
+              def handle_starttag(self, tag, attrs):
+                  self.stack.append(tag)
+                  if tag=='script': self.in_script=True
+                  if tag=='style': self.in_style=True
+              def handle_endtag(self, tag):
+                  if tag=='script': self.in_script=False
+                  if tag=='style': self.in_style=False
+                  if self.stack:
+                      try:
+                          i=len(self.stack)-1-self.stack[::-1].index(tag); self.stack=self.stack[:i]
+                      except ValueError: pass
+              def handle_data(self, data):
+                  if self.in_script or self.in_style: return
+                  s=' '.join(data.split())
+                  if not s: return
+                  self.text.append(s)
+                  current=self.stack[-1] if self.stack else ''
+                  if current in ('h1','h2','h3'):
+                      self.headings.append((current,s))
+
+          priority=['index.html','coaching.html','book.html','about.html','results.html','contact.html','work-with-me.html','group-coaching.html']
+          for name in priority:
+              p=Path(name)
+              if not p.exists(): continue
+              parser=P(); parser.feed(p.read_text(errors='ignore'))
+              text=' '.join(parser.text)
+              words=re.findall(r"\b[\w’'-]+\b", text)
+              print('\n###',name,'###')
+              print('VISIBLE WORDS:',len(words),'HEADINGS:',len(parser.headings))
+              for tag,h in parser.headings:
+                  print(tag.upper()+':',h[:180])
+          PY
