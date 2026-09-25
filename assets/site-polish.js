@@ -1,4 +1,4 @@
-/* Phillips English shared site polish */
+/* Phillips English shared site helpers */
 (function(){
   function addTranslator(){
     if(document.querySelector('.pe-translate')) return;
@@ -13,19 +13,6 @@
     });
   }
 
-  function addBookingFallback(){
-    var frame=document.getElementById('calBookingFrame');
-    if(!frame || document.querySelector('.pe-booking-fallback')) return;
-    var box=document.createElement('div');
-    box.className='pe-booking-fallback';
-    box.innerHTML='<strong>Booking calendar</strong><p>If the calendar below does not display correctly on your phone, open the secure booking calendar directly.</p><a target="_blank" rel="noopener">Open secure booking calendar →</a>';
-    frame.parentNode.insertBefore(box,frame);
-    var link=box.querySelector('a');
-    function sync(){ link.href=frame.getAttribute('src') || '#'; }
-    sync();
-    new MutationObserver(sync).observe(frame,{attributes:true,attributeFilter:['src']});
-  }
-
-  function init(){addTranslator();addBookingFallback();}
+  function init(){addTranslator();}
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
