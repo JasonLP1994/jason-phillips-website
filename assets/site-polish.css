@@ -233,3 +233,16 @@ footer a{color:inherit!important}
   .pe-book-trust{gap:6px}
   .pe-book-trust span{font-size:10px}
 }
+
+
+/* Contact featured-card contrast safeguard */
+.contact-grid-section .contact-card.featured,
+.contact-grid-section .contact-card.featured h1,
+.contact-grid-section .contact-card.featured h2,
+.contact-grid-section .contact-card.featured h3,
+.contact-grid-section .contact-card.featured p,
+.contact-grid-section .contact-card.featured strong,
+.contact-grid-section .contact-card.featured li,
+.contact-grid-section .contact-card.featured .email,
+.contact-grid-section .contact-card.featured a{color:#fff!important}
+.contact-grid-section .contact-card.featured .label{color:var(--pe-aqua)!important}
