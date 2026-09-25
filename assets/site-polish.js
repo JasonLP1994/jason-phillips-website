@@ -72,8 +72,12 @@
       var bg=effectiveBackground(el);
       var fg=rgb(getComputedStyle(el).color);
       if(!fg) return;
-      if(luminance(bg)<.24 && contrast(bg,fg)<4.8){
+      var bgLum=luminance(bg);
+      var ratio=contrast(bg,fg);
+      if(bgLum<.24 && ratio<4.8){
         el.style.setProperty('color','#f7f8f6','important');
+      }else if(bgLum>.62 && ratio<4.8){
+        el.style.setProperty('color','#0b2132','important');
       }
     });
   }
