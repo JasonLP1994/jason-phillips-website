@@ -1,93 +1,70 @@
-name: Fix group booking and contact contrast
-on:
+name: Repair booking and contrast
+'on':
   push:
     paths:
-      - '.github/workflows/fix-group-booking-contact-contrast.yml'
-  workflow_dispatch:
+      - .github/workflows/fix-group-booking-contact-contrast.yml
 permissions:
   contents: write
 jobs:
-  fix:
+  repair:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Repair group booking section
+      - name: Apply fixes
+        shell: bash
         run: |
-          python - <<'PY'
+          python3 <<'PY'
           from pathlib import Path
-          import re
 
-          p = Path('group-coaching.html')
-          s = p.read_text()
+          page = Path('group-coaching.html')
+          html = page.read_text()
+          if 'id="group-booking"' not in html:
+              target = '<section class="group-enquiry" id="group-enquiry">'
+              block = '''<section class="group-booking" id="group-booking">
+          <div class="wrap">
+          <div class="group-booking-head"><div><div class="eyebrow">Book group coaching</div><h2>Choose your group format and book here.</h2><p>Select your option, then choose a date and time in the live calendar below. The booking stays inside Phillips English.</p></div></div>
+          <div class="group-book-tabs" role="tablist" aria-label="Group coaching options">
+          <button class="group-book-tab active" data-group-service="private" type="button">Private Small Group</button>
+          <button class="group-book-tab" data-group-service="team" type="button">Professional Team Coaching</button>
+          </div>
+          <div class="group-book-summary"><span>Your selection</span><strong id="groupBookingTitle">Private Small Group</strong><p id="groupBookingText">For 2–4 learners. Choose an available time below and continue through the booking flow.</p></div>
+          <div class="group-calendar-shell"><iframe id="groupCalFrame" title="Book group English coaching" src="https://cal.com/jason-phillips-u5rvya/private-group-coaching" loading="lazy" allow="payment *"></iframe></div>
+          <p class="group-book-helper">Choose a date and time above. For a bespoke programme, use the enquiry form below.</p>
+          </div>
+          </section>
 
-          # Add the missing on-site Cal booking section before the enquiry form.
-          if 'id="group-booking"' not in s:
-              section = r'''
-<section class="group-booking" id="group-booking">
-  <div class="wrap">
-    <div class="group-booking-head">
-      <div>
-        <div class="eyebrow">Book group coaching</div>
-        <h2 id="groupBookingTitle">Private Small Group</h2>
-        <p id="groupBookingText">For 2–4 learners. Choose an available time below and complete the booking without leaving Phillips English.</p>
-      </div>
-    </div>
-    <div class="group-book-tabs" role="tablist" aria-label="Choose group coaching type">
-      <button class="group-book-tab active" data-group-service="private" type="button">Private Small Group · from £90</button>
-      <button class="group-book-tab" data-group-service="team" type="button">Professional Team · from £120</button>
-    </div>
-    <div class="group-book-summary">
-      <span>Selected option</span>
-      <strong id="groupBookingSummary">Private Small Group · from £90 / 60 minutes</strong>
-      <p>Choose your time in the live calendar below. Booking and payment stay inside this website.</p>
-    </div>
-    <div class="group-calendar-shell">
-      <iframe id="groupCalFrame" title="Group coaching booking calendar" src="https://cal.com/jason-phillips-u5rvya/private-group-coaching" loading="lazy" allow="payment *"></iframe>
-    </div>
-    <p class="group-book-helper">For a bespoke 8–12 week goal-based programme, use the enquiry form below so I can quote accurately for your group.</p>
-  </div>
-</section>
-'''
-              marker = '<section class="group-enquiry" id="group-enquiry">'
-              if marker not in s:
-                  raise SystemExit('Could not find group enquiry insertion point')
-              s = s.replace(marker, section + '\n' + marker, 1)
+          '''
+              if target not in html:
+                  raise SystemExit('group enquiry target not found')
+              html = html.replace(target, block + target, 1)
+              page.write_text(html)
 
-          # Make sure the selector script updates the visible summary as well as the iframe.
-          if "const summary = document.getElementById('groupBookingSummary');" not in s:
-              s = s.replace(
-                  "const text = document.getElementById('groupBookingText');",
-                  "const text = document.getElementById('groupBookingText');\n  const summary = document.getElementById('groupBookingSummary');",
-                  1
-              )
+          css = Path('assets/site-polish.css')
+          styles = css.read_text()
+          flag = '/* Contact featured-card contrast safeguard */'
+          if flag not in styles:
+              styles += '''
 
-          # Add price labels to the existing selector data.
-          if 'const prices = {' not in s:
-              anchor = '  const descriptions = {'
-              idx = s.find(anchor)
-              if idx == -1:
-                  raise SystemExit('Could not find group descriptions block')
-              prices = "  const prices = {\n    private: \"Private Small Group · from £90 / 60 minutes\",\n    team: \"Professional Team Coaching · from £120 / 60 minutes\"\n  };\n\n"
-              s = s[:idx] + prices + s[idx:]
-
-          if 'summary.textContent = prices[service];' not in s:
-              s = s.replace(
-                  '    text.textContent = descriptions[service];',
-                  '    text.textContent = descriptions[service];\n    if (summary) summary.textContent = prices[service];',
-                  1
-              )
-
-          p.write_text(s)
+          /* Contact featured-card contrast safeguard */
+          .contact-grid-section .contact-card.featured,
+          .contact-grid-section .contact-card.featured h1,
+          .contact-grid-section .contact-card.featured h2,
+          .contact-grid-section .contact-card.featured h3,
+          .contact-grid-section .contact-card.featured p,
+          .contact-grid-section .contact-card.featured strong,
+          .contact-grid-section .contact-card.featured li,
+          .contact-grid-section .contact-card.featured .email,
+          .contact-grid-section .contact-card.featured a{color:#fff!important}
+          .contact-grid-section .contact-card.featured .label{color:var(--pe-aqua)!important}
+          '''
+              css.write_text(styles)
           PY
-
-      - name: Commit fixes
+      - name: Commit
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add group-coaching.html
-          if git diff --cached --quiet; then
-            echo "No group booking changes needed"
-          else
-            git commit -m "Fix embedded group coaching booking flow"
-            git push
-          fi
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add group-coaching.html assets/site-polish.css
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Restore embedded group booking and fix contact contrast"
+          git push
