@@ -1,0 +1,80 @@
+name: Audit sitemap
+'on':
+  push:
+    paths:
+      - .github/workflows/audit-sitemap.yml
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clean sitemap against live files
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          from urllib.parse import urlparse
+          from datetime import date
+
+          sitemap = Path('sitemap.xml')
+          ns = {'sm':'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          ET.register_namespace('', ns['sm'])
+          tree = ET.parse(sitemap)
+          root = tree.getroot()
+
+          kept = []
+          removed = []
+          seen = set()
+
+          for url_el in list(root):
+              loc_el = url_el.find('{%s}loc' % ns['sm'])
+              if loc_el is None or not loc_el.text:
+                  root.remove(url_el)
+                  continue
+              url = loc_el.text.strip()
+              path = urlparse(url).path.lstrip('/')
+              exists = path == '' or Path(path).is_file()
+              if exists:
+                  kept.append(url)
+                  seen.add(url)
+              else:
+                  removed.append(url)
+                  root.remove(url_el)
+
+          # Ensure every public blog page is discoverable.
+          blog_paths = [Path('blog.html')] + sorted(Path('blog').glob('*.html')) if Path('blog').exists() else [Path('blog.html')]
+          for p in blog_paths:
+              if not p.is_file():
+                  continue
+              url = 'https://www.phillipsenglish.com/' + p.as_posix()
+              if url in seen:
+                  continue
+              u = ET.SubElement(root, '{%s}url' % ns['sm'])
+              loc = ET.SubElement(u, '{%s}loc' % ns['sm'])
+              loc.text = url
+              lm = ET.SubElement(u, '{%s}lastmod' % ns['sm'])
+              lm.text = date.today().isoformat()
+              kept.append(url)
+              seen.add(url)
+
+          tree.write(sitemap, encoding='UTF-8', xml_declaration=True)
+          print('Sitemap URLs kept:', len(seen))
+          print('Removed missing URLs:')
+          for u in removed:
+              print('-', u)
+          PY
+      - name: Commit sitemap audit
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Sitemap already matches current site files"
+            exit 0
+          fi
+          git commit -m "Audit sitemap against current site"
+          git push
