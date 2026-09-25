@@ -1,34 +1,72 @@
 /* Phillips English shared mobile/contrast polish */
+:root{
+  --pe-ink:#151820;
+  --pe-ink2:#273440;
+  --pe-aqua:#8ebeca;
+  --pe-aqua-deep:#6aa4b3;
+  --pe-slate:#5f7483;
+  --pe-cloud:#d6d3db;
+  --pe-paper:#f3f2ef;
+  --ink:var(--pe-ink);
+  --ink2:var(--pe-ink2);
+  --ice:var(--pe-aqua);
+  --paper:var(--pe-paper);
+  --muted:#b8c2c8;
+  --line:#3d4b55;
+}
 html,body{max-width:100%;overflow-x:hidden}
+body{background:var(--pe-ink)!important}
 img,video,iframe{max-width:100%}
 *,*::before,*::after{min-width:0}
+
+/* Palette matched to the portrait: muted aqua, slate and graphite rather than bright blue/navy. */
+nav,footer{border-color:var(--line)!important}
+.eyebrow,.review-kicker,.route-topline,.label{color:var(--pe-aqua)!important}
+.button,.navcta,.btn{background:var(--pe-aqua)!important;color:var(--pe-ink)!important}
+.button:hover,.navcta:hover,.btn:hover{background:#a8ced6!important}
+.card,.premium-route,.form,.review-card{border-color:rgba(142,190,202,.16)}
+.sales-hero,.contact-hero,.premium-book-hero,.career-story,.student-voice.dark,.client-access,.seo-specialisms,.quote-band{background-color:var(--pe-ink)!important}
+.card,.contact-card.featured,.premium-route,.form{background-color:var(--pe-ink2)}
+.light,.contact-note,.contact-grid-section,.contact-form-section,.booking-chooser,.journey-section,.clarity-section,.application-secondary,.young-learners-proof,.editorial-proof:not(.dark),.student-voice:not(.dark),.pathways,.group-section,.group-offers,.group-enquiry{background-color:var(--pe-paper)!important}
 
 /* Long contact details should never push beyond the viewport. */
 a[href^="mailto:"],a[href^="tel:"],.email,.email a,.contact-card h2{overflow-wrap:anywhere;word-break:break-word}
 
 /* Light sections must always use dark headings for readable contrast. */
-.light,.contact-note,.contact-grid-section,.contact-form-section,.booking-chooser,.journey-section,.clarity-section,.application-secondary,.young-learners-proof,.editorial-proof:not(.dark),.student-voice:not(.dark),.pathways{color:#0b2132}
-.light h1,.light h2,.light h3,.light h4,.contact-note h1,.contact-note h2,.contact-note h3,.contact-grid-section h1,.contact-grid-section h2,.contact-grid-section h3,.contact-form-section h1,.contact-form-section h2,.contact-form-section h3,.booking-chooser h1,.booking-chooser h2,.booking-chooser h3,.journey-section h1,.journey-section h2,.journey-section h3,.clarity-section h1,.clarity-section h2,.clarity-section h3,.application-secondary h1,.application-secondary h2,.application-secondary h3,.young-learners-proof h1,.young-learners-proof h2,.young-learners-proof h3,.editorial-proof:not(.dark) h1,.editorial-proof:not(.dark) h2,.editorial-proof:not(.dark) h3,.student-voice:not(.dark) h1,.student-voice:not(.dark) h2,.student-voice:not(.dark) h3,.pathways h1,.pathways h2,.pathways h3{color:#0b2132}
+.light,.contact-note,.contact-grid-section,.contact-form-section,.booking-chooser,.journey-section,.clarity-section,.application-secondary,.young-learners-proof,.editorial-proof:not(.dark),.student-voice:not(.dark),.pathways,.group-section,.group-offers,.group-enquiry{color:#202a31}
+.light h1,.light h2,.light h3,.light h4,.contact-note h1,.contact-note h2,.contact-note h3,.contact-grid-section h1,.contact-grid-section h2,.contact-grid-section h3,.contact-form-section h1,.contact-form-section h2,.contact-form-section h3,.booking-chooser h1,.booking-chooser h2,.booking-chooser h3,.journey-section h1,.journey-section h2,.journey-section h3,.clarity-section h1,.clarity-section h2,.clarity-section h3,.application-secondary h1,.application-secondary h2,.application-secondary h3,.young-learners-proof h1,.young-learners-proof h2,.young-learners-proof h3,.editorial-proof:not(.dark) h1,.editorial-proof:not(.dark) h2,.editorial-proof:not(.dark) h3,.student-voice:not(.dark) h1,.student-voice:not(.dark) h2,.student-voice:not(.dark) h3,.pathways h1,.pathways h2,.pathways h3,.group-section h1,.group-section h2,.group-section h3,.group-offers h1,.group-offers h2,.group-offers h3,.group-enquiry h1,.group-enquiry h2,.group-enquiry h3{color:#202a31}
 .contact-card.featured,.contact-card.featured h1,.contact-card.featured h2,.contact-card.featured h3{color:#f6f1e8}
 
+/* Compact authority strip used on the homepage instead of another long biography section. */
+.pe-proof{padding:34px 0!important;background:#dcebed!important;color:var(--pe-ink)!important;border-top:1px solid rgba(21,24,32,.08);border-bottom:1px solid rgba(21,24,32,.08)}
+.pe-proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.pe-proof-grid>div{padding:8px 24px;border-right:1px solid rgba(21,24,32,.14)}
+.pe-proof-grid>div:first-child{padding-left:0}.pe-proof-grid>div:last-child{border-right:0}
+.pe-proof strong{display:block;font-size:23px;letter-spacing:-.025em;color:var(--pe-ink)}
+.pe-proof span{display:block;margin-top:3px;font-size:12px;color:#53636d;line-height:1.45}
+
+/* Make the content feel editorial rather than dense. */
+p{max-width:72ch}
+.route-desc,.copy,.darkcopy,.lead{max-width:62ch}
+
 /* Translation control */
-.pe-translate{position:fixed;right:14px;bottom:14px;z-index:9998;background:#071725;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 12px;box-shadow:0 10px 30px rgba(0,0,0,.18);font:600 12px/1.2 Arial,Helvetica,sans-serif}
+.pe-translate{position:fixed;right:14px;bottom:14px;z-index:9998;background:var(--pe-ink);color:#fff;border:1px solid rgba(142,190,202,.35);border-radius:999px;padding:8px 12px;box-shadow:0 10px 30px rgba(0,0,0,.18);font:600 12px/1.2 Arial,Helvetica,sans-serif}
 .pe-translate label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.pe-translate select{appearance:none;background:transparent;color:#fff;border:0;outline:0;padding:4px 24px 4px 4px;font:inherit;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,#8bc8ef 50%),linear-gradient(135deg,#8bc8ef 50%,transparent 50%);background-position:calc(100% - 10px) 50%,calc(100% - 6px) 50%;background-size:4px 4px,4px 4px;background-repeat:no-repeat}
-.pe-translate option{color:#071725;background:#fff}
+.pe-translate select{appearance:none;background:transparent;color:#fff;border:0;outline:0;padding:4px 24px 4px 4px;font:inherit;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--pe-aqua) 50%),linear-gradient(135deg,var(--pe-aqua) 50%,transparent 50%);background-position:calc(100% - 10px) 50%,calc(100% - 6px) 50%;background-size:4px 4px,4px 4px;background-repeat:no-repeat}
+.pe-translate option{color:var(--pe-ink);background:#fff}
 
 /* Mobile booking fallback for browsers that render the embedded Cal.com frame poorly. */
-.pe-booking-fallback{display:none;background:#edf4f6;border:1px solid rgba(7,23,37,.12);padding:18px;margin:0 0 14px;color:#071725}
+.pe-booking-fallback{display:none;background:#e5eff1;border:1px solid rgba(21,24,32,.12);padding:18px;margin:0 0 14px;color:var(--pe-ink)}
 .pe-booking-fallback strong{display:block;font-size:15px;margin-bottom:5px}
 .pe-booking-fallback p{margin:0 0 12px;color:#5f7079;font-size:13px;line-height:1.55}
-.pe-booking-fallback a{display:inline-block;background:#071725;color:#fff!important;padding:11px 15px;border-radius:999px;font-size:12px;font-weight:800;text-decoration:none}
+.pe-booking-fallback a{display:inline-block;background:var(--pe-ink);color:#fff!important;padding:11px 15px;border-radius:999px;font-size:12px;font-weight:800;text-decoration:none}
 
 @media(max-width:800px){
   .wrap{width:100%;max-width:100%;padding-left:20px!important;padding-right:20px!important}
   body,main,header,footer,section{max-width:100%;overflow-x:hidden}
   .split,.grid2,.grid,.contact-grid,.contact-form-wrap,.contact-note-inner,.premium-routes,.journey-grid,.booking-header,.client-access-inner,.clarity-grid,.editorial-grid,.proof-grid,.story-grid,.review-grid,.seo-specialism-grid{width:100%;max-width:100%}
   .card,.contact-card,.form,.contact-form,.premium-route,.purchase-summary,.consumer-explainer,.box{max-width:100%}
-  .pagehero h1,.contact-hero h1,.hero h1{overflow-wrap:break-word}
+  .pagehero h1,.contact-hero h1,.hero h1,.sales-hero h1,.premium-book-hero h1{overflow-wrap:break-word;font-size:clamp(42px,12vw,52px)!important;line-height:1!important}
   .contact-card{padding:24px!important}
   .contact-card h2{font-size:clamp(22px,7vw,30px)!important}
   .contact-card .email{font-size:clamp(16px,5vw,20px)!important}
@@ -42,6 +80,14 @@ a[href^="mailto:"],a[href^="tel:"],.email,.email a,.contact-card h2{overflow-wra
   .navlinks{grid-column:1/-1!important;order:initial!important;width:100%!important;display:flex!important;align-items:center!important;gap:24px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:16px 2px 14px!important;margin:18px 0 0!important;border-top:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
   .navlinks::-webkit-scrollbar{display:none}
   .navlinks a{flex:0 0 auto!important;white-space:nowrap!important;padding:4px 0 8px!important;font-size:15px!important;line-height:1.2!important;scroll-snap-align:start}
+
+  .pe-proof{padding:24px 0!important}
+  .pe-proof-grid{grid-template-columns:1fr 1fr}
+  .pe-proof-grid>div{padding:12px 16px 12px 0;border-right:0;border-bottom:1px solid rgba(21,24,32,.12)}
+  .pe-proof-grid>div:nth-child(odd){border-right:1px solid rgba(21,24,32,.12)}
+  .pe-proof-grid>div:nth-child(even){padding-left:16px}
+  .pe-proof-grid>div:nth-last-child(-n+2){border-bottom:0}
+  .pe-proof strong{font-size:20px}
 
   .pe-translate{right:10px;bottom:10px;padding:7px 10px}
   .pe-booking-fallback{display:block}
