@@ -1,0 +1,53 @@
+name: Fix contact featured card contrast
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-contact-featured-contrast.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce readable contact card contrast
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('assets/site-polish.css')
+          s = p.read_text()
+          marker = '/* Contact featured card contrast fix */'
+          if marker not in s:
+              s += r'''
+
+/* Contact featured card contrast fix */
+.contact-card.featured,
+.contact-card.featured h1,
+.contact-card.featured h2,
+.contact-card.featured h3,
+.contact-card.featured p,
+.contact-card.featured strong,
+.contact-card.featured li,
+.contact-card.featured .label,
+.contact-card.featured .email,
+.contact-card.featured .email a{
+  color:#ffffff!important;
+}
+.contact-card.featured .label,
+.contact-card.featured p{color:#d6e0e5!important;}
+.contact-card.featured a{color:#ffffff!important;}
+'''
+              p.write_text(s)
+          PY
+      - name: Commit contrast fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/site-polish.css
+          if git diff --cached --quiet; then
+            echo "No contact contrast changes needed"
+          else
+            git commit -m "Fix contact card text contrast"
+            git push
+          fi
