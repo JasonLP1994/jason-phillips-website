@@ -1,0 +1,84 @@
+/* Phillips English: high-contrast readability layer */
+
+/* Dark surfaces: white headings, light body copy. */
+.card,.form,.review-card.dark,.student-voice.dark .review-card,
+.contact-card.featured,.premium-route.featured,.pe-package-card.pe-featured,
+.group-position,.group-process,.group-booking,.client-access,.career-story,
+.quote-band,.seo-specialisms,.sales-hero,.contact-hero,.premium-book-hero,
+.pagehero,.programmes,.pe-home-hero,.pe-final-cta,.pe-book-hero,
+.atmosphere-wide,.luxury-panel,.curated-wide{
+  color:#f7f8f6!important;
+}
+
+.card h1,.card h2,.card h3,.card h4,.card strong,.card b,
+.form h1,.form h2,.form h3,.form h4,.form strong,
+.review-card.dark h1,.review-card.dark h2,.review-card.dark h3,.review-card.dark strong,
+.student-voice.dark .review-card h1,.student-voice.dark .review-card h2,.student-voice.dark .review-card h3,.student-voice.dark .review-card strong,
+.contact-card.featured h1,.contact-card.featured h2,.contact-card.featured h3,.contact-card.featured h4,.contact-card.featured strong,.contact-card.featured b,.contact-card.featured a,
+.premium-route.featured h1,.premium-route.featured h2,.premium-route.featured h3,.premium-route.featured h4,.premium-route.featured strong,.premium-route.featured b,
+.pe-package-card.pe-featured h1,.pe-package-card.pe-featured h2,.pe-package-card.pe-featured h3,.pe-package-card.pe-featured h4,.pe-package-card.pe-featured strong,
+.group-position h1,.group-position h2,.group-position h3,.group-position h4,.group-position strong,
+.group-process h1,.group-process h2,.group-process h3,.group-process h4,.group-process strong,
+.group-booking h1,.group-booking h2,.group-booking h3,.group-booking h4,.group-booking strong,
+.client-access h1,.client-access h2,.client-access h3,.client-access h4,.client-access strong,
+.career-story h1,.career-story h2,.career-story h3,.career-story h4,.career-story strong,
+.quote-band h1,.quote-band h2,.quote-band h3,.quote-band h4,.quote-band strong,
+.seo-specialisms h1,.seo-specialisms h2,.seo-specialisms h3,.seo-specialisms h4,.seo-specialisms strong,
+.sales-hero h1,.sales-hero h2,.sales-hero h3,.contact-hero h1,.contact-hero h2,.contact-hero h3,
+.premium-book-hero h1,.premium-book-hero h2,.premium-book-hero h3,.pagehero h1,.pagehero h2,.pagehero h3,
+.programmes h1,.programmes h2,.programmes h3,.pe-home-hero h1,.pe-home-hero h2,.pe-home-hero h3,
+.pe-final-cta h1,.pe-final-cta h2,.pe-final-cta h3,.pe-book-hero h1,.pe-book-hero h2,.pe-book-hero h3,
+.atmosphere-wide h1,.atmosphere-wide h2,.atmosphere-wide h3,
+.luxury-panel h1,.luxury-panel h2,.luxury-panel h3,
+.curated-wide h1,.curated-wide h2,.curated-wide h3{
+  color:#ffffff!important;
+}
+
+.card p,.card li,.card span,
+.form p,.form li,.form label,.form-status,
+.review-card.dark p,.review-card.dark li,.review-card.dark span,
+.student-voice.dark .review-card p,.student-voice.dark .review-card li,.student-voice.dark .review-card span,
+.contact-card.featured p,.contact-card.featured li,.contact-card.featured span,
+.premium-route.featured p,.premium-route.featured li,.premium-route.featured span,
+.pe-package-card.pe-featured p,.pe-package-card.pe-featured li,.pe-package-card.pe-featured span,
+.group-position p,.group-position li,.group-position span,
+.group-process p,.group-process li,.group-process span,
+.group-booking p,.group-booking li,.group-booking span,
+.client-access p,.client-access li,.client-access span,
+.career-story p,.career-story li,.career-story span,
+.quote-band p,.quote-band li,.quote-band span,
+.seo-specialisms p,.seo-specialisms li,.seo-specialisms span,
+.sales-hero p,.sales-hero li,.contact-hero p,.contact-hero li,
+.premium-book-hero p,.premium-book-hero li,.pagehero p,.pagehero li,
+.programmes p,.programmes li,.pe-home-hero p,.pe-home-hero li,
+.pe-final-cta p,.pe-final-cta li,.pe-book-hero p,.pe-book-hero li,
+.atmosphere-wide p,.atmosphere-wide li,.luxury-panel p,.luxury-panel li,.curated-wide p,.curated-wide li{
+  color:#d9e1e4!important;
+}
+
+/* Dark cards that appear inside otherwise light sections. */
+.contact-card.featured .label,
+.premium-route.featured .route-topline,
+.premium-route.featured .route-meta,
+.premium-route.featured .route-desc,
+.pe-package-card.pe-featured .pe-kicker,
+.pe-package-card.pe-featured .pe-meta{
+  color:#d9e1e4!important;
+}
+
+/* Interactive aqua controls intentionally keep dark text for contrast. */
+.button,.navcta,.btn,
+.card .button,.form .button,.contact-card.featured .button,
+.premium-route.featured .button,.pe-package-card.pe-featured .button{
+  color:#0f1720!important;
+}
+
+/* Form fields retain a readable foreground regardless of surrounding section. */
+input,select,textarea{
+  color:#f7f8f6;
+}
+.contact-form input,.contact-form select,.contact-form textarea,
+.light input,.light select,.light textarea,
+.contact-form-section input,.contact-form-section select,.contact-form-section textarea{
+  color:#1d2930!important;
+}
