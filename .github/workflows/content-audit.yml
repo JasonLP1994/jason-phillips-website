@@ -16,7 +16,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           from html.parser import HTMLParser
-          import re
+          import re, html
 
           class P(HTMLParser):
               def __init__(self):
@@ -45,11 +45,25 @@ jobs:
           for name in priority:
               p=Path(name)
               if not p.exists(): continue
-              parser=P(); parser.feed(p.read_text(errors='ignore'))
+              raw=p.read_text(errors='ignore')
+              parser=P(); parser.feed(raw)
               text=' '.join(parser.text)
               words=re.findall(r"\b[\w’'-]+\b", text)
               print('\n###',name,'###')
               print('VISIBLE WORDS:',len(words),'HEADINGS:',len(parser.headings))
               for tag,h in parser.headings:
                   print(tag.upper()+':',h[:180])
+              print('--- SECTIONS ---')
+              for i,m in enumerate(re.finditer(r'<section\b([^>]*)>(.*?)</section>', raw, flags=re.I|re.S),1):
+                  attrs=m.group(1); block=m.group(2)
+                  cls=re.search(r'class=["\']([^"\']+)',attrs,re.I)
+                  cls=cls.group(1) if cls else ''
+                  hm=re.search(r'<h([123])\b[^>]*>(.*?)</h\1>',block,re.I|re.S)
+                  heading=''
+                  if hm:
+                      heading=re.sub(r'<[^>]+>',' ',hm.group(2)); heading=html.unescape(' '.join(heading.split()))
+                  clean=re.sub(r'<script\b.*?</script>|<style\b.*?</style>',' ',block,flags=re.I|re.S)
+                  clean=re.sub(r'<[^>]+>',' ',clean); clean=html.unescape(' '.join(clean.split()))
+                  wc=len(re.findall(r"\b[\w’'-]+\b",clean))
+                  print(f'S{i}: class={cls!r} words={wc} heading={heading[:140]!r}')
           PY
