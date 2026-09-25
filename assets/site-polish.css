@@ -32,7 +32,26 @@ a[href^="mailto:"],a[href^="tel:"],.email,.email a,.contact-card h2{overflow-wra
   .contact-card{padding:24px!important}
   .contact-card h2{font-size:clamp(22px,7vw,30px)!important}
   .contact-card .email{font-size:clamp(16px,5vw,20px)!important}
+
+  /* Give the mobile header room to breathe. The second row scrolls cleanly instead of compressing links together. */
+  nav{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;column-gap:14px!important;row-gap:0!important;height:auto!important;min-height:0!important;padding:20px 0 0!important;align-items:center!important}
+  nav .brand,.brand-lockup{min-width:0}
+  .brand-lockup .brand-name{font-size:clamp(18px,4.8vw,26px)!important;white-space:nowrap}
+  .brand-lockup .brand-sub{font-size:9px!important;letter-spacing:.14em!important;white-space:nowrap}
+  nav .navcta,nav>.button{justify-self:end!important;white-space:nowrap;padding:12px 18px!important;font-size:12px!important}
+  .navlinks{grid-column:1/-1!important;order:initial!important;width:100%!important;display:flex!important;align-items:center!important;gap:24px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:16px 2px 14px!important;margin:18px 0 0!important;border-top:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .navlinks::-webkit-scrollbar{display:none}
+  .navlinks a{flex:0 0 auto!important;white-space:nowrap!important;padding:4px 0 8px!important;font-size:15px!important;line-height:1.2!important;scroll-snap-align:start}
+
   .pe-translate{right:10px;bottom:10px;padding:7px 10px}
   .pe-booking-fallback{display:block}
   .premium-calendar-shell,.premium-calendar-shell iframe{min-height:700px!important;height:700px!important}
+}
+
+@media(max-width:480px){
+  nav{grid-template-columns:minmax(0,1fr) auto!important;column-gap:10px!important}
+  nav .navcta,nav>.button{padding:11px 14px!important;font-size:11px!important}
+  .brand-lockup .brand-name{font-size:18px!important;letter-spacing:.07em!important}
+  .brand-lockup .brand-sub{font-size:8px!important;letter-spacing:.12em!important}
+  .navlinks{gap:22px!important}
 }
