@@ -1,0 +1,44 @@
+name: Funnel SEO cleanup
+on:
+  push:
+    paths:
+      - '.github/workflows/funnel-seo-cleanup.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Keep structured data aligned with visible content
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          index=Path('index.html')
+          raw=index.read_text()
+          raw=raw.replace('Confident English for the moments that matter.','British English coaching for the moments that matter.')
+          raw=raw.replace('“The lessons focus on conversations and situations that I actually face at work. I recently used the meeting phrases Jason taught me and felt much more relaxed and confident.”','“What I like the most is that the lessons focus on conversations and situations that I actually face at work. Jason has taught me useful phrases for meetings and I recently used them when I led a meeting in English. I felt much more relaxed and confident than I would have before.”')
+          raw=raw.replace('“He prepares challenging and thought-provoking topics that help me expand my vocabulary, improve my fluency and develop confidence in expressing complex ideas in English.”','“These discussions help me expand my vocabulary, improve my fluency, and develop my confidence in expressing complex ideas in English.”')
+          raw=raw.replace('“His lessons develop from the student\'s actual level, using mistakes as a starting point. I noticed an improvement from the first lesson.”','“I noticed an improvement from the first lesson! I recommend him to anyone looking to build confidence and improve their English skills.”')
+          index.write_text(raw)
+
+          book=Path('book.html')
+          raw=book.read_text()
+          # Remove FAQ structured data because the streamlined booking page no longer displays that FAQ block.
+          raw=re.sub(r'<script type="application/ld\+json">\s*\{\s*"@context":"https://schema\.org",\s*"@type":"FAQPage".*?</script>', '', raw, flags=re.S)
+          book.write_text(raw)
+          PY
+      - name: Commit cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html book.html
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Align funnel copy and structured data"
+            git push
+          fi
