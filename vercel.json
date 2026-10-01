@@ -90,6 +90,36 @@
       "source": "/blog/i-agree-not-i-am-agree.html/",
       "destination": "/blog/i-agree-not-i-am-agree.html",
       "permanent": true
+    },
+    {
+      "source": "/blog/sport-reputation-collocations-natural-english",
+      "destination": "/blog/sport-reputation-collocations-natural-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sport-reputation-collocations-natural-english/",
+      "destination": "/blog/sport-reputation-collocations-natural-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sport-reputation-collocations-natural-english.html/",
+      "destination": "/blog/sport-reputation-collocations-natural-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/teachers-deserve-their-flowers-super-tutor-recognition",
+      "destination": "/blog/teachers-deserve-their-flowers-super-tutor-recognition.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/teachers-deserve-their-flowers-super-tutor-recognition/",
+      "destination": "/blog/teachers-deserve-their-flowers-super-tutor-recognition.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/teachers-deserve-their-flowers-super-tutor-recognition.html/",
+      "destination": "/blog/teachers-deserve-their-flowers-super-tutor-recognition.html",
+      "permanent": true
     }
   ]
 }
