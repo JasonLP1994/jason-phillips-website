@@ -1,0 +1,95 @@
+{
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/business-english-career-expressions",
+      "destination": "/blog/business-english-career-expressions.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/business-english-career-expressions/",
+      "destination": "/blog/business-english-career-expressions.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/business-english-career-expressions.html/",
+      "destination": "/blog/business-english-career-expressions.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/comparatives-superlatives-more-better-more-happier",
+      "destination": "/blog/comparatives-superlatives-more-better-more-happier.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/comparatives-superlatives-more-better-more-happier/",
+      "destination": "/blog/comparatives-superlatives-more-better-more-happier.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/comparatives-superlatives-more-better-more-happier.html/",
+      "destination": "/blog/comparatives-superlatives-more-better-more-happier.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/do-a-job-have-a-job-work-common-mistake",
+      "destination": "/blog/do-a-job-have-a-job-work-common-mistake.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/do-a-job-have-a-job-work-common-mistake/",
+      "destination": "/blog/do-a-job-have-a-job-work-common-mistake.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/do-a-job-have-a-job-work-common-mistake.html/",
+      "destination": "/blog/do-a-job-have-a-job-work-common-mistake.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/english-contractions-sound-more-natural",
+      "destination": "/blog/english-contractions-sound-more-natural.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/english-contractions-sound-more-natural/",
+      "destination": "/blog/english-contractions-sound-more-natural.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/english-contractions-sound-more-natural.html/",
+      "destination": "/blog/english-contractions-sound-more-natural.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/i-agree-not-i-am-agree",
+      "destination": "/blog/i-agree-not-i-am-agree.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/i-agree-not-i-am-agree/",
+      "destination": "/blog/i-agree-not-i-am-agree.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/i-agree-not-i-am-agree.html/",
+      "destination": "/blog/i-agree-not-i-am-agree.html",
+      "permanent": true
+    }
+  ]
+}

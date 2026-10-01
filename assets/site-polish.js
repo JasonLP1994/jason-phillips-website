@@ -1,10 +1,10 @@
 /* Phillips English shared site helpers */
 (function(){
   function loadContrastStyles(){
-    if(document.querySelector('link[href="assets/contrast-fix.css"]')) return;
+    if(document.querySelector('link[href="/assets/contrast-fix.css"]')) return;
     var link=document.createElement('link');
     link.rel='stylesheet';
-    link.href='assets/contrast-fix.css';
+    link.href='/assets/contrast-fix.css';
     document.head.appendChild(link);
   }
 

@@ -2,6 +2,19 @@ name: Content audit
 on:
   push:
     paths:
+      - '**/*.html'
+      - 'assets/**/*.js'
+      - 'sitemap.xml'
+      - 'vercel.json'
+      - 'scripts/check_links.py'
+      - '.github/workflows/content-audit.yml'
+  pull_request:
+    paths:
+      - '**/*.html'
+      - 'assets/**/*.js'
+      - 'sitemap.xml'
+      - 'vercel.json'
+      - 'scripts/check_links.py'
       - '.github/workflows/content-audit.yml'
   workflow_dispatch:
 permissions:
@@ -11,6 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Validate site links and redirects
+        run: python3 scripts/check_links.py
       - name: Audit page structure
         run: |
           python - <<'PY'
