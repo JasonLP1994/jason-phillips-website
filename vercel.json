@@ -2,18 +2,74 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/blog",
-      "destination": "/blog.html",
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "jason-phillips-website.vercel.app"
+        }
+      ],
+      "destination": "https://www.phillipsenglish.com/:path*",
       "permanent": true
     },
     {
-      "source": "/blog/",
-      "destination": "/blog.html",
+      "source": "/index",
+      "destination": "/",
       "permanent": true
     },
     {
-      "source": "/blog.html/",
-      "destination": "/blog.html",
+      "source": "/index/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html",
+      "permanent": true
+    },
+    {
+      "source": "/about/",
+      "destination": "/about.html",
+      "permanent": true
+    },
+    {
+      "source": "/about.html/",
+      "destination": "/about.html",
+      "permanent": true
+    },
+    {
+      "source": "/aviation-english-coaching",
+      "destination": "/aviation-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/aviation-english-coaching/",
+      "destination": "/aviation-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/aviation-english-coaching.html/",
+      "destination": "/aviation-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-in-english-teaching-tool-or-threat",
+      "destination": "/blog/ai-in-english-teaching-tool-or-threat.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-in-english-teaching-tool-or-threat/",
+      "destination": "/blog/ai-in-english-teaching-tool-or-threat.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-in-english-teaching-tool-or-threat.html/",
+      "destination": "/blog/ai-in-english-teaching-tool-or-threat.html",
       "permanent": true
     },
     {
@@ -29,6 +85,21 @@
     {
       "source": "/blog/business-english-career-expressions.html/",
       "destination": "/blog/business-english-career-expressions.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/business-experience-business-english-coaching",
+      "destination": "/blog/business-experience-business-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/business-experience-business-english-coaching/",
+      "destination": "/blog/business-experience-business-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/business-experience-business-english-coaching.html/",
+      "destination": "/blog/business-experience-business-english-coaching.html",
       "permanent": true
     },
     {
@@ -62,6 +133,21 @@
       "permanent": true
     },
     {
+      "source": "/blog/do-graduate-university-commit-crime-collocations",
+      "destination": "/blog/do-graduate-university-commit-crime-collocations.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/do-graduate-university-commit-crime-collocations/",
+      "destination": "/blog/do-graduate-university-commit-crime-collocations.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/do-graduate-university-commit-crime-collocations.html/",
+      "destination": "/blog/do-graduate-university-commit-crime-collocations.html",
+      "permanent": true
+    },
+    {
       "source": "/blog/english-contractions-sound-more-natural",
       "destination": "/blog/english-contractions-sound-more-natural.html",
       "permanent": true
@@ -92,6 +178,81 @@
       "permanent": true
     },
     {
+      "source": "/blog/learning-pronunciation-native-english-teacher",
+      "destination": "/blog/learning-pronunciation-native-english-teacher.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/learning-pronunciation-native-english-teacher/",
+      "destination": "/blog/learning-pronunciation-native-english-teacher.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/learning-pronunciation-native-english-teacher.html/",
+      "destination": "/blog/learning-pronunciation-native-english-teacher.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/patience-consistency-student-self-correction",
+      "destination": "/blog/patience-consistency-student-self-correction.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/patience-consistency-student-self-correction/",
+      "destination": "/blog/patience-consistency-student-self-correction.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/patience-consistency-student-self-correction.html/",
+      "destination": "/blog/patience-consistency-student-self-correction.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/prepare-for-english-interviews-presentations-meetings",
+      "destination": "/blog/prepare-for-english-interviews-presentations-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/prepare-for-english-interviews-presentations-meetings/",
+      "destination": "/blog/prepare-for-english-interviews-presentations-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/prepare-for-english-interviews-presentations-meetings.html/",
+      "destination": "/blog/prepare-for-english-interviews-presentations-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/professional-meeting-presentation-introductions",
+      "destination": "/blog/professional-meeting-presentation-introductions.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/professional-meeting-presentation-introductions/",
+      "destination": "/blog/professional-meeting-presentation-introductions.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/professional-meeting-presentation-introductions.html/",
+      "destination": "/blog/professional-meeting-presentation-introductions.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/speak-confidently-english-meetings",
+      "destination": "/blog/speak-confidently-english-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/speak-confidently-english-meetings/",
+      "destination": "/blog/speak-confidently-english-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/speak-confidently-english-meetings.html/",
+      "destination": "/blog/speak-confidently-english-meetings.html",
+      "permanent": true
+    },
+    {
       "source": "/blog/sport-reputation-collocations-natural-english",
       "destination": "/blog/sport-reputation-collocations-natural-english.html",
       "permanent": true
@@ -119,6 +280,381 @@
     {
       "source": "/blog/teachers-deserve-their-flowers-super-tutor-recognition.html/",
       "destination": "/blog/teachers-deserve-their-flowers-super-tutor-recognition.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/teaching-young-learners-engagement-and-progress",
+      "destination": "/blog/teaching-young-learners-engagement-and-progress.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/teaching-young-learners-engagement-and-progress/",
+      "destination": "/blog/teaching-young-learners-engagement-and-progress.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/teaching-young-learners-engagement-and-progress.html/",
+      "destination": "/blog/teaching-young-learners-engagement-and-progress.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/book",
+      "destination": "/book.html",
+      "permanent": true
+    },
+    {
+      "source": "/book/",
+      "destination": "/book.html",
+      "permanent": true
+    },
+    {
+      "source": "/book.html/",
+      "destination": "/book.html",
+      "permanent": true
+    },
+    {
+      "source": "/british-english-pronunciation-guide",
+      "destination": "/british-english-pronunciation-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/british-english-pronunciation-guide/",
+      "destination": "/british-english-pronunciation-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/british-english-pronunciation-guide.html/",
+      "destination": "/british-english-pronunciation-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/british-english-pronunciation-mistakes",
+      "destination": "/british-english-pronunciation-mistakes.html",
+      "permanent": true
+    },
+    {
+      "source": "/british-english-pronunciation-mistakes/",
+      "destination": "/british-english-pronunciation-mistakes.html",
+      "permanent": true
+    },
+    {
+      "source": "/british-english-pronunciation-mistakes.html/",
+      "destination": "/british-english-pronunciation-mistakes.html",
+      "permanent": true
+    },
+    {
+      "source": "/business-english-coaching",
+      "destination": "/business-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/business-english-coaching/",
+      "destination": "/business-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/business-english-coaching.html/",
+      "destination": "/business-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/business-english-meetings",
+      "destination": "/business-english-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/business-english-meetings/",
+      "destination": "/business-english-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/business-english-meetings.html/",
+      "destination": "/business-english-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/business-english-vocabulary-meetings",
+      "destination": "/business-english-vocabulary-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/business-english-vocabulary-meetings/",
+      "destination": "/business-english-vocabulary-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/business-english-vocabulary-meetings.html/",
+      "destination": "/business-english-vocabulary-meetings.html",
+      "permanent": true
+    },
+    {
+      "source": "/cancellation",
+      "destination": "/cancellation.html",
+      "permanent": true
+    },
+    {
+      "source": "/cancellation/",
+      "destination": "/cancellation.html",
+      "permanent": true
+    },
+    {
+      "source": "/cancellation.html/",
+      "destination": "/cancellation.html",
+      "permanent": true
+    },
+    {
+      "source": "/coaching",
+      "destination": "/coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/coaching/",
+      "destination": "/coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/coaching.html/",
+      "destination": "/coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact/",
+      "destination": "/contact.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html/",
+      "destination": "/contact.html",
+      "permanent": true
+    },
+    {
+      "source": "/english-job-interview-questions-answers",
+      "destination": "/english-job-interview-questions-answers.html",
+      "permanent": true
+    },
+    {
+      "source": "/english-job-interview-questions-answers/",
+      "destination": "/english-job-interview-questions-answers.html",
+      "permanent": true
+    },
+    {
+      "source": "/english-job-interview-questions-answers.html/",
+      "destination": "/english-job-interview-questions-answers.html",
+      "permanent": true
+    },
+    {
+      "source": "/english-presentation-phrases",
+      "destination": "/english-presentation-phrases.html",
+      "permanent": true
+    },
+    {
+      "source": "/english-presentation-phrases/",
+      "destination": "/english-presentation-phrases.html",
+      "permanent": true
+    },
+    {
+      "source": "/english-presentation-phrases.html/",
+      "destination": "/english-presentation-phrases.html",
+      "permanent": true
+    },
+    {
+      "source": "/group-coaching",
+      "destination": "/group-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/group-coaching/",
+      "destination": "/group-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/group-coaching.html/",
+      "destination": "/group-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/guides",
+      "destination": "/guides.html",
+      "permanent": true
+    },
+    {
+      "source": "/guides/",
+      "destination": "/guides.html",
+      "permanent": true
+    },
+    {
+      "source": "/guides.html/",
+      "destination": "/guides.html",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-sound-more-professional-in-english",
+      "destination": "/how-to-sound-more-professional-in-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-sound-more-professional-in-english/",
+      "destination": "/how-to-sound-more-professional-in-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-sound-more-professional-in-english.html/",
+      "destination": "/how-to-sound-more-professional-in-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-coaching",
+      "destination": "/ielts-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-coaching/",
+      "destination": "/ielts-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-coaching.html/",
+      "destination": "/ielts-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-fluency",
+      "destination": "/ielts-speaking-fluency.html",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-fluency/",
+      "destination": "/ielts-speaking-fluency.html",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-fluency.html/",
+      "destination": "/ielts-speaking-fluency.html",
+      "permanent": true
+    },
+    {
+      "source": "/improve-ielts-speaking-6-5-to-7",
+      "destination": "/improve-ielts-speaking-6-5-to-7.html",
+      "permanent": true
+    },
+    {
+      "source": "/improve-ielts-speaking-6-5-to-7/",
+      "destination": "/improve-ielts-speaking-6-5-to-7.html",
+      "permanent": true
+    },
+    {
+      "source": "/improve-ielts-speaking-6-5-to-7.html/",
+      "destination": "/improve-ielts-speaking-6-5-to-7.html",
+      "permanent": true
+    },
+    {
+      "source": "/interview-presentation-english",
+      "destination": "/interview-presentation-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/interview-presentation-english/",
+      "destination": "/interview-presentation-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/interview-presentation-english.html/",
+      "destination": "/interview-presentation-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html",
+      "permanent": true
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/privacy.html",
+      "permanent": true
+    },
+    {
+      "source": "/privacy.html/",
+      "destination": "/privacy.html",
+      "permanent": true
+    },
+    {
+      "source": "/pronunciation-fluency-coaching",
+      "destination": "/pronunciation-fluency-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/pronunciation-fluency-coaching/",
+      "destination": "/pronunciation-fluency-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/pronunciation-fluency-coaching.html/",
+      "destination": "/pronunciation-fluency-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/results",
+      "destination": "/results.html",
+      "permanent": true
+    },
+    {
+      "source": "/results/",
+      "destination": "/results.html",
+      "permanent": true
+    },
+    {
+      "source": "/results.html/",
+      "destination": "/results.html",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html",
+      "permanent": true
+    },
+    {
+      "source": "/terms/",
+      "destination": "/terms.html",
+      "permanent": true
+    },
+    {
+      "source": "/terms.html/",
+      "destination": "/terms.html",
+      "permanent": true
+    },
+    {
+      "source": "/work-with-me",
+      "destination": "/work-with-me.html",
+      "permanent": true
+    },
+    {
+      "source": "/work-with-me/",
+      "destination": "/work-with-me.html",
+      "permanent": true
+    },
+    {
+      "source": "/work-with-me.html/",
+      "destination": "/work-with-me.html",
       "permanent": true
     }
   ]
