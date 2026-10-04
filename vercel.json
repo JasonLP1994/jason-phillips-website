@@ -667,6 +667,21 @@
       "source": "/work-with-me.html/",
       "destination": "/work-with-me.html",
       "permanent": true
+    },
+    {
+      "source": "/blog/ed-endings-pronunciation-t-d-id",
+      "destination": "/blog/ed-endings-pronunciation-t-d-id.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ed-endings-pronunciation-t-d-id/",
+      "destination": "/blog/ed-endings-pronunciation-t-d-id.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ed-endings-pronunciation-t-d-id.html/",
+      "destination": "/blog/ed-endings-pronunciation-t-d-id.html",
+      "permanent": true
     }
   ]
 }
