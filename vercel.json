@@ -2,6 +2,17 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "jason-phillips-website.vercel.app"
+        }
+      ],
+      "destination": "https://www.phillipsenglish.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
