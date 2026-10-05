@@ -1,0 +1,13 @@
+{
+  "name": "phillips-english",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "24.x" },
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "test": "node --test tests/lms.test.mjs",
+    "verify:lms": "node scripts/verify-lms.mjs"
+  },
+  "dependencies": { "@supabase/supabase-js": "2.117.2" }
+}

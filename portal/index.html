@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#071521">
+  <title>Your learning space | Phillips English</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/portal/portal.css">
+  <script src="/portal/portal.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div id="auth-screen" class="auth-layout">
+    <aside class="auth-story" aria-label="Phillips English learning space">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true">P<span>E</span></span><span>PHILLIPS ENGLISH<small>YOUR LEARNING SPACE</small></span></a>
+      <div class="story-copy"><p class="eyebrow">SMALL STEPS. REAL PROGRESS.</p><h1>Keep your<br>English moving.</h1><p>Your lessons don’t stop when the call ends. Keep your feedback, next steps and achievements together.</p></div>
+      <ol class="journey"><li><span>01</span><div><strong>Notice the small wins.</strong><p>See what’s improving in your lessons.</p></div></li><li><span>02</span><div><strong>Know what to practise.</strong><p>Return to useful corrections and clear next steps.</p></div></li><li><span>03</span><div><strong>See how far you’ve come.</strong><p>Follow your goals and progress over time.</p></div></li></ol>
+      <p class="story-footer">Personal coaching. Progress you can come back to.</p>
+    </aside>
+    <main class="auth-main" id="main-content">
+      <div class="auth-card"><p class="eyebrow">WELCOME BACK</p><h2>Let’s pick up<br>where we left off.</h2><p class="muted">Sign in to your Phillips English account.</p>
+        <p id="auth-message" class="message" role="status" aria-live="polite" hidden></p>
+        <form id="sign-in-form">
+          <label for="sign-in-email">Email address</label><input id="sign-in-email" name="email" type="email" autocomplete="username" maxlength="254" required>
+          <label for="sign-in-password">Password</label><input id="sign-in-password" name="password" type="password" autocomplete="current-password" maxlength="128" required>
+          <button class="button primary full" type="submit">Sign in <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="help-note">New here? Use the private invitation link Jason shared with you.</p>
+        <details class="help-details"><summary>Forgot your password?</summary><p>Ask Jason for a fresh access link. You can choose a new password when you open it.</p><a href="mailto:hello@phillipsenglish.com?subject=Student%20portal%20access">Contact Jason</a></details>
+        <details class="help-details" id="teacher-setup"><summary>Teacher account setup</summary><p>For Jason’s first sign-in. Confirm your account email to activate your teaching workspace.</p><form id="teacher-setup-form"><label for="setup-email">Teacher email address</label><input id="setup-email" name="email" type="email" autocomplete="username" required maxlength="254"><label for="setup-password">Choose a password</label><input id="setup-password" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required><p class="field-note">Use at least 12 characters.</p><button class="button secondary" type="submit">Send account confirmation</button></form></details>
+        <div class="auth-links"><a href="/">Back to Phillips English</a><a href="/privacy.html">Privacy</a></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="workspace" class="workspace" hidden>
+    <aside class="sidebar">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true">P<span>E</span></span><span>PHILLIPS ENGLISH<small>YOUR LEARNING SPACE</small></span></a>
+      <p id="workspace-role" class="workspace-label">Student portal</p>
+      <nav class="portal-nav" aria-label="Learning space"><button type="button" data-view="overview" aria-pressed="true"><span aria-hidden="true">◫</span>Overview</button><button type="button" data-view="feedback" aria-pressed="false"><span aria-hidden="true">☰</span>Lesson feedback</button><button type="button" data-view="goals" aria-pressed="false"><span aria-hidden="true">◎</span>My goals</button><button type="button" data-view="progress" aria-pressed="false"><span aria-hidden="true">↗</span>My progress</button></nav>
+      <div class="sidebar-bottom"><p>A little practice.<br>A little patience.<br>A lot to look forward to.</p><a href="/contact.html">Need a hand?</a><a href="/privacy.html">Privacy</a></div>
+    </aside>
+    <div class="workspace-body">
+      <header class="topbar"><span id="account-name"></span><div><button type="button" class="text-button" id="account-settings">Password</button><button type="button" class="text-button" id="sign-out">Sign out</button></div></header>
+      <main id="learning-main" class="learning-main" tabindex="-1">
+        <p id="workspace-message" class="message" role="status" aria-live="polite" hidden></p>
+        <section class="page-heading"><div><p class="eyebrow" id="heading-kicker">YOUR LEARNING SPACE</p><h1 id="page-title">Your English, moving forward.</h1><p class="muted" id="page-intro">A clear next step makes all the difference.</p></div><span class="private-badge"><span aria-hidden="true">●</span> Private workspace</span></section>
+        <div class="teacher-tools" id="teacher-tools" hidden><div><label for="student-select">Student</label><select id="student-select"><option value="">Select a student</option></select></div><button type="button" id="add-student" class="button primary">Add student <span aria-hidden="true">+</span></button></div>
+        <div class="stats" id="stats"></div>
+        <section class="view" id="view-overview" aria-label="Overview">
+          <div class="overview-grid"><section class="panel"><div class="panel-heading"><h2>Latest lesson</h2><button type="button" class="text-button" data-view="feedback">All feedback <span aria-hidden="true">→</span></button></div><div id="latest-lesson"></div></section><section class="panel"><div class="panel-heading"><h2>What’s next?</h2><button type="button" class="text-button" data-view="goals">All goals <span aria-hidden="true">→</span></button></div><div id="overview-goals"></div></section></div>
+          <section class="progress-callout"><div><p class="eyebrow">THE BIGGER PICTURE</p><h2>Progress isn’t always loud.<br>Sometimes you just catch your own mistake.</h2><p>Look back at your skill check-ins and the goals you’ve reached.</p></div><button type="button" class="button light" data-view="progress">See my progress <span aria-hidden="true">→</span></button></section>
+        </section>
+        <section class="view" id="view-feedback" aria-label="Lesson feedback" hidden><div class="section-heading"><div><h2>Lesson feedback</h2><p class="muted">Useful corrections. Clear next steps. Ready when you need them.</p></div><button type="button" class="button primary teacher-action" id="add-feedback" hidden>Add feedback <span aria-hidden="true">+</span></button></div><div id="feedback-list"></div><button type="button" class="button secondary" id="load-feedback" hidden>Load earlier feedback</button></section>
+        <section class="view" id="view-goals" aria-label="Goals" hidden><div class="section-heading"><div><h2>Goals worth working towards</h2><p class="muted">A meeting, a presentation or simply finding the right words.</p></div><button type="button" class="button primary teacher-action" id="add-goal" hidden>Add goal <span aria-hidden="true">+</span></button></div><div class="goals-grid" id="goals-list"></div></section>
+        <section class="view" id="view-progress" aria-label="Skill progress" hidden><div class="section-heading"><div><h2>See how far you’ve come</h2><p class="muted">Teacher observations from your lessons, using a support scale from 1 to 5.</p></div><button type="button" class="button primary teacher-action" id="add-assessment" hidden>Add skill check-in <span aria-hidden="true">+</span></button></div><div class="skills-grid" id="skills-grid"></div><details class="rubric"><summary>What do the levels mean?</summary><ol><li>Needs close guidance</li><li>Frequent prompts</li><li>Occasional prompts</li><li>Mostly independent</li><li>Independent and consistent</li></ol><p>These describe the support needed in lessons. They are not IELTS scores, CEFR levels or examination grades.</p></details><section class="panel assessment-panel"><h2>Your check-ins</h2><div id="assessment-history"></div></section></section>
+      </main>
+      <footer class="portal-footer">PHILLIPS ENGLISH <span>Personal coaching. One useful step at a time.</span><a href="/">Website</a></footer>
+    </div>
+  </div>
+  <dialog id="editor-dialog" aria-labelledby="dialog-title"><div class="dialog-heading"><div><p class="eyebrow" id="dialog-kicker">PHILLIPS ENGLISH</p><h2 id="dialog-title"></h2></div><button type="button" class="close-button" id="close-dialog" aria-label="Close">×</button></div><p id="dialog-message" class="message" role="status" aria-live="polite" hidden></p><div id="dialog-content"></div></dialog>
+</body>
+</html>

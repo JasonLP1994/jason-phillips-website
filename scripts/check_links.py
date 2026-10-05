@@ -9,6 +9,9 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = "https://www.phillipsenglish.com/"
 errors = []
+config = json.loads((ROOT / "vercel.json").read_text())
+rewrites = {rule["source"]: rule["destination"] for rule in config.get("rewrites", [])
+            if ":" not in rule["source"]}
 
 class Page(HTMLParser):
     def __init__(self):
@@ -27,7 +30,7 @@ class Page(HTMLParser):
 
 pages = {}
 for path in ROOT.rglob("*.html"):
-    if any(part in (".git", "node_modules") for part in path.relative_to(ROOT).parts):
+    if any(part in (".git", "node_modules", "dist") for part in path.relative_to(ROOT).parts):
         continue
     page = Page()
     page.feed(path.read_text(encoding="utf-8"))
@@ -37,8 +40,11 @@ def check(value, source, line=0, fragments=True):
     url = urlsplit(urljoin(ORIGIN + source, value))
     if url.scheme not in ("http", "https") or url.hostname not in ("www.phillipsenglish.com", "phillipsenglish.com"):
         return
-    target = unquote(url.path).lstrip("/") or "index.html"
+    target = unquote(rewrites.get(url.path, url.path)).lstrip("/") or "index.html"
     path = (ROOT / target).resolve()
+    if path.is_dir():
+        target = (Path(target) / "index.html").as_posix()
+        path = (path / "index.html").resolve()
     if not path.is_relative_to(ROOT) or not path.is_file():
         errors.append(f"{source}:{line}: missing target {value}")
     elif fragments and url.fragment and target in pages and unquote(url.fragment) not in pages[target].ids:
@@ -53,12 +59,13 @@ for source, page in pages.items():
 for loc in ET.parse(ROOT / "sitemap.xml").iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc"):
     check(loc.text or "", "sitemap.xml", fragments=False)
 
-config = json.loads((ROOT / "vercel.json").read_text())
-redirects = {rule["source"]: rule for rule in config["redirects"]}
+redirects = {rule["source"]: rule for rule in config["redirects"]
+             if not rule.get("has") and not rule.get("missing")}
 for source, rule in redirects.items():
     if source == rule["destination"] or rule["destination"] in redirects:
         errors.append(f"vercel.json: redirect loop or chain from {source}")
-    check(rule["destination"], "vercel.json", fragments=False)
+    if ":" not in urlsplit(rule["destination"]).path:
+        check(rule["destination"], "vercel.json", fragments=False)
 for target in ["blog.html"] + sorted(p for p in pages if p.startswith("blog/")):
     for source in ("/" + target[:-5], "/" + target[:-5] + "/", "/" + target + "/"):
         if redirects.get(source, {}).get("destination") != "/" + target:
