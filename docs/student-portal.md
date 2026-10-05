@@ -19,9 +19,12 @@ execution does not update the Supabase CLI migration-history table. Before a
 future CLI migration, verify this schema and baseline that migration as applied;
 do not run its table-creation statements a second time on this database.
 
-This change is prepared for review on a separate branch. No teacher or student
-accounts have been created by this setup, and the portal has not been launched.
-The privileged teacher email and live verification need explicit confirmation.
+The portal launched on 5 October 2026 at `https://www.phillipsenglish.com/portal`.
+The owner approved the fixed teacher email and one-time live verification.
+The live checks passed, and their temporary accounts and records were removed.
+`LMS_VERIFY_ON_BUILD` is now `0`, so future builds do not create test accounts.
+No real teacher or student account was created automatically. Jason completes
+Teacher account setup by choosing his own password and confirming his email.
 
 ## Application configuration
 
@@ -67,19 +70,25 @@ with real empty states and displays only saved records.
 
 Local checks pass: `npm test` (six tests), `npm run build`,
 `python scripts/check_links.py`, JavaScript syntax checks and `git diff --check`.
-Supabase's refreshed security advisor reports no errors or warnings. Performance
-advice currently contains only seven unused-index suggestions on the new tables;
+Supabase's initial refreshed security advisor reported no errors or warnings.
+Its initial performance advice contained seven unused-index suggestions;
 the ownership and feedback indexes are retained for their intended queries.
 
-Live sign-in and cross-account access have not been tested yet. The optional
-`scripts/verify-lms.mjs` runs only with the private Vercel environment. It creates
+The Production launch build passed live sign-in, invitation verification,
+password activation, feedback, goals, progress, cross-student and cross-teacher
+denial, blocked role escalation and protected cookie checks. Its log confirmed
+cleanup of the synthetic accounts and their records. Deployed HTTP checks also
+confirmed the portal and website load, signed-out sessions return no user, and
+the dashboard rejects signed-out access with HTTP 401. Portal responses are
+private, uncached and excluded from search indexing.
+
+The optional `scripts/verify-lms.mjs` runs only with the private Vercel
+environment. It creates
 temporary synthetic accounts under `example.invalid`, exercises sign-in,
 invitation activation, feedback, goals, progress and cross-account denial, then
 removes only that run's temporary accounts and associated records. It sends no
 emails and does not export credentials, tokens or learner records.
 
-Do not enable this workflow until the owner explicitly approves its Production
-side effects. Once approved, enable it for the launch build, inspect the pass
+Do not re-enable this workflow without approval for its Production side effects.
+For an approved future verification, enable it for one build, inspect the pass
 and cleanup results, then disable it so ordinary builds do not create accounts.
-Before announcing the LMS as working, complete the live checks and verify the
-deployed sign-in page, protected API, owner setup and student workflow.

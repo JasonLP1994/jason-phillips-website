@@ -55,6 +55,7 @@
     const students = data.students || [];
     $('auth-screen').hidden = true;
     $('workspace').hidden = false;
+    document.querySelector('.skip-link').setAttribute('href','#learning-main');
     $('workspace-role').textContent = teacher() ? 'Teaching workspace' : 'Student portal';
     $('account-name').textContent = user.name;
     $('heading-kicker').textContent = teacher() ? 'TEACHING WORKSPACE' : 'YOUR LEARNING SPACE';
@@ -109,6 +110,7 @@
     invitationLink = null;
     $('workspace').hidden = true;
     $('auth-screen').hidden = false;
+    document.querySelector('.skip-link').setAttribute('href','#main-content');
     if ($('editor-dialog').open) $('editor-dialog').close();
     $('sign-in-password').value = '';
     $('account-name').textContent = '';
