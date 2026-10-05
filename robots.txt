@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /portal
+Disallow: /api/learning
 
 Sitemap: https://www.phillipsenglish.com/sitemap.xml
