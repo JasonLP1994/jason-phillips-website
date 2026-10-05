@@ -11,6 +11,7 @@
   const fileAccept = '.pdf,.docx,.txt,.jpg,.jpeg,.png,.webp,.mp3,.m4a';
   const storageOrigin = 'https://xfjhfieqvzlxinstnzxu.supabase.co';
   const fileDeadline = value => new Intl.DateTimeFormat('en-GB', {dateStyle:'medium',timeStyle:'short'}).format(new Date(value));
+  const fileSize = bytes => bytes < 1024 ? `${bytes} bytes` : bytes < 1024 * 1024 ? `${Math.ceil(bytes / 1024)} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
   let data = null;
   let activeView = 'overview';
   let loadSerial = 0;
@@ -55,7 +56,7 @@
   function homeworkLessons() { return (data.lessons || []).filter(l => l.next_steps || lessonFiles(l).length || homeworkDone(l)); }
   function fileList(files, title) {
     if (!files.length) return '';
-    return `<div class="homework-files"><h4>${title}</h4>${files.map(f => `<div class="homework-file"><div><strong>${escape(f.filename)}</strong><p>${(f.size_bytes / 1024 / 1024).toFixed(1)} MB · Download until ${escape(fileDeadline(f.expires_at))}</p></div><button type="button" class="button secondary" data-download-homework="${escape(f.id)}" aria-label="Download ${escape(f.filename)}">Download</button></div>`).join('')}</div>`;
+    return `<div class="homework-files"><h4>${title}</h4>${files.map(f => `<div class="homework-file"><div><strong>${escape(f.filename)}</strong><p>${fileSize(f.size_bytes)} · Download until ${escape(fileDeadline(f.expires_at))}</p></div><button type="button" class="button secondary" data-download-homework="${escape(f.id)}" aria-label="Download ${escape(f.filename)}">Download</button></div>`).join('')}</div>`;
   }
   function renderHomework() {
     const lessons = data.lessons || [];
