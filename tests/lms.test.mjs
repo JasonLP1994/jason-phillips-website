@@ -46,7 +46,11 @@ test('feedback validation preserves examples but caps oversized content and corr
   assert.deepEqual(lessonFields(valid).corrections,valid.corrections);
   assert.throws(() => lessonFields({ ...valid,title:'x'.repeat(161) }),/lesson title/);
   assert.throws(() => lessonFields({ ...valid,corrections:Array(13).fill(valid.corrections[0]) }),/12 corrections/);
-  assert.throws(() => lessonFields({ ...valid,strengths:'' }),/what went well/);
+  assert.throws(() => lessonFields({ ...valid,strengths:'' }),/strengths/);
+  assert.throws(() => lessonFields({ ...valid,focus:'' }),/weaknesses/);
+  assert.equal(lessonFields({ ...valid,next_steps:'' }).next_steps,'');
+  assert.equal(lessonFields({ ...valid,homework_due_date:'2026-10-12' }).homework_due_date,'2026-10-12');
+  assert.throws(() => lessonFields({ ...valid,homework_due_date:'2026-02-31' }),/valid date/);
 });
 test('dates and cookies handle invalid input without changing identity', () => {
   assert.throws(() => dateField('2026-02-31'),/valid date/);

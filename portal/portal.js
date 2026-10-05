@@ -7,12 +7,17 @@
   const levels = ['','Needs close guidance','Frequent prompts','Occasional prompts','Mostly independent','Independent and consistent'];
   const skills = { pronunciation:'Pronunciation', fluency:'Fluency', accuracy:'Accuracy', vocabulary:'Vocabulary' };
   const statuses = { not_started:'Not started', in_progress:'In progress', achieved:'Achieved' };
+  const fileTypes = {pdf:'application/pdf',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',txt:'text/plain',jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',webp:'image/webp',mp3:'audio/mpeg',m4a:'audio/mp4'};
+  const fileAccept = '.pdf,.docx,.txt,.jpg,.jpeg,.png,.webp,.mp3,.m4a';
+  const storageOrigin = 'https://xfjhfieqvzlxinstnzxu.supabase.co';
+  const fileDeadline = value => new Intl.DateTimeFormat('en-GB', {dateStyle:'medium',timeStyle:'short'}).format(new Date(value));
   let data = null;
   let activeView = 'overview';
   let loadSerial = 0;
   let editorKind = null;
   let editorItem = null;
   let invitationLink = null;
+  let feedbackSearch = '';
   const teacher = () => data?.user?.role === 'teacher';
 
   function message(id, value, success = false) {
@@ -41,8 +46,38 @@
   function badge(goal) { return `<span class="badge ${escape(goal.status)}">${escape(statuses[goal.status] || goal.status)}</span>`; }
   function lessonHtml(lesson, full = false) {
     if (!lesson) return empty('Your next useful step starts here.', teacher() ? 'Add lesson feedback to give this student something clear to practise.' : 'After your lesson, Jason will add feedback and a few useful next steps here.');
-    const corrections = full && lesson.corrections?.length ? `<div class="corrections"><h4>Words worth coming back to</h4>${lesson.corrections.map(c => `<div class="correction"><p class="original">You said: ${escape(c.original)}</p><p class="corrected">Try: ${escape(c.corrected)}</p>${c.explanation ? `<p class="why">${escape(c.explanation)}</p>` : ''}</div>`).join('')}</div>` : '';
-    return `<p class="lesson-date">${date(lesson.lesson_date)}</p><h3 class="lesson-title">${escape(lesson.title)}</h3><div class="lesson-section"><h4>What went well</h4><p>${escape(lesson.strengths)}</p></div><div class="lesson-section"><h4>Our next focus</h4><p>${escape(lesson.focus)}</p></div><div class="lesson-section practice"><h4>Before next time</h4><p>${escape(lesson.next_steps)}</p></div>${corrections}${teacher() ? `<div class="lesson-actions"><button class="text-button" type="button" data-edit-lesson="${escape(lesson.id)}">Edit feedback</button></div>` : ''}`;
+    const corrections = lesson.corrections?.length ? lesson.corrections.map(c => `<div class="correction"><p class="original">You said: ${escape(c.original)}</p><p class="corrected">Try: ${escape(c.corrected)}</p>${c.explanation ? `<p class="why">${escape(c.explanation)}</p>` : ''}</div>`).join('') : '<p>No corrections recorded for this lesson.</p>';
+    return `<p class="lesson-date">${date(lesson.lesson_date)}</p><h3 class="lesson-title">${escape(lesson.title)}</h3><div class="feedback-boxes ${full ? '' : 'compact'}"><section class="feedback-box strengths-box"><h4>Strengths</h4><p>${escape(lesson.strengths)}</p></section><section class="feedback-box weaknesses-box"><h4>Weaknesses</h4><p>${escape(lesson.focus)}</p></section><section class="feedback-box corrections-box"><h4>Corrections</h4>${corrections}</section></div><div class="lesson-actions">${teacher() ? `<button class="text-button" type="button" data-edit-lesson="${escape(lesson.id)}">Edit feedback</button>` : ''}<button class="text-button" type="button" data-open-homework="${escape(lesson.id)}">Open homework</button></div>`;
+  }
+
+  function homeworkDone(lesson) { return data.homeworkProgress?.some(p => p.lesson_id === lesson.id && p.completed_at); }
+  function lessonFiles(lesson) { return (data.homeworkFiles || []).filter(f => f.lesson_id === lesson.id && Date.parse(f.expires_at) > Date.now()); }
+  function homeworkLessons() { return (data.lessons || []).filter(l => l.next_steps || lessonFiles(l).length || homeworkDone(l)); }
+  function fileList(files, title) {
+    if (!files.length) return '';
+    return `<div class="homework-files"><h4>${title}</h4>${files.map(f => `<div class="homework-file"><div><strong>${escape(f.filename)}</strong><p>${(f.size_bytes / 1024 / 1024).toFixed(1)} MB · Download until ${escape(fileDeadline(f.expires_at))}</p></div><button type="button" class="button secondary" data-download-homework="${escape(f.id)}" aria-label="Download ${escape(f.filename)}">Download</button></div>`).join('')}</div>`;
+  }
+  function renderHomework() {
+    const lessons = data.lessons || [];
+    $('homework-list').innerHTML = lessons.length ? lessons.map(l => {
+      const files = lessonFiles(l);
+      const done = homeworkDone(l);
+      const overdue = l.homework_due_date && l.homework_due_date < today() && !done;
+      return `<article class="homework-card" id="homework-${escape(l.id)}"><div class="homework-heading"><div><p class="lesson-date">${date(l.lesson_date)}</p><h3>${escape(l.title)}</h3></div><span class="badge ${done ? 'achieved' : overdue ? 'overdue' : ''}">${done ? 'Completed' : overdue ? 'To catch up on' : 'To practise'}</span></div>${l.next_steps ? `<p class="homework-instructions">${escape(l.next_steps)}</p>` : '<p class="muted">No written task for this lesson. Add a file or agree a useful practice task with Jason.</p>'}${l.homework_due_date ? `<p class="goal-date">Aim to finish by ${date(l.homework_due_date)}</p>` : ''}${fileList(files.filter(f => f.kind === 'resource'),'Lesson files')}${fileList(files.filter(f => f.kind === 'submission'),teacher() ? 'Completed work from your student' : 'Your uploaded work')}<form class="homework-upload" data-homework-form="${escape(l.id)}"><label for="homework-file-${escape(l.id)}">${teacher() ? 'Upload homework or a marked copy' : 'Upload your completed work'}</label><div class="homework-upload-row"><input type="file" id="homework-file-${escape(l.id)}" accept="${fileAccept}" required><button type="submit" class="button secondary">Upload file</button></div><p class="field-note">PDF, Word, text, images or audio. Up to 10 MB per file, six files per lesson.</p><p class="upload-status" role="status" aria-live="polite"></p></form><div class="homework-actions"><button type="button" class="text-button" data-complete-homework="${escape(l.id)}" data-completed="${done ? 'true' : 'false'}">${done ? 'Mark as still practising' : 'Mark as completed'}</button><button type="button" class="text-button" data-view="feedback">View lesson feedback</button></div></article>`;
+    }).join('') : `<div class="panel">${empty('Your next bit of practice starts here.', teacher() ? 'Add lesson feedback first. You can then attach homework to that lesson.' : 'Jason will add a task and any useful files after your lesson.')}</div>`;
+    $('load-homework').hidden = lessons.length >= (data.lessonCount || 0);
+  }
+  function renderFeedback() {
+    const lessons = data.lessons || [];
+    const query = feedbackSearch.trim().toLowerCase();
+    const shown = lessons.filter(l => `${l.title} ${l.lesson_date} ${date(l.lesson_date)}`.toLowerCase().includes(query));
+    $('feedback-list').innerHTML = shown.length ? shown.map(l => `<article class="feedback-card">${lessonHtml(l,true)}</article>`).join('') : `<div class="panel">${empty(query ? 'No matching lessons in this list.' : 'The first page of your progress.', query ? 'Try a different title or date, or load earlier lessons below.' : teacher() ? 'Add feedback after a lesson. This student will see it when they sign in.' : 'Jason will add your feedback after a lesson. You can return to it whenever you practise.')}</div>`;
+    $('feedback-search-note').textContent = `Searching ${lessons.length} of ${data.lessonCount || 0} lessons. Load earlier feedback to search more.`;
+  }
+  function renderNextTask() {
+    const next = homeworkLessons().filter(l => !homeworkDone(l)).sort((a,b) => (a.homework_due_date || '9999').localeCompare(b.homework_due_date || '9999'))[0];
+    const heading = teacher() ? 'The next useful step.' : 'Your next step.';
+    $('next-task').innerHTML = next ? `<div><p class="eyebrow">${heading}</p><h2>${escape(next.title)}</h2><p>${escape(next.next_steps || 'Download the lesson files and work through the practice task.')}</p>${next.homework_due_date ? `<small>Aim for ${date(next.homework_due_date)}</small>` : ''}</div><button type="button" class="button primary" data-open-homework="${escape(next.id)}">Open homework</button>` : `<div><p class="eyebrow">${heading}</p><h2>${data.lessons?.length ? 'Ready to revisit your latest lesson?' : teacher() ? 'Add the first lesson.' : 'Ready when you are.'}</h2><p>${data.lessons?.length ? 'Look back at the strengths, weaknesses and corrections, then try one sentence again.' : teacher() ? 'Start with strengths, weaknesses and a few useful corrections.' : 'After your first lesson, your feedback and next task will appear here.'}</p></div>${data.lessons?.length ? '<button type="button" class="button primary" data-view="feedback">Read feedback</button>' : ''}`;
   }
   function goalHtml(goal, preview = false) {
     return `<article class="${preview ? 'goal-preview' : 'goal-card'}">${badge(goal)}<h3>${escape(goal.title)}</h3><p class="goal-date">${goal.due_date ? `Working towards ${date(goal.due_date)}` : 'One useful step at a time.'}</p>${teacher() && !preview ? `<button class="text-button" type="button" data-edit-goal="${escape(goal.id)}">Update goal</button>` : ''}</article>`;
@@ -74,7 +109,9 @@
     $('latest-lesson').innerHTML = lessonHtml(lessons[0]);
     const currentGoals = goals.filter(g => g.status !== 'achieved').slice(0,3);
     $('overview-goals').innerHTML = currentGoals.length ? currentGoals.map(g => goalHtml(g,true)).join('') : empty(goals.length ? 'Time for the next challenge.' : 'Let’s choose a useful goal.', goals.length ? 'Your recorded goals are achieved. Talk with Jason about what comes next.' : 'A clear goal helps you turn practice into something that matters to you.');
-    $('feedback-list').innerHTML = lessons.length ? lessons.map(l => `<article class="feedback-card">${lessonHtml(l,true)}</article>`).join('') : `<div class="panel">${empty('The first page of your progress.', teacher() ? 'Add feedback after a lesson. This student will see it when they sign in.' : 'Jason will add your feedback after a lesson. You can return to it whenever you practise.')}</div>`;
+    renderFeedback();
+    renderHomework();
+    renderNextTask();
     $('load-feedback').hidden = lessons.length >= (data.lessonCount || 0);
     $('goals-list').innerHTML = goals.length ? goals.map(g => goalHtml(g)).join('') : `<div class="panel">${empty('What would you like to do with your English?', teacher() ? 'Add a specific goal you can work towards together.' : 'Talk with Jason about your next goal. It will appear here once you’ve agreed it.')}</div>`;
     $('skills-grid').innerHTML = Object.entries(skills).map(([key,label]) => {
@@ -99,7 +136,7 @@
     render();
   }
   function showView(view, focus = false) {
-    if (!['overview','feedback','goals','progress'].includes(view)) return;
+    if (!['overview','feedback','homework','goals','progress'].includes(view)) return;
     activeView = view;
     document.querySelectorAll('.view').forEach(node => { node.hidden = node.id !== `view-${view}`; });
     document.querySelectorAll('.portal-nav [data-view]').forEach(node => node.setAttribute('aria-pressed', String(node.dataset.view === view)));
@@ -108,6 +145,9 @@
   function showSignIn() {
     data = null;
     invitationLink = null;
+    feedbackSearch = '';
+    $('feedback-search').value = '';
+    message('homework-message','');
     $('workspace').hidden = true;
     $('auth-screen').hidden = false;
     document.querySelector('.skip-link').setAttribute('href','#main-content');
@@ -116,7 +156,7 @@
     $('account-name').textContent = '';
     $('student-select').replaceChildren();
     $('page-title').textContent = '';
-    ['feedback-list','goals-list','assessment-history','latest-lesson','overview-goals','skills-grid','stats'].forEach(id => { $(id).replaceChildren(); });
+    ['feedback-list','homework-list','next-task','goals-list','assessment-history','latest-lesson','overview-goals','skills-grid','stats'].forEach(id => { $(id).replaceChildren(); });
   }
   function openDialog(kind, item = null) {
     editorKind = kind;
@@ -130,7 +170,7 @@
     const field = (label,name,value = '',type = 'text',max = 4000,required = true) => `<div><label for="edit-${name}">${label}</label>${type === 'textarea' ? `<textarea id="edit-${name}" name="${name}" maxlength="${max}" ${required ? 'required' : ''}>${escape(value)}</textarea>` : `<input id="edit-${name}" name="${name}" type="${type}" value="${escape(value)}" maxlength="${max}" ${required ? 'required' : ''}>`}</div>`;
     if (kind === 'invite') $('dialog-content').innerHTML = `<form class="editor-form" id="editor-form">${field('Student name','display_name','','text',150)}${field('Student email','email','','email',254)}<p class="dialog-footnote">You’ll get a private, one-use link to share directly. No automatic invitation email will be sent.</p><div class="form-actions"><button type="submit" class="button primary">Create invitation</button><button type="button" class="button secondary" data-cancel>Cancel</button></div></form>`;
     if (kind === 'lesson') {
-      $('dialog-content').innerHTML = `<form class="editor-form" id="editor-form"><div class="form-row">${field('Lesson date','lesson_date',item?.lesson_date || today(),'date')}${field('Lesson title','title',item?.title || '','text',160)}</div>${field('What went well','strengths',item?.strengths,'textarea')}${field('Our next focus','focus',item?.focus,'textarea')}${field('Practice before next time','next_steps',item?.next_steps,'textarea')}<div><label>Useful corrections</label><div id="correction-fields"></div><button type="button" class="text-button" id="add-correction">Add a correction +</button></div>${footer}</form>`;
+      $('dialog-content').innerHTML = `<form class="editor-form" id="editor-form"><div class="form-row">${field('Lesson date','lesson_date',item?.lesson_date || today(),'date')}${field('Lesson title','title',item?.title || '','text',160)}</div>${field('Strengths','strengths',item?.strengths,'textarea')}${field('Weaknesses','focus',item?.focus,'textarea')}<fieldset class="corrections-editor"><legend>Corrections</legend><div id="correction-fields"></div><button type="button" class="text-button" id="add-correction">Add a correction +</button></fieldset>${field('Homework instructions (optional)','next_steps',item?.next_steps,'textarea',4000,false)}${field('Homework target date (optional)','homework_due_date',item?.homework_due_date || '','date',4000,false)}<p class="field-note">Save the lesson, then open Homework to attach a file. Files stay available for seven days after upload.</p>${footer}</form>`;
       (item?.corrections || []).forEach(addCorrection);
     }
     if (kind === 'goal') $('dialog-content').innerHTML = `<form class="editor-form" id="editor-form">${field('Goal','title',item?.title || '','text',240)}<div class="form-row">${field('Target date (optional)','due_date',item?.due_date || '','date',4000,false)}<div><label for="edit-status">Status</label><select name="status" id="edit-status">${Object.entries(statuses).map(([value,label]) => `<option value="${value}" ${value === (item?.status || 'in_progress') ? 'selected' : ''}>${label}</option>`).join('')}</select></div></div>${footer}</form>`;
@@ -198,7 +238,67 @@
       $('editor-dialog').showModal();
     } catch (error) { message('workspace-message',error.message); }
   }
+  async function uploadHomework(form) {
+    const input = form.querySelector('input[type="file"]');
+    const file = input.files?.[0];
+    const extension = file?.name.split('.').at(-1)?.toLowerCase();
+    const status = form.querySelector('[role="status"]');
+    const submit = form.querySelector('button[type="submit"]');
+    if (!file || !fileTypes[extension] || file.size < 1 || file.size > 10 * 1024 * 1024) {
+      status.textContent = 'Choose a supported file up to 10 MB.'; return;
+    }
+    submit.disabled = true; input.disabled = true;
+    status.textContent = `Uploading ${file.name}…`;
+    let timeout;
+    try {
+      const ticket = await api('homework-upload', {lesson_id:form.dataset.homeworkForm,filename:file.name,mime_type:fileTypes[extension],size_bytes:file.size});
+      const target = new URL(ticket.uploadUrl);
+      if (target.origin !== storageOrigin || !target.pathname.startsWith('/storage/v1/object/upload/sign/lms-homework/')) throw new Error('The upload could not start. Please try again.');
+      const body = new FormData();
+      body.append('cacheControl','0');
+      body.append('',new Blob([file],{type:ticket.mimeType}),file.name);
+      const controller = new AbortController();
+      timeout = setTimeout(() => controller.abort(),120000);
+      const upload = await fetch(target, {method:'PUT',body,credentials:'omit',headers:{'x-upsert':'false'},signal:controller.signal});
+      clearTimeout(timeout);
+      if (!upload.ok) throw new Error('The file could not upload. Please try again.');
+      await api('homework-finish',{id:ticket.id});
+      await loadDashboard();
+      message('homework-message',`Uploaded. Download this file before ${fileDeadline(ticket.expiresAt)}.`,true);
+    } catch (error) {
+      status.textContent = error.name === 'AbortError' ? 'The upload took too long. Please try a smaller file or try again.' : error.message;
+    } finally { clearTimeout(timeout); if (submit.isConnected) { submit.disabled = false; input.disabled = false; } }
+  }
+  async function downloadHomework(button) {
+    button.disabled = true;
+    message('homework-message','');
+    try {
+      const result = await api('homework-download',{id:button.dataset.downloadHomework});
+      const target = new URL(result.url);
+      if (target.origin !== storageOrigin || !target.pathname.startsWith('/storage/v1/object/sign/lms-homework/')) throw new Error('This download is not available. Please try again.');
+      const anchor = document.createElement('a');
+      anchor.href = target.toString(); anchor.rel = 'noreferrer'; anchor.download = '';
+      document.body.append(anchor); anchor.click(); anchor.remove();
+    } catch (error) { message('homework-message',error.message); }
+    finally { if (button.isConnected) button.disabled = false; }
+  }
+  document.addEventListener('submit',event => {
+    const form = event.target.closest('[data-homework-form]');
+    if (form) { event.preventDefault(); uploadHomework(form); }
+  });
   document.addEventListener('click',async event => {
+    const homework = event.target.closest('[data-open-homework]');
+    if (homework) { showView('homework',true); $(`homework-${homework.dataset.openHomework}`)?.scrollIntoView({block:'start'}); return; }
+    const download = event.target.closest('[data-download-homework]');
+    if (download) { await downloadHomework(download); return; }
+    const completed = event.target.closest('[data-complete-homework]');
+    if (completed) {
+      completed.disabled = true;
+      try { await api('homework-complete',{lesson_id:completed.dataset.completeHomework,completed:completed.dataset.completed !== 'true'}); await loadDashboard(); message('homework-message','Homework status updated.',true); }
+      catch (error) { message('homework-message',error.message); }
+      finally { if (completed.isConnected) completed.disabled = false; }
+      return;
+    }
     const view = event.target.closest('[data-view]');
     if (view) { showView(view.dataset.view,true); return; }
     if (event.target.closest('[data-cancel]')) { $('editor-dialog').close(); return; }
@@ -227,6 +327,8 @@
     const select = event.currentTarget;
     select.disabled = true;
     message('workspace-message','');
+    message('homework-message','');
+    feedbackSearch = ''; $('feedback-search').value = '';
     try { await loadDashboard(select.value); }
     catch (error) { select.value = data?.selectedId || ''; message('workspace-message',error.message); }
     finally { select.disabled = false; }
@@ -236,6 +338,12 @@
     try { await loadDashboard(data.selectedId,true); } catch (error) { message('workspace-message',error.message); }
     finally { $('load-feedback').disabled = false; }
   });
+  $('load-homework').addEventListener('click',async event => {
+    event.currentTarget.disabled = true;
+    try { await loadDashboard(data.selectedId,true); } catch (error) { message('homework-message',error.message); }
+    finally { $('load-homework').disabled = false; }
+  });
+  $('feedback-search').addEventListener('input',event => { feedbackSearch = event.currentTarget.value; renderFeedback(); });
   $('sign-out').addEventListener('click',async event => {
     event.currentTarget.disabled = true;
     try { await api('sign-out',{}); showSignIn(); message('auth-message','You’ve signed out.',true); }
