@@ -33,7 +33,7 @@ The privileged teacher email and live verification need explicit confirmation.
 | `LMS_TEACHER_EMAIL` | Confirmed, fixed owner email allowed to establish the teacher role |
 | `LMS_VERIFY_ON_BUILD` | Optional live verification; disabled unless exactly `1` |
 
-The first four configuration values are already managed by the approved
+The first three configuration values are already managed by the approved
 Supabase integration. Keep all privileged credentials on the server. The public
 portal calls `/api/learning`; it contains no database keys and keeps sessions in
 Secure, HttpOnly, SameSite cookies rather than browser storage. POST requests
