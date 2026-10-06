@@ -712,6 +712,21 @@
       "source": "/blog/a-favourite-song-articles-contractions-anymore.html/",
       "destination": "/blog/a-favourite-song-articles-contractions-anymore.html",
       "permanent": true
+    },
+    {
+      "source": "/blog/lead-led-led-has-led-to",
+      "destination": "/blog/lead-led-led-has-led-to.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/lead-led-led-has-led-to/",
+      "destination": "/blog/lead-led-led-has-led-to.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/lead-led-led-has-led-to.html/",
+      "destination": "/blog/lead-led-led-has-led-to.html",
+      "permanent": true
     }
   ],
   "buildCommand": "npm run build",
