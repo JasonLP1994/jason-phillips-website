@@ -727,6 +727,21 @@
       "source": "/blog/lead-led-led-has-led-to.html/",
       "destination": "/blog/lead-led-led-has-led-to.html",
       "permanent": true
+    },
+    {
+      "source": "/free-trial",
+      "destination": "/free-trial.html",
+      "permanent": true
+    },
+    {
+      "source": "/free-trial/",
+      "destination": "/free-trial.html",
+      "permanent": true
+    },
+    {
+      "source": "/free-trial.html/",
+      "destination": "/free-trial.html",
+      "permanent": true
     }
   ],
   "buildCommand": "npm run build",

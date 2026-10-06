@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 
 <html lang="en-GB"><head>
+<script>
+// Keep previously shared free trial links out of the paid booking flow.
+if (window.location.hash === '#free-trial') {
+  window.location.replace('/free-trial.html' + window.location.search + '#request-trial');
+}
+</script>
 <!-- Analytics loads only after the visitor accepts. -->
 <script src="/assets/analytics-consent.js"></script>
 <meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Free English Trial Lesson &amp; Online Coaching Booking | Phillips English</title><style>
@@ -324,7 +330,7 @@ nav{position:relative;z-index:50}
   <header class="pe-book-hero">
     <div class="wrap"><div class="pe-breadcrumbs" role="navigation" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Book a lesson</span></li></ol></div>
       <div class="eyebrow">Book private English coaching</div>
-      <h1>Try a free English lesson or book your coaching.</h1><p>New here? <a href="#free-trial">Try a free 25 minute first lesson</a> before choosing a paid package.</p>
+      <h1>Try a free English lesson or book your coaching.</h1><p>New here? <a href="free-trial.html">Try a free 25 minute first lesson</a> before choosing a paid package.</p>
       <p>Select the support that fits your goal, then choose a time and complete payment securely in the embedded booking calendar below.</p>
       <p>All paid coaching sessions last 50 minutes, with a 10 minute buffer between appointments. The buffer is separate from your teaching time. This applies to single sessions, every session in a package, private groups and professional teams.</p><div class="pe-book-trust"><span>50-minute sessions</span><span>Live Zoom coaching</span><span>Secure online payment</span><span>13+ years' experience</span></div>
     </div>
@@ -367,13 +373,14 @@ nav{position:relative;z-index:50}
       <div><p><strong>Choose Private Coaching</strong> if you want flexible, focused support one session at a time.</p><p><strong>Choose the Accelerator</strong> if you want a structured programme and sustained improvement over 12 sessions.</p><p><strong>Choose the Intensive</strong> if you have an interview, presentation, assessment or deadline coming up soon.</p><p>For teams and small groups, <a href="group-coaching.html">view Group Coaching</a>.</p></div>
     </div>
   </section>
-<section class="pe-trial-offer" id="free-trial"><div class="wrap"><div class="eyebrow">Free first lesson</div><h2>Let’s try a lesson together.</h2><p>Your free trial includes 25 minutes of private online teaching, useful corrections and a conversation about what you want to achieve. One per new student, with no payment required and no obligation to continue.</p><p>My trials on Preply regularly turn into ongoing lessons, so I’m confident you’ll leave with something useful.</p><p>Tell me when you’re free and I’ll reply to arrange your trial. Submitting this form requests a lesson; your time is confirmed when we agree it together.</p><form class="pe-trial-form" action="https://formspree.io/f/xzezgdyj" method="POST"><input type="hidden" name="_subject" value="Free 25 minute trial lesson request"><input type="hidden" name="enquiry_type" value="Free 25 minute trial lesson"><label for="trial-name">Your name</label><input id="trial-name" name="name" autocomplete="name" required><label for="trial-email">Email</label><input id="trial-email" name="email" type="email" autocomplete="email" required><label for="trial-goal">What would you like help with?</label><textarea id="trial-goal" name="goal" rows="3" required></textarea><label for="trial-times">Preferred days and times, including your time zone</label><input id="trial-times" name="availability" placeholder="For example: Tuesday evening, UK time" required><button class="button" type="submit">Request my free trial</button><p class="form-status" aria-live="polite">I’ll reply by email to arrange your lesson.</p><p><small>See the <a href="privacy.html">privacy policy</a> for how your enquiry details are used.</small></p></form></div></section></main>
+<section class="pe-trial-offer" id="free-trial"><div class="wrap"><div class="eyebrow">Free first lesson</div><h2>Let’s try a lesson together.</h2><p>Your free trial includes 25 minutes of private online teaching, useful corrections and a conversation about what you want to achieve. One per new student, with no payment required and no obligation to continue.</p><a class="button" href="free-trial.html">Request my free trial</a><p class="pe-trial-small">Visit the trial page to send your preferred times. I’ll reply by email to arrange your lesson.</p></div></section></main>
 
 <section class="pe-next-reading" aria-label="Related reading"><div class="wrap"><h2>Explore your next step</h2><ul><li><a href="/coaching.html">English lessons</a></li><li><a href="/results.html">Student reviews</a></li><li><a href="/guides.html">Free English guides</a></li></ul></div></section>
 <footer><div class="wrap">PHILLIPS ENGLISH · British English &amp; Communication Coach · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="cancellation.html">Cancellation</a> · © 2026</div></footer>
 
 <script>
 (function(){
+  if (window.location.hash === '#free-trial') return;
   const cards=[...document.querySelectorAll('.premium-route')];
   const frame=document.getElementById('calBookingFrame');
   const title=document.getElementById('selectedTitle');
