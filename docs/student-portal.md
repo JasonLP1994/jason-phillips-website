@@ -85,6 +85,21 @@ assigned teacher can mark a task complete or reopen it. Feedback can be searched
 by title or date; the interface states how many lessons are loaded and lets users
 load earlier records. Goals and teacher skill observations remain separate.
 
+The usability update puts the next task first on Home, keeps statistics on
+that page, and provides direct view headings. Lesson links open and focus the
+matching feedback or homework card, clearing a conflicting feedback search.
+Public `view` query values retain the current section across reloads and browser
+Back; invitation tokens remain confined to the existing sign-in flow.
+
+Student homework is presented as reading the task, uploading work if requested,
+and marking practice complete. Uploading and completion are separate states.
+Lessons with no task or live files are not presented as unfinished student
+homework. Teachers can still open those lessons to set practice. Completed tasks
+are grouped in an expandable section, and earlier loaded lessons remain loaded
+after an update. The download deadline remains independent of the target date.
+All five navigation choices are visible at narrow widths, and progress includes
+the support-scale legend without requiring an extra click.
+
 Each lesson supports six files, up to 10 MiB each. PDF, DOCX, plain text, JPEG,
 PNG, WebP, MP3 and M4A are supported. File bytes upload directly to the private
 `lms-homework` Supabase Storage bucket via a scoped upload capability; they do
@@ -121,7 +136,7 @@ on next steps and learner progress. No paid product or subscription was added.
 
 ## Validation and launch
 
-Local checks pass: `npm test` (sixteen tests), `npm run build`,
+Local checks pass: `npm test` (twenty tests), `npm run build`,
 `python scripts/check_links.py`, JavaScript syntax checks and `git diff --check`.
 Supabase's initial refreshed security advisor reported no errors or warnings.
 Its initial performance advice contained seven unused-index suggestions;

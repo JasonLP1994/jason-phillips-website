@@ -8,3 +8,85 @@
 @media(max-width:1200px){.feedback-boxes{grid-template-columns:1fr}.next-task{align-items:flex-start;flex-direction:column}}
 @media(max-width:760px){.homework-card,.next-task{padding:22px}.homework-heading{flex-direction:column;gap:10px}.homework-heading h3{font-size:21px}.homework-file{align-items:flex-start;flex-direction:column}.homework-upload-row{flex-direction:column;align-items:stretch}.homework-upload-row .button{align-self:flex-start}.retention-note{font-size:12px}.feedback-box{padding:16px}.lesson-search{max-width:none}.next-task h2{font-size:22px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* Keep each view centred on the next useful action. */
+.portal-nav .nav-label{width:auto;font-size:inherit;line-height:1.4}
+.page-heading h1,.page-heading .eyebrow{overflow-wrap:anywhere}
+.text-button{min-height:44px}
+.student-access-note{flex-basis:100%;margin-top:0;font-size:13px;color:var(--muted)}
+.home-actions{margin-bottom:20px}
+.next-task{flex-wrap:wrap}
+.next-task>div{flex:1;min-width:0}
+.next-task h2{line-height:1.35}
+.next-task-note{flex-basis:100%;font-size:12px!important;color:var(--muted);border-top:1px solid #c5dce9;padding-top:12px}
+.lesson-summary{font-size:14px;color:var(--muted);margin-top:15px}
+.lesson-actions{gap:14px;align-items:center}
+.lesson-actions .text-button,.panel-heading .text-button{font-size:14px}
+.stats{margin:26px 0 0}
+.stat{min-height:94px;padding:17px 20px}
+.stat span{margin-bottom:6px}
+.progress-callout{padding:24px 27px}
+.progress-callout h2{font-size:23px}
+.progress-callout p:last-child{margin-top:8px}
+.homework-card h4{font-size:15px;margin:0 0 12px;letter-spacing:0}
+.practice-task{background:#f3f8fb;border:1px solid #e0ebf1;border-radius:7px;padding:19px}
+.practice-task .goal-date{font-size:14px;margin-top:15px}
+.practice-task>.muted,.student-work>.muted,.practice-finish>.muted{font-size:14px}
+.student-work{margin-top:23px}
+.student-work .homework-files{margin-top:0}
+.student-work .homework-files h4{display:none}
+.homework-upload label{font-size:13px;color:var(--muted);font-weight:500}
+.homework-upload input::file-selector-button{border:1px solid #bdcbd3;border-radius:4px;background:#edf5fa;color:var(--ink);padding:7px 10px;font:inherit;margin-right:10px;cursor:pointer}
+.practice-finish{border-top:1px solid var(--line);padding-top:21px;margin-top:22px}
+.practice-finish .button{margin-top:15px}
+.completed-practice{margin-top:25px}
+.completed-practice>summary{cursor:pointer;font-size:16px;font-weight:650;padding:16px 18px;background:#e7efe9;border-radius:7px;color:#286147;min-height:48px}
+.completed-practice>div{margin-top:18px}
+.feedback-card{scroll-margin-top:25px}
+.feedback-card:focus,.homework-card:focus{outline:2px solid #7aaccc;outline-offset:3px}
+.skill-level{font-size:36px;font-weight:650;line-height:1.3;margin-top:19px}
+.skill-level small{font-size:17px;color:var(--muted);font-weight:400;margin-left:5px}
+.skill-label{font-size:14px;color:#315a72;margin-top:5px}
+.skill-steps{display:flex;gap:6px;margin:18px 0}
+.skill-steps span{height:7px;flex:1;background:#e1e8ec;border-radius:5px}
+.skill-steps .filled{background:#568ea5}
+.skill-baseline{font-size:12px;color:var(--muted);line-height:1.8}
+.rubric ol{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:25px;padding-left:22px;font-size:12px;line-height:1.5}
+.rubric li::marker{font-weight:700;color:#315a72}
+
+@media(max-width:1100px){.rubric ol{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){
+  .auth-story{padding:23px 25px}
+  .auth-story .story-copy{margin:24px 0 0}
+  .auth-story .story-copy h1{font-size:29px}
+  .auth-story .story-copy .eyebrow{display:none}
+  .auth-story .story-copy>p:last-child{font-size:13px;line-height:1.6;margin-top:12px}
+  .sidebar{padding:20px 18px 12px}
+  .workspace-label{display:none}
+  .portal-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin-top:21px;overflow:visible}
+  .portal-nav button{flex-direction:column;justify-content:center;gap:5px;padding:9px 3px;min-height:64px;text-align:center;font-size:11px}
+  .portal-nav button>span:first-child{width:auto;font-size:18px}
+  .portal-nav .nav-label{width:auto;white-space:normal;font-size:11px;line-height:1.25}
+  .learning-main{padding:26px 18px 36px}
+  .page-heading h1{font-size:28px}
+  .page-heading .eyebrow{letter-spacing:.08em}
+  .teacher-tools{gap:12px;margin-bottom:22px}
+  .teacher-tools>div{max-width:none;flex-basis:100%}
+  .teacher-tools .button{min-height:44px;font-size:13px}
+  .teacher-tools>.text-button{font-size:13px}
+  .student-access-note{font-size:12px;line-height:1.6}
+  .home-actions .button{width:100%}
+  .next-task{gap:18px}
+  .next-task .button{width:100%}
+  .stats{margin-top:22px}
+  .stat{min-height:93px;padding:15px}
+  .lesson-actions .button{width:100%}
+  .panel-heading{gap:10px}
+  .panel-heading .text-button{font-size:12px;flex-shrink:0}
+  .practice-task{padding:16px}
+  .homework-upload-row .button{width:100%;align-self:stretch}
+  .homework-upload-row input{width:100%}
+  .homework-file .button{min-height:44px;font-size:13px}
+  .practice-finish .button{width:100%}
+  .rubric ol{grid-template-columns:1fr;gap:9px;font-size:13px}
+}
