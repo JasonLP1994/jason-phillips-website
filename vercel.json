@@ -682,6 +682,21 @@
       "source": "/blog/ed-endings-pronunciation-t-d-id.html/",
       "destination": "/blog/ed-endings-pronunciation-t-d-id.html",
       "permanent": true
+    },
+    {
+      "source": "/blog/how-to-think-in-english-stop-translating",
+      "destination": "/blog/how-to-think-in-english-stop-translating.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-to-think-in-english-stop-translating/",
+      "destination": "/blog/how-to-think-in-english-stop-translating.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-to-think-in-english-stop-translating.html/",
+      "destination": "/blog/how-to-think-in-english-stop-translating.html",
+      "permanent": true
     }
   ],
   "buildCommand": "npm run build",
