@@ -107,7 +107,7 @@ V28 — Phillips English Rebrand
 
 V29 — Branded Email
 - Public contact email: hello@phillipsenglish.com
-- Personal client email available: jason@phillipsenglish.com
+- The same public contact email is used for existing clients.
 - Replaced any public legacy Gmail references.
 - Added branded contact links to site footers/contact areas.
 - Formspree and Cal.com integrations remain unchanged.
@@ -115,8 +115,7 @@ V29 — Branded Email
 
 V30 — Contact Page
 - Added contact.html with a premium branded contact layout.
-- hello@phillipsenglish.com: general enquiries, new clients, programmes, booking and website questions.
-- jason@phillipsenglish.com: existing clients and direct client communication.
+- hello@phillipsenglish.com: the only public email for general enquiries, new and existing clients, programmes, booking and website questions.
 - Added a Formspree-powered contact form.
 - Added Contact to the site navigation and footer.
 
