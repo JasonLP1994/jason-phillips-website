@@ -69,7 +69,7 @@ import { homeworkGroups, practiceState, validView, views } from './learning-view
   function renderHomework() {
     const lessons = data.lessons || [];
     const groups = homeworkGroups(data,teacher());
-    const current = groups.current.length ? groups.current.map(homeworkCard).join('') : `<div class="panel">${empty(groups.completed.length ? 'All loaded practice is complete.' : 'No homework set yet.', teacher() ? 'Add lesson feedback first, then set a task or share a file for that lesson.' : groups.completed.length ? 'Well done. You can reopen a completed task below whenever you want to practise again.' : 'Jason will add practice after a lesson. You can still revisit your feedback.', teacher() && data.selectedId && !lessons.length ? '<button type="button" class="button primary" data-new-lesson>Add lesson feedback</button>' : lessons.length ? '<button type="button" class="button secondary" data-view="feedback">Read lesson feedback</button>' : '')}</div>`;
+    const current = groups.current.length ? groups.current.map(homeworkCard).join('') : `<div class="panel">${empty(groups.completed.length ? 'All loaded practice is complete.' : 'No homework set yet.', teacher() ? groups.completed.length ? 'Reopen a completed task below, or set a new task from Lesson feedback.' : 'Add lesson feedback first, then set a task or share a file for that lesson.' : groups.completed.length ? 'Well done. You can reopen a completed task below whenever you want to practise again.' : 'Jason will add practice after a lesson. You can still revisit your feedback.', teacher() && data.selectedId && !lessons.length ? '<button type="button" class="button primary" data-new-lesson>Add lesson feedback</button>' : lessons.length ? '<button type="button" class="button secondary" data-view="feedback">Read lesson feedback</button>' : '')}</div>`;
     $('homework-list').innerHTML = current + (groups.completed.length ? `<details class="completed-practice"><summary>Completed practice (${groups.completed.length})</summary><div>${groups.completed.map(homeworkCard).join('')}</div></details>` : '');
     $('load-homework').hidden = lessons.length >= (data.lessonCount || 0);
   }
@@ -104,6 +104,7 @@ import { homeworkGroups, practiceState, validView, views } from './learning-view
     document.querySelector('.skip-link').setAttribute('href','#learning-main');
     $('workspace-role').textContent = teacher() ? 'Teaching workspace' : 'Student portal';
     $('account-name').textContent = user.name;
+    document.querySelector('.sidebar-bottom p').textContent = teacher() ? 'Choose a student to manage their lessons and progress.' : 'Questions about your learning? Jason is here to help.';
     const selectedStudent = students.find(s => s.user_id === data.selectedId);
     $('heading-kicker').textContent = teacher() ? (selectedStudent ? `${selectedStudent.display_name} · TEACHING WORKSPACE` : 'TEACHING WORKSPACE') : 'YOUR LEARNING SPACE';
     $('teacher-tools').hidden = !teacher();
@@ -486,6 +487,6 @@ import { homeworkGroups, practiceState, validView, views } from './learning-view
   accessButton.className = 'text-button teacher-action';
   accessButton.textContent = 'Fresh access link';
   accessButton.hidden = true;
-  $('teacher-tools').append(accessButton);
+  $('teacher-tools').insertBefore(accessButton,$('student-access-note'));
   start();
 })();

@@ -164,6 +164,13 @@ read-only database checks confirmed both its metadata and Storage object were
 gone while its homework completion record remained. A fresh fictional sample
 can be kept in the demo lesson for trying downloads.
 
+The live UX checks confirmed direct lesson links, clearing a conflicting search,
+completion and reopening, and keeping the current section on reload and browser
+Back. The demo task was restored to unfinished afterwards. Deployed JavaScript
+assets matched the checked source and used the correct content type. The phone
+layout rules were updated, but a visual phone walkthrough remains to be done;
+the browser session did not provide viewport controls or local preview access.
+
 The refreshed Security Advisor reported no errors and one existing Auth warning:
 leaked-password protection is disabled. This is separate from the new homework
 tables and their private storage policies; no paid plan upgrade was made.
