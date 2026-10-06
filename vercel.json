@@ -742,6 +742,21 @@
       "source": "/free-trial.html/",
       "destination": "/free-trial.html",
       "permanent": true
+    },
+    {
+      "source": "/blog/when-students-return-to-your-english-lessons",
+      "destination": "/blog/when-students-return-to-your-english-lessons.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/when-students-return-to-your-english-lessons/",
+      "destination": "/blog/when-students-return-to-your-english-lessons.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/when-students-return-to-your-english-lessons.html/",
+      "destination": "/blog/when-students-return-to-your-english-lessons.html",
+      "permanent": true
     }
   ],
   "buildCommand": "npm run build",
