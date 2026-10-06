@@ -697,6 +697,21 @@
       "source": "/blog/how-to-think-in-english-stop-translating.html/",
       "destination": "/blog/how-to-think-in-english-stop-translating.html",
       "permanent": true
+    },
+    {
+      "source": "/blog/a-favourite-song-articles-contractions-anymore",
+      "destination": "/blog/a-favourite-song-articles-contractions-anymore.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/a-favourite-song-articles-contractions-anymore/",
+      "destination": "/blog/a-favourite-song-articles-contractions-anymore.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/a-favourite-song-articles-contractions-anymore.html/",
+      "destination": "/blog/a-favourite-song-articles-contractions-anymore.html",
+      "permanent": true
     }
   ],
   "buildCommand": "npm run build",
