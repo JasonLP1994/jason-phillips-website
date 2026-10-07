@@ -43,7 +43,7 @@
     .teacher{display:flex;gap:20px;align-items:center;padding-top:24px;border-top:1px solid #c7d2d6}
     .teacher img{width:104px;height:auto;border-radius:8px;display:block;flex-shrink:0}
     .teacher strong{font-size:19px}.teacher p{font-size:14px;color:#41545e;margin:6px 0}.teacher a{font-size:14px}
-    .trial-card{background:#fff;border:1px solid #cbd7db;border-radius:12px;padding:30px;box-shadow:0 14px 36px rgba(18,24,32,.04);scroll-margin-top:24px}
+    .trial-card{background:#fff;border:1px solid #cbd7db;border-radius:12px;padding:24px;box-shadow:0 14px 36px rgba(18,24,32,.04);scroll-margin-top:24px}.trial-calendar{border:1px solid #cbd7db;border-radius:8px;overflow:hidden;background:#fff;min-height:700px}.trial-calendar iframe{display:block;width:100%;height:700px;border:0;background:#fff}.calendar-fallback{font-size:13px;color:#41545e;margin:14px 2px 0}.calendar-fallback a{font-weight:800}.alt-request{margin-top:20px;border-top:1px solid #c7d2d6;padding-top:16px}.alt-request summary{font-weight:800;cursor:pointer}.alt-request .trial-form{margin-top:15px}
     .trial-card h2{font-size:29px;letter-spacing:-.025em;line-height:1.15;margin:0 0 12px}
     .trial-card>p{font-size:15px;color:#41545e;margin:0 0 22px}
     .trial-form label{display:block;font-weight:700;font-size:14px;margin:17px 0 6px}
@@ -102,25 +102,32 @@
         <div class="teacher"><img src="/assets/jason-phillips-british-english-coach-558abe.webp" alt="Jason Phillips, your British English teacher" width="1024" height="1536" decoding="async"><div><strong>Jason Phillips</strong><p>Your British English teacher.<br>Practical lessons built around you.</p><a href="/about.html">A little about me</a></div></div>
       </div>
       <section class="trial-card" id="request-trial" aria-labelledby="trial-request-title">
-        <h2 id="trial-request-title">Request your free trial</h2>
-        <p>Tell me when you’re free. I’ll email you to agree a time and arrange your lesson.</p>
-        <form class="trial-form" data-trial-request action="https://formspree.io/f/xzezgdyj" method="POST">
-          <input type="hidden" name="_subject" value="Free 25 minute trial lesson request">
-          <input type="hidden" name="enquiry_type" value="Free 25 minute trial lesson">
-          <label for="trial-name">Your name</label>
-          <input id="trial-name" name="name" autocomplete="name" maxlength="150" required>
-          <label for="trial-email">Email</label>
-          <input id="trial-email" name="email" type="email" autocomplete="email" maxlength="254" required>
-          <label for="trial-times">When are you usually free?</label>
-          <input id="trial-times" name="availability" placeholder="For example: Tuesday evenings, UK time" aria-describedby="time-zone-hint" maxlength="500" required>
-          <small id="time-zone-hint">Include your time zone so we can find a time that suits us both.</small>
-          <label for="trial-goal">What would you like help with? <small>(optional)</small></label>
-          <textarea id="trial-goal" name="goal" rows="2" maxlength="2000" placeholder="Meetings, pronunciation, an exam or something else…"></textarea>
-          <button class="button" type="submit">Request my free trial</button>
-          <p class="privacy-note">One trial per new student. No payment details needed. Your lesson is confirmed once we’ve agreed a time by email. See the <a href="/privacy.html">privacy policy</a> for how your details are used.</p>
-        </form>
-        <p class="trial-status" role="status" aria-live="polite" tabindex="-1"></p>
-        <noscript><p>Your request will be sent using our form service, which will show a confirmation after submission.</p></noscript>
+        <h2 id="trial-request-title">Choose your free trial time</h2>
+        <p>Pick a time that suits you and your lesson will be confirmed straight away. The 25-minute trial is online on Zoom.</p>
+        <div class="trial-calendar">
+          <iframe data-trial-calendar data-cal-url="https://cal.com/jason-phillips-u5rvya/free-trial" src="https://cal.com/jason-phillips-u5rvya/free-trial" title="Book a free 25 minute Phillips English trial lesson" loading="eager" allow="camera; microphone; fullscreen"></iframe>
+        </div>
+        <p class="calendar-fallback">Calendar not loading? <a data-trial-calendar data-campaign-cta="calendar-fallback" data-cal-url="https://cal.com/jason-phillips-u5rvya/free-trial" href="https://cal.com/jason-phillips-u5rvya/free-trial">Open the booking calendar directly →</a></p>
+        <details class="alt-request">
+          <summary>Can’t find a suitable time? Send me your availability instead.</summary>
+          <form class="trial-form" data-trial-request action="https://formspree.io/f/xzezgdyj" method="POST">
+            <input type="hidden" name="_subject" value="Free 25 minute trial lesson request — alternative time">
+            <input type="hidden" name="enquiry_type" value="Free 25 minute trial lesson — alternative time">
+            <label for="trial-name">Your name</label>
+            <input id="trial-name" name="name" autocomplete="name" maxlength="150" required>
+            <label for="trial-email">Email</label>
+            <input id="trial-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+            <label for="trial-times">When are you usually free?</label>
+            <input id="trial-times" name="availability" placeholder="For example: Tuesday evenings, UK time" aria-describedby="time-zone-hint" maxlength="500" required>
+            <small id="time-zone-hint">Include your time zone so we can find a time that suits us both.</small>
+            <label for="trial-goal">What would you like help with? <small>(optional)</small></label>
+            <textarea id="trial-goal" name="goal" rows="2" maxlength="2000" placeholder="Meetings, pronunciation, an exam or something else…"></textarea>
+            <button class="button" type="submit">Send my availability</button>
+            <p class="privacy-note">One trial per new student. No payment details needed. See the <a href="/privacy.html">privacy policy</a> for how your details are used.</p>
+          </form>
+          <p class="trial-status" role="status" aria-live="polite" tabindex="-1"></p>
+          <div data-trial-success hidden><p>Thanks — I’ll email you to arrange the closest suitable time.</p></div>
+        </details>
       </section>
     </div>
   </main>
@@ -135,7 +142,7 @@
       <h2 id="trial-faq-title">A few things you might be wondering</h2>
       <details><summary>Is the trial really free?</summary><p>Yes. Your first 25 minute trial lesson is free, with no payment details required and no obligation to book more. It’s available once per new student.</p></details>
       <details><summary>What should I bring?</summary><p>Just an idea of what you want help with. If you have a presentation, interview question or English mistake you keep making, we can start there.</p></details>
-      <details><summary>How do we arrange the lesson?</summary><p>Send your preferred days, times and time zone using the form above. I’ll reply by email to agree a time. The lesson is online on Zoom, and I’ll send you the joining details when we confirm it.</p></details>
+      <details><summary>How do we arrange the lesson?</summary><p>Choose an available time in the calendar above. Cal.com will confirm the booking and Zoom details automatically. If none of the available times work, use the alternative-time form and I’ll reply by email.</p></details>
       <details><summary>What happens afterwards?</summary><p>We’ll talk about what would help you next. If you’d like to continue, <a href="/coaching.html">paid coaching</a> starts at £45 for a 50 minute lesson. Paid sessions have a separate 10 minute buffer between appointments.</p></details>
       <p class="return-to-form"><a class="button" href="#request-trial">Request my free trial</a></p>
     </div>
