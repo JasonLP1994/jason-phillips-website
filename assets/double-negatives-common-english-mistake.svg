@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">You don't do nothing — common English mistake</title>
+<desc id="desc">Phillips English graphic showing the correction from You don't do nothing to You don't do anything.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#071521"/><stop offset="1" stop-color="#123a55"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-opacity=".22"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<circle cx="1430" cy="120" r="220" fill="#8bc8ef" opacity=".08"/>
+<circle cx="110" cy="805" r="260" fill="#8bc8ef" opacity=".06"/>
+<g font-family="Arial,Helvetica,sans-serif" fill="#fff">
+  <text x="90" y="92" font-size="34" font-weight="800" letter-spacing="3">PHILLIPS ENGLISH</text>
+  <text x="1510" y="92" text-anchor="end" font-size="24" fill="#b9dced">REAL ENGLISH FOR REAL LIFE</text>
+  <text x="800" y="205" text-anchor="middle" font-size="32" font-weight="700" fill="#8bc8ef" letter-spacing="2">COMMON ENGLISH MISTAKE</text>
+  <text x="800" y="315" text-anchor="middle" font-size="74" font-weight="800">Why learners say</text>
+  <text x="800" y="410" text-anchor="middle" font-size="84" font-weight="900">“You don’t do nothing”</text>
+  <text x="800" y="465" text-anchor="middle" font-size="30" fill="#cbd9e2">A small grammar habit that makes a big difference.</text>
+</g>
+<g filter="url(#shadow)">
+  <rect x="135" y="555" width="570" height="185" rx="26" fill="#fff7f5"/>
+  <circle cx="215" cy="648" r="43" fill="#dc4f52"/>
+  <path d="M194 627l42 42m0-42l-42 42" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+  <text x="285" y="628" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#12212d">You don’t do</text>
+  <text x="285" y="680" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="900" fill="#12212d">nothing.</text>
+</g>
+<g filter="url(#shadow)">
+  <rect x="895" y="555" width="570" height="185" rx="26" fill="#eefbf7"/>
+  <circle cx="975" cy="648" r="43" fill="#16a67a"/>
+  <path d="M953 649l17 18 31-39" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1045" y="628" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#12212d">You don’t do</text>
+  <text x="1045" y="680" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="900" fill="#12212d">anything.</text>
+</g>
+<path d="M735 648h120" stroke="#8bc8ef" stroke-width="12" stroke-linecap="round"/><path d="M825 620l35 28-35 28" fill="none" stroke="#8bc8ef" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="800" y="825" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#c7d4dc">“Don’t” is already negative, so standard English normally uses “anything”.</text>
+</svg>
