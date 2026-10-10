@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Synonyms for good</title><desc id="desc">Phillips English vocabulary graphic with eight more precise alternatives to good.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#061728"/><stop offset="1" stop-color="#123b55"/></linearGradient></defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<circle cx="1460" cy="110" r="250" fill="#6fe5e3" opacity=".08"/><circle cx="120" cy="840" r="300" fill="#fff2dc" opacity=".05"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="85" y="85" fill="#7de8e5" font-size="28" font-weight="800" letter-spacing="5">PHILLIPS ENGLISH</text>
+<text x="85" y="195" fill="#fff8ee" font-size="62" font-weight="800">Stop using “good” for everything.</text>
+<text x="85" y="255" fill="#bdd1dc" font-size="29">It is useful — but in lessons, I hear it far too often.</text>
+<text x="85" y="350" fill="#7de8e5" font-size="27" font-weight="700" letter-spacing="2">USE A MORE PRECISE WORD</text>
+</g>
+<g font-family="Arial,Helvetica,sans-serif" font-size="33" font-weight="700">
+<rect x="85" y="400" width="335" height="105" rx="18" fill="#0f2b3d" stroke="#5fd8d8"/><text x="115" y="465" fill="#fff8ee">beneficial</text>
+<rect x="445" y="400" width="335" height="105" rx="18" fill="#0f2b3d" stroke="#5fd8d8"/><text x="475" y="465" fill="#fff8ee">positive</text>
+<rect x="805" y="400" width="335" height="105" rx="18" fill="#0f2b3d" stroke="#5fd8d8"/><text x="835" y="465" fill="#fff8ee">valuable</text>
+<rect x="1165" y="400" width="335" height="105" rx="18" fill="#0f2b3d" stroke="#5fd8d8"/><text x="1195" y="465" fill="#fff8ee">effective</text>
+<rect x="85" y="535" width="335" height="105" rx="18" fill="#0f2b3d" stroke="#f0dcc0"/><text x="115" y="600" fill="#fff8ee">advantageous</text>
+<rect x="445" y="535" width="335" height="105" rx="18" fill="#0f2b3d" stroke="#f0dcc0"/><text x="475" y="600" fill="#fff8ee">impressive</text>
+<rect x="805" y="535" width="335" height="105" rx="18" fill="#0f2b3d" stroke="#f0dcc0"/><text x="835" y="600" fill="#fff8ee">promising</text>
+<rect x="1165" y="535" width="335" height="105" rx="18" fill="#0f2b3d" stroke="#f0dcc0"/><text x="1195" y="600" fill="#fff8ee">exceptional</text>
+</g>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="85" y="740" fill="#fff8ee" font-size="42" font-weight="800">Better vocabulary is not about sounding fancy.</text>
+<text x="85" y="795" fill="#bdd1dc" font-size="27">It is about choosing the word that says exactly what you mean.</text>
+</g>
+<path d="M1320 760h180" stroke="#6fe5e3" stroke-width="9" stroke-linecap="round"/><path d="M1460 725l45 35-45 35" fill="none" stroke="#6fe5e3" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
