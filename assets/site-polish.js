@@ -171,3 +171,216 @@
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
   window.addEventListener('load',enforceReadableContrast);
 })();
+
+
+/* PHILLIPS ENGLISH MOTION SYSTEM */
+(function(){
+  'use strict';
+
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var finePointer=window.matchMedia('(hover:hover) and (pointer:fine)');
+
+  function buildNavShell(){
+    var nav=document.querySelector('nav');
+    if(!nav||!nav.parentElement) return;
+    var parent=nav.parentElement;
+    if(parent.classList.contains('pe-nav-shell')) return;
+    if(parent.classList.contains('wrap')){
+      var shell=document.createElement('div');
+      shell.className='pe-nav-shell';
+      parent.parentNode.insertBefore(shell,parent);
+      shell.appendChild(parent);
+      window.addEventListener('scroll',function(){
+        shell.classList.toggle('pe-scrolled',window.scrollY>18);
+      },{passive:true});
+      shell.classList.toggle('pe-scrolled',window.scrollY>18);
+    }
+  }
+
+  function buildScrollProgress(){
+    if(document.querySelector('.pe-scroll-progress')) return;
+    var bar=document.createElement('div');
+    bar.className='pe-scroll-progress';
+    bar.setAttribute('aria-hidden','true');
+    document.body.appendChild(bar);
+    function update(){
+      var max=document.documentElement.scrollHeight-window.innerHeight;
+      var progress=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+      bar.style.transform='scaleX('+progress+')';
+    }
+    update();
+    window.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update,{passive:true});
+  }
+
+  function buildTicker(){
+    if(window.location.pathname!=='/' && !/index\.html$/.test(window.location.pathname)) return;
+    if(document.querySelector('.pe-motion-ticker')) return;
+    var proof=document.querySelector('.pe-proof');
+    if(!proof||!proof.parentNode) return;
+    var labels=['Business English','Meetings','Presentations','Interviews','IELTS','Pronunciation','Fluency','Aviation English'];
+    function group(){
+      return '<div class="pe-motion-ticker-group">'+labels.map(function(label){
+        return '<span>'+label+'</span>';
+      }).join('')+'</div>';
+    }
+    var ticker=document.createElement('div');
+    ticker.className='pe-motion-ticker';
+    ticker.setAttribute('aria-label','Phillips English coaching areas');
+    ticker.innerHTML='<div class="pe-motion-ticker-track">'+group()+group()+'</div>';
+    proof.parentNode.insertBefore(ticker,proof.nextSibling);
+  }
+
+  function markReveals(){
+    var selectors=[
+      '.pe-section-head',
+      '.pe-package-card',
+      '.pe-goal-card',
+      '.pe-profile-photo',
+      '.pe-profile-grid>div:last-child',
+      '.pe-review-grid article',
+      '.pe-seo-grid>div',
+      '.pe-final-inner>*',
+      '.pe-proof-grid>div',
+      '.pe-trial-offer .wrap>*',
+      '.pagehero .wrap>*',
+      '.sales-hero .wrap>*',
+      '.contact-hero .wrap>*',
+      '.career-story .wrap>*',
+      '.student-voice .wrap>*',
+      '.editorial-proof .wrap>*',
+      '.feature',
+      '.post-card',
+      '.card',
+      '.sidebox',
+      '.pe-trial-invite .wrap>*',
+      '.pe-next-reading .wrap>*'
+    ];
+    var nodes=[];
+    selectors.forEach(function(selector){
+      document.querySelectorAll(selector).forEach(function(node){
+        if(nodes.indexOf(node)===-1) nodes.push(node);
+      });
+    });
+    nodes.forEach(function(node,index){
+      node.classList.add('pe-reveal');
+      if(node.matches('.pe-profile-photo,.feature')) node.classList.add('pe-from-left');
+      if(node.matches('.pe-profile-grid>div:last-child')) node.classList.add('pe-from-right');
+      if(node.matches('.pe-package-card,.pe-goal-card,.pe-review-grid article,.post-card,.card')) node.classList.add('pe-scale-in');
+      node.style.setProperty('--pe-reveal-delay',Math.min((index%4)*70,210)+'ms');
+    });
+
+    document.querySelectorAll('.pe-section h2,.pagehero h1,.sales-hero h1,.contact-hero h1,.pe-final-cta h2,.pe-trial-invite h2,.pe-next-reading h2').forEach(function(h){
+      h.classList.add('pe-heading-focus');
+    });
+
+    if(reduced.matches){
+      nodes.forEach(function(node){node.classList.add('is-visible');});
+      return;
+    }
+    var observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    nodes.forEach(function(node){observer.observe(node);});
+
+    document.querySelectorAll('.pe-heading-focus').forEach(function(h){
+      var parent=h.closest('.pe-reveal');
+      if(!parent) observer.observe(h);
+    });
+  }
+
+  function enableTilt(){
+    var selectors='.pe-package-card,.pe-goal-card,.pe-review-grid article,.post-card,.card,.premium-route,.group-offer,.route-card,.sidebox';
+    document.querySelectorAll(selectors).forEach(function(card){
+      card.classList.add('pe-motion-card');
+      if(reduced.matches||!finePointer.matches) return;
+      card.addEventListener('pointermove',function(event){
+        var rect=card.getBoundingClientRect();
+        var px=(event.clientX-rect.left)/rect.width;
+        var py=(event.clientY-rect.top)/rect.height;
+        card.style.setProperty('--pe-pointer-x',(px*100)+'%');
+        card.style.setProperty('--pe-pointer-y',(py*100)+'%');
+        card.style.setProperty('--pe-tilt-x',((px-.5)*4.2)+'deg');
+        card.style.setProperty('--pe-tilt-y',((.5-py)*4.2)+'deg');
+      });
+      card.addEventListener('pointerleave',function(){
+        card.style.removeProperty('--pe-tilt-x');
+        card.style.removeProperty('--pe-tilt-y');
+        card.style.removeProperty('--pe-pointer-x');
+        card.style.removeProperty('--pe-pointer-y');
+      });
+    });
+  }
+
+  function enablePageWave(){
+    document.addEventListener('click',function(event){
+      if(reduced.matches||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey) return;
+      var link=event.target.closest&&event.target.closest('a[href]');
+      if(!link||link.target==='_blank'||link.hasAttribute('download')) return;
+      var url;
+      try{url=new URL(link.href,window.location.href);}catch(error){return;}
+      if(url.origin!==window.location.origin) return;
+      if(url.pathname===window.location.pathname&&url.hash){
+        var target=document.getElementById(decodeURIComponent(url.hash.slice(1)));
+        if(!target) return;
+        event.preventDefault();
+        if(location.hash!==url.hash) history.pushState(null,'',url.hash);
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+        target.classList.add('is-visible');
+        return;
+      }
+      if(url.pathname===window.location.pathname&&url.search===window.location.search) return;
+      if(!(/\.html?$/i.test(url.pathname)||url.pathname==='/'||url.pathname.endsWith('/'))) return;
+      event.preventDefault();
+      var wave=document.createElement('div');
+      wave.className='pe-link-wave';
+      wave.setAttribute('aria-hidden','true');
+      var x=event.detail?event.clientX:window.innerWidth/2;
+      var y=event.detail?event.clientY:window.innerHeight/2;
+      wave.style.setProperty('--pe-wave-x',x+'px');
+      wave.style.setProperty('--pe-wave-y',y+'px');
+      document.body.appendChild(wave);
+      document.body.classList.add('pe-page-leaving');
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){wave.classList.add('is-active');});
+      });
+      window.setTimeout(function(){window.location.assign(url.href);},600);
+    },true);
+  }
+
+  function heroEntrance(){
+    if(reduced.matches) return;
+    var hero=document.querySelector('.pe-home-hero');
+    if(!hero) return;
+    var items=hero.querySelectorAll('.pe-hero-copy .eyebrow,.pe-hero-copy h1,.pe-hero-copy>p,.pe-actions,.pe-hero-note,.pe-hero-photo');
+    items.forEach(function(item,index){
+      item.animate([
+        {opacity:0,transform:index===items.length-1?'translate3d(28px,0,0) scale(.97)':'translate3d(0,24px,0)'},
+        {opacity:1,transform:'none'}
+      ],{
+        duration:index===items.length-1?900:720,
+        delay:90+index*85,
+        easing:'cubic-bezier(.16,1,.3,1)',
+        fill:'both'
+      });
+    });
+  }
+
+  function initMotion(){
+    buildNavShell();
+    buildScrollProgress();
+    buildTicker();
+    markReveals();
+    enableTilt();
+    enablePageWave();
+    heroEntrance();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initMotion);
+  else initMotion();
+})();
