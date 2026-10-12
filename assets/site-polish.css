@@ -277,3 +277,366 @@ footer a{color:inherit!important}
 .contact-grid-section .contact-card.featured .email,
 .contact-grid-section .contact-card.featured a{color:#fff!important}
 .contact-grid-section .contact-card.featured .label{color:var(--pe-aqua)!important}
+
+
+/* PHILLIPS ENGLISH MOTION SYSTEM
+   Motion inspired by Phillips Digital, translated into the Phillips English
+   navy, ice blue and paper palette. */
+:root{
+  --pe-motion-ease:cubic-bezier(.16,1,.3,1);
+  --pe-motion-fast:320ms;
+  --pe-motion-medium:680ms;
+  --pe-glow:rgba(142,190,202,.34);
+  --pe-glow-soft:rgba(142,190,202,.14);
+}
+
+html{scroll-behavior:smooth}
+body{position:relative}
+body::before{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:-22vh -18vw auto auto;
+  width:68vw;
+  height:68vw;
+  max-width:980px;
+  max-height:980px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(142,190,202,.12) 0,rgba(106,164,179,.05) 34%,rgba(18,24,32,0) 70%);
+  pointer-events:none;
+  animation:pe-ambient-drift 14s ease-in-out infinite alternate;
+}
+@keyframes pe-ambient-drift{
+  from{transform:translate3d(0,0,0) scale(1)}
+  to{transform:translate3d(-5vw,5vh,0) scale(1.08)}
+}
+
+/* Sticky glass navigation shell added by shared JS. */
+.pe-nav-shell{
+  position:sticky;
+  top:0;
+  z-index:900;
+  width:100%;
+  background:rgba(18,24,32,.78);
+  border-bottom:1px solid rgba(142,190,202,.12);
+  backdrop-filter:blur(18px) saturate(145%);
+  -webkit-backdrop-filter:blur(18px) saturate(145%);
+  transition:background var(--pe-motion-fast) ease,border-color var(--pe-motion-fast) ease,box-shadow var(--pe-motion-fast) ease;
+}
+.pe-nav-shell.pe-scrolled{
+  background:rgba(18,24,32,.94);
+  border-bottom-color:rgba(142,190,202,.24);
+  box-shadow:0 14px 40px rgba(4,12,18,.18);
+}
+.pe-nav-shell>.wrap,.pe-nav-shell.wrap{max-width:none}
+.pe-nav-shell nav{max-width:1180px;margin:auto}
+.navlinks a{position:relative;transition:color .25s ease,transform .25s ease}
+.navlinks a::after{
+  content:"";
+  position:absolute;
+  left:2px;
+  right:2px;
+  bottom:19px;
+  height:2px;
+  background:linear-gradient(90deg,var(--pe-aqua),#d9f0f4);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .35s var(--pe-motion-ease);
+}
+.navlinks a:hover{transform:translateY(-1px)}
+.navlinks a:hover::after{transform:scaleX(1)}
+
+/* Hero energy. */
+.pe-home-hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:min(820px,88vh);
+  display:flex;
+  align-items:center;
+}
+.pe-home-hero::before{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  width:620px;
+  height:620px;
+  right:-110px;
+  top:40px;
+  border-radius:50%;
+  background:radial-gradient(circle at 38% 38%,rgba(181,225,234,.24),rgba(142,190,202,.11) 42%,rgba(18,24,32,0) 72%);
+  animation:pe-hero-orbit 12s ease-in-out infinite alternate;
+}
+.pe-home-hero::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-12vw;
+  right:-12vw;
+  bottom:-1px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--pe-aqua),transparent);
+  box-shadow:0 0 28px rgba(142,190,202,.28);
+  animation:pe-line-breathe 4.8s ease-in-out infinite;
+}
+@keyframes pe-hero-orbit{
+  from{transform:translate3d(0,0,0) scale(.96)}
+  to{transform:translate3d(-55px,36px,0) scale(1.08)}
+}
+@keyframes pe-line-breathe{
+  0%,100%{opacity:.3;transform:scaleX(.72)}
+  50%{opacity:1;transform:scaleX(1)}
+}
+.pe-hero-copy{position:relative;z-index:2}
+.pe-hero-copy .eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 12px;
+  border:1px solid rgba(142,190,202,.3);
+  border-radius:999px;
+  background:rgba(142,190,202,.07);
+  backdrop-filter:blur(8px);
+}
+.pe-hero-copy .eyebrow::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--pe-aqua);
+  box-shadow:0 0 0 0 rgba(142,190,202,.6);
+  animation:pe-pulse-dot 2.2s ease-out infinite;
+}
+@keyframes pe-pulse-dot{
+  0%{box-shadow:0 0 0 0 rgba(142,190,202,.55)}
+  75%,100%{box-shadow:0 0 0 10px rgba(142,190,202,0)}
+}
+.pe-hero-copy h1{
+  text-wrap:balance;
+  text-shadow:0 0 60px rgba(142,190,202,.08);
+}
+.pe-hero-photo{
+  position:relative;
+  isolation:isolate;
+  transform:perspective(1100px) rotateY(-2deg) rotateX(.5deg);
+  transform-origin:center;
+  box-shadow:0 35px 80px rgba(0,0,0,.28),0 0 0 1px rgba(142,190,202,.18);
+  transition:transform .65s var(--pe-motion-ease),box-shadow .65s var(--pe-motion-ease);
+}
+.pe-hero-photo::before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.1),transparent 25%,transparent 68%,rgba(142,190,202,.14));
+  mix-blend-mode:screen;
+}
+.pe-hero-photo::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:42%;
+  aspect-ratio:1;
+  right:-10%;
+  bottom:-7%;
+  border-radius:50%;
+  background:var(--pe-aqua);
+  opacity:.28;
+  filter:blur(4px);
+  animation:pe-photo-orb 7s ease-in-out infinite alternate;
+}
+.pe-hero-photo:hover{
+  transform:perspective(1100px) rotateY(0) rotateX(0) translateY(-8px) scale(1.012);
+  box-shadow:0 44px 100px rgba(0,0,0,.34),0 0 0 1px rgba(142,190,202,.34);
+}
+.pe-hero-photo img{transition:transform 1.1s var(--pe-motion-ease);will-change:transform}
+.pe-hero-photo:hover img{transform:scale(1.035)}
+@keyframes pe-photo-orb{
+  from{transform:translate3d(0,0,0) scale(.92)}
+  to{transform:translate3d(-22px,-18px,0) scale(1.08)}
+}
+
+/* Buttons feel more physical without becoming playful. */
+.button,.btn,.navcta,.pe-trial-link{
+  position:relative;
+  overflow:hidden;
+  transition:transform .3s var(--pe-motion-ease),box-shadow .3s ease,background .3s ease!important;
+}
+.button::before,.btn::before,.navcta::before,.pe-trial-link::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.48) 45%,transparent 70%);
+  transform:translateX(-130%);
+  transition:transform .7s var(--pe-motion-ease);
+}
+.button:hover::before,.btn:hover::before,.navcta:hover::before,.pe-trial-link:hover::before{transform:translateX(130%)}
+.button:hover,.btn:hover,.navcta:hover,.pe-trial-link:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 34px rgba(33,91,107,.22);
+}
+
+/* Entrance choreography. JS adds these classes progressively. */
+.pe-reveal{
+  opacity:0;
+  transform:translate3d(0,30px,0);
+  transition:opacity .78s var(--pe-motion-ease),transform .78s var(--pe-motion-ease);
+  transition-delay:var(--pe-reveal-delay,0ms);
+  will-change:opacity,transform;
+}
+.pe-reveal.pe-from-left{transform:translate3d(-34px,0,0)}
+.pe-reveal.pe-from-right{transform:translate3d(34px,0,0)}
+.pe-reveal.pe-scale-in{transform:scale(.965) translate3d(0,18px,0)}
+.pe-reveal.is-visible{opacity:1;transform:none}
+
+/* Card lift and pointer tilt. */
+.pe-motion-card{
+  --pe-tilt-x:0deg;
+  --pe-tilt-y:0deg;
+  position:relative;
+  transform:perspective(900px) rotateX(var(--pe-tilt-y)) rotateY(var(--pe-tilt-x)) translateY(0);
+  transform-style:preserve-3d;
+  transition:transform .34s var(--pe-motion-ease),box-shadow .34s ease,border-color .34s ease;
+  will-change:transform;
+}
+.pe-motion-card::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  inset:0;
+  opacity:0;
+  background:radial-gradient(circle at var(--pe-pointer-x,50%) var(--pe-pointer-y,50%),rgba(142,190,202,.18),transparent 42%);
+  transition:opacity .3s ease;
+}
+.pe-motion-card:hover{
+  transform:perspective(900px) rotateX(var(--pe-tilt-y)) rotateY(var(--pe-tilt-x)) translateY(-7px);
+  border-color:rgba(106,164,179,.52)!important;
+  box-shadow:0 22px 48px rgba(28,54,65,.12);
+}
+.pe-motion-card:hover::after{opacity:1}
+.pe-package-card.pe-featured.pe-motion-card:hover{box-shadow:0 28px 60px rgba(4,12,18,.28)}
+
+/* Image sections get a subtle editorial reveal. */
+.pe-profile-photo,.student-voice img,.editorial-proof img,.hero img,.pagehero img{
+  transition:transform 1s var(--pe-motion-ease),filter .7s ease;
+}
+.pe-profile-photo:hover img,.student-voice img:hover,.editorial-proof img:hover{transform:scale(1.035)}
+
+/* Moving skills ribbon injected only on the homepage. */
+.pe-motion-ticker{
+  overflow:hidden;
+  background:#dcebed;
+  border-top:1px solid #c2d8dd;
+  border-bottom:1px solid #c2d8dd;
+  color:var(--pe-text);
+  white-space:nowrap;
+}
+.pe-motion-ticker-track{
+  display:flex;
+  width:max-content;
+  align-items:center;
+  animation:pe-ticker 28s linear infinite;
+}
+.pe-motion-ticker-group{display:flex;align-items:center}
+.pe-motion-ticker span{
+  display:inline-flex;
+  align-items:center;
+  gap:22px;
+  padding:14px 25px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+.pe-motion-ticker span::after{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--pe-aqua-2);
+  box-shadow:0 0 16px rgba(106,164,179,.45);
+}
+@keyframes pe-ticker{to{transform:translateX(-50%)}}
+
+/* Proof stats animate into place without changing the actual copy. */
+.pe-proof-grid>div{
+  transition:transform .38s var(--pe-motion-ease),background .38s ease;
+}
+.pe-proof-grid>div:hover{transform:translateY(-4px)}
+.pe-proof strong{transition:color .3s ease,text-shadow .3s ease}
+.pe-proof-grid>div:hover strong{color:#235f70;text-shadow:0 0 24px rgba(106,164,179,.24)}
+
+/* Internal page transition adapted from Phillips Digital. */
+.pe-link-wave{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--pe-wave-x,50vw) var(--pe-wave-y,50vh),#dcebed 0,#8ebeca 18%,#356d7b 44%,#121820 72%);
+  clip-path:circle(0 at var(--pe-wave-x,50vw) var(--pe-wave-y,50vh));
+  transition:clip-path .58s cubic-bezier(.76,0,.18,1);
+  will-change:clip-path;
+}
+.pe-link-wave.is-active{clip-path:circle(165vmax at var(--pe-wave-x,50vw) var(--pe-wave-y,50vh))}
+body.pe-page-leaving main,
+body.pe-page-leaving>section:not(.pe-link-wave){
+  transform:scale(1.018);
+  filter:blur(2px);
+  transition:transform .55s var(--pe-motion-ease),filter .55s ease;
+}
+
+/* Scroll progress is intentionally subtle. */
+.pe-scroll-progress{
+  position:fixed;
+  z-index:100000;
+  left:0;
+  top:0;
+  height:2px;
+  width:100%;
+  pointer-events:none;
+  transform-origin:left center;
+  transform:scaleX(0);
+  background:linear-gradient(90deg,#6aa4b3,#dcebed);
+  box-shadow:0 0 16px rgba(142,190,202,.7);
+}
+
+/* Heading accent fires when a section comes into view. */
+.pe-heading-focus{position:relative;display:inline-block}
+.pe-heading-focus::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  width:min(92px,32%);
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--pe-aqua-2),transparent);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .7s var(--pe-motion-ease) .12s;
+}
+.is-visible .pe-heading-focus::after,.pe-heading-focus.is-visible::after{transform:scaleX(1)}
+
+/* Give blog and guide cards the same premium motion language. */
+.post-card,.feature,.card,.guide-card,.sidebox,.contact-card,.premium-route,.group-offer,.route-card{
+  transition:transform .34s var(--pe-motion-ease),box-shadow .34s ease,border-color .34s ease;
+}
+
+@media(max-width:800px){
+  .pe-home-hero{min-height:auto}
+  .pe-home-hero::before{width:430px;height:430px;right:-180px;top:120px}
+  .pe-hero-photo{transform:none}
+  .pe-motion-card,.pe-motion-card:hover{transform:translateY(0)}
+  .pe-nav-shell nav{max-width:100%}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  body::before,.pe-home-hero::before,.pe-home-hero::after,.pe-hero-photo::after,.pe-hero-copy .eyebrow::before,.pe-motion-ticker-track{animation:none!important}
+  .pe-reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .pe-motion-card,.pe-motion-card:hover,.pe-hero-photo,.pe-hero-photo:hover{transform:none!important;transition:none!important}
+  .pe-link-wave{display:none!important}
+  body.pe-page-leaving main,body.pe-page-leaving>section{transform:none!important;filter:none!important}
+  .button::before,.btn::before,.navcta::before,.pe-trial-link::before{display:none}
+}
