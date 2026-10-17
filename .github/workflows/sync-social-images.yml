@@ -1,0 +1,47 @@
+name: Sync social replacement images
+
+on:
+  push:
+    paths:
+      - '.github/workflows/sync-social-images.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Download replacement images
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/social
+          curl -L --fail --retry 3 "https://at.adobe.com/3kdexTJGG2ZtebPy" -o assets/social/in-on-at-instagram.jpg
+          curl -L --fail --retry 3 "https://at.adobe.com/HKVHgaibxJwpptWw" -o assets/social/in-on-at-facebook.jpg
+          curl -L --fail --retry 3 "https://at.adobe.com/XLdehceCWiTor0j3" -o assets/social/in-on-at-linkedin.jpg
+          curl -L --fail --retry 3 "https://at.adobe.com/CPmQYknQzhSiOQqX" -o assets/social/present-perfect-instagram.jpg
+          curl -L --fail --retry 3 "https://at.adobe.com/no2gv3SBMrQtnDoL" -o assets/social/present-perfect-facebook.jpg
+          curl -L --fail --retry 3 "https://at.adobe.com/YSwQyc9eDo7DdcRD" -o assets/social/present-perfect-linkedin.jpg
+          curl -L --fail --retry 3 "https://at.adobe.com/FOBi6kxrgQ9rRAeJ" -o assets/social/email-phrases-instagram.jpg
+          curl -L --fail --retry 3 "https://at.adobe.com/t11lren70n34ujZq" -o assets/social/email-phrases-facebook.jpg
+          curl -L --fail --retry 3 "https://at.adobe.com/jpMfJtUohHJaKmuh" -o assets/social/email-phrases-linkedin.jpg
+          file assets/social/*
+
+      - name: Commit replacement images
+        shell: bash
+        run: |
+          git config user.name "Phillips English"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/social
+          if git diff --cached --quiet; then
+            echo "No image changes to commit."
+            exit 0
+          fi
+          git commit -m "Add unique social replacement images"
+          git push origin HEAD:main
