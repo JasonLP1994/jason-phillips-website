@@ -10,7 +10,7 @@ for (const entry of await readdir(root, { withFileTypes: true })) {
     await cp(resolve(root, entry.name), resolve(dist, entry.name));
   }
 }
-for (const directory of ['assets', 'blog', 'portal', 'es', 'fr', 'de']) {
+for (const directory of ['assets', 'blog', 'portal', 'es', 'fr', 'de', 'it']) {
   await cp(resolve(root, directory), resolve(dist, directory), { recursive: true });
 }
 if (process.env.LMS_VERIFY_ON_BUILD === '1') {
