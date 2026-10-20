@@ -773,6 +773,10 @@
     {
       "source": "/de",
       "destination": "/de/index.html"
+    },
+    {
+      "source": "/it",
+      "destination": "/it/index.html"
     }
   ],
   "headers": [
