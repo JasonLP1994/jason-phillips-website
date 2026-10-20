@@ -42,7 +42,14 @@
     attributionFields.forEach(function (key) {
       if (stored[key]) params.set(key, stored[key]);
     });
-    if (reportedSource) params.set('lead_source', reportedSource);
+
+    // Cal.com automatically stores standard UTM parameters with the booking.
+    // Preserve any existing utm_content and append the visitor's self-reported source.
+    if (reportedSource) {
+      var existingContent = params.get('utm_content') || '';
+      var sourceTag = 'reported_source:' + reportedSource;
+      params.set('utm_content', existingContent ? existingContent + '|' + sourceTag : sourceTag);
+    }
     return params;
   }
 
@@ -64,12 +71,29 @@
         var url = new URL(base, window.location.origin);
         attributionParams().forEach(function (value, key) { url.searchParams.set(key, value); });
         url.searchParams.set('utm_landing_page', window.location.pathname);
-        if (reportedSource) url.searchParams.set('lead_source', reportedSource);
         if (node.tagName === 'IFRAME') node.src = url.toString();
         else node.href = url.toString();
       } catch (error) {}
     });
   }
+
+  function setBookingGate(isOpen) {
+    document.querySelectorAll('[data-trial-calendar]').forEach(function (node) {
+      var container = node.closest('.trial-calendar, .calendar');
+      if (container) container.hidden = !isOpen;
+      if (node.tagName === 'IFRAME') node.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    });
+    document.querySelectorAll('.calendar-fallback, .fallback').forEach(function (node) {
+      node.hidden = !isOpen;
+    });
+    document.querySelectorAll('[data-source-question]').forEach(function (question) {
+      question.setAttribute('data-selected', isOpen ? 'true' : 'false');
+    });
+  }
+
+  // A source choice is required before the booker is revealed. This keeps attribution
+  // independent from analytics consent while adding only one click to the flow.
+  setBookingGate(Boolean(reportedSource));
 
   document.querySelectorAll('[data-attribution-source]').forEach(function (button) {
     if (reportedSource && button.getAttribute('data-attribution-source') === reportedSource) {
@@ -78,6 +102,7 @@
     button.addEventListener('click', function () {
       var value = button.getAttribute('data-attribution-source') || '';
       persistReportedSource(value);
+      setBookingGate(true);
       document.querySelectorAll('[data-attribution-source]').forEach(function (other) {
         other.setAttribute('aria-pressed', other === button ? 'true' : 'false');
       });
@@ -90,18 +115,6 @@
   });
 
   refreshCalendarAttribution();
-
-  document.querySelectorAll('[data-trial-calendar]').forEach(function (node) {
-    var base = node.getAttribute('data-cal-url') || node.getAttribute('href') || node.getAttribute('src');
-    if (!base) return;
-    try {
-      var url = new URL(base, window.location.origin);
-      attributionParams().forEach(function (value, key) { url.searchParams.set(key, value); });
-      url.searchParams.set('utm_landing_page', window.location.pathname);
-      if (node.tagName === 'IFRAME') node.src = url.toString();
-      else node.href = url.toString();
-    } catch (error) {}
-  });
 
   document.addEventListener('click', function (event) {
     var cta = event.target && event.target.closest ? event.target.closest('[data-trial-calendar], [data-campaign-cta]') : null;
