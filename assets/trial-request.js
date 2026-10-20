@@ -4,10 +4,14 @@
 
   var attributionKey = 'pe-attribution-v1';
   var attributionFields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','gbraid','wbraid','fbclid'];
+  var reportedSourceKey = 'pe-reported-source-v1';
+  var reportedSource = '';
   var query = new URLSearchParams(window.location.search);
   var stored = {};
 
   try { stored = JSON.parse(localStorage.getItem(attributionKey) || '{}') || {}; } catch (error) { stored = {}; }
+  try { reportedSource = localStorage.getItem(reportedSourceKey) || stored.reported_source || ''; } catch (error) { reportedSource = stored.reported_source || ''; }
+  if (reportedSource) stored.reported_source = reportedSource;
 
   attributionFields.forEach(function (key) {
     var value = query.get(key);
@@ -38,8 +42,54 @@
     attributionFields.forEach(function (key) {
       if (stored[key]) params.set(key, stored[key]);
     });
+    if (reportedSource) params.set('lead_source', reportedSource);
     return params;
   }
+
+  function persistReportedSource(value) {
+    reportedSource = value || '';
+    stored.reported_source = reportedSource;
+    stored.reported_source_at = new Date().toISOString();
+    try {
+      localStorage.setItem(reportedSourceKey, reportedSource);
+      localStorage.setItem(attributionKey, JSON.stringify(stored));
+    } catch (error) {}
+  }
+
+  function refreshCalendarAttribution() {
+    document.querySelectorAll('[data-trial-calendar]').forEach(function (node) {
+      var base = node.getAttribute('data-cal-url') || node.getAttribute('href') || node.getAttribute('src');
+      if (!base) return;
+      try {
+        var url = new URL(base, window.location.origin);
+        attributionParams().forEach(function (value, key) { url.searchParams.set(key, value); });
+        url.searchParams.set('utm_landing_page', window.location.pathname);
+        if (reportedSource) url.searchParams.set('lead_source', reportedSource);
+        if (node.tagName === 'IFRAME') node.src = url.toString();
+        else node.href = url.toString();
+      } catch (error) {}
+    });
+  }
+
+  document.querySelectorAll('[data-attribution-source]').forEach(function (button) {
+    if (reportedSource && button.getAttribute('data-attribution-source') === reportedSource) {
+      button.setAttribute('aria-pressed', 'true');
+    }
+    button.addEventListener('click', function () {
+      var value = button.getAttribute('data-attribution-source') || '';
+      persistReportedSource(value);
+      document.querySelectorAll('[data-attribution-source]').forEach(function (other) {
+        other.setAttribute('aria-pressed', other === button ? 'true' : 'false');
+      });
+      refreshCalendarAttribution();
+      sendEvent('trial_source_selected', {
+        page_path: window.location.pathname,
+        reported_source: value
+      });
+    });
+  });
+
+  refreshCalendarAttribution();
 
   document.querySelectorAll('[data-trial-calendar]').forEach(function (node) {
     var base = node.getAttribute('data-cal-url') || node.getAttribute('href') || node.getAttribute('src');
@@ -61,6 +111,7 @@
       campaign: stored.utm_campaign || '',
       source: stored.utm_source || '',
       medium: stored.utm_medium || '',
+      reported_source: reportedSource || '',
       cta_location: cta.getAttribute('data-campaign-cta') || 'calendar'
     });
   }, true);
@@ -72,7 +123,8 @@
       sendEvent('trial_calendar_interaction', {
         page_path: window.location.pathname,
         campaign: stored.utm_campaign || '',
-        source: stored.utm_source || ''
+        source: stored.utm_source || '',
+        reported_source: reportedSource || ''
       });
     }, 0);
   });
@@ -87,6 +139,7 @@
     addHidden(form, 'last_referrer', stored.last_referrer);
     addHidden(form, 'page_url', window.location.href);
     addHidden(form, 'page_path', window.location.pathname);
+    addHidden(form, 'reported_source', reportedSource);
 
     var button = form.querySelector('button[type="submit"]');
     var status = form.parentElement.querySelector('.trial-status') || document.querySelector('.trial-status');
@@ -146,7 +199,8 @@
           page_path: window.location.pathname,
           campaign: stored.utm_campaign || '',
           source: stored.utm_source || '',
-          medium: stored.utm_medium || ''
+          medium: stored.utm_medium || '',
+          reported_source: reportedSource || ''
         });
         sendEvent('trial_request_success', {
           page_path: window.location.pathname,
