@@ -777,6 +777,70 @@
     {
       "source": "/it",
       "destination": "/it/index.html"
+    },
+    {
+      "source": "/es/ingles-negocios",
+      "destination": "/es/ingles-negocios.html"
+    },
+    {
+      "source": "/es/pronunciacion-fluidez",
+      "destination": "/es/pronunciacion-fluidez.html"
+    },
+    {
+      "source": "/es/entrevistas-presentaciones",
+      "destination": "/es/entrevistas-presentaciones.html"
+    },
+    {
+      "source": "/es/prueba-gratis",
+      "destination": "/es/prueba-gratis.html"
+    },
+    {
+      "source": "/fr/anglais-professionnel",
+      "destination": "/fr/anglais-professionnel.html"
+    },
+    {
+      "source": "/fr/prononciation-aisance",
+      "destination": "/fr/prononciation-aisance.html"
+    },
+    {
+      "source": "/fr/entretiens-presentations",
+      "destination": "/fr/entretiens-presentations.html"
+    },
+    {
+      "source": "/fr/essai-gratuit",
+      "destination": "/fr/essai-gratuit.html"
+    },
+    {
+      "source": "/de/business-englisch",
+      "destination": "/de/business-englisch.html"
+    },
+    {
+      "source": "/de/aussprache-sprechfluss",
+      "destination": "/de/aussprache-sprechfluss.html"
+    },
+    {
+      "source": "/de/vorstellungsgespraeche-praesentationen",
+      "destination": "/de/vorstellungsgespraeche-praesentationen.html"
+    },
+    {
+      "source": "/de/kostenlose-probestunde",
+      "destination": "/de/kostenlose-probestunde.html"
+    },
+    {
+      "source": "/it/business-english",
+      "destination": "/it/business-english.html"
+    },
+    {
+      "source": "/it/pronuncia-fluidita",
+      "destination": "/it/pronuncia-fluidita.html"
+    },
+    {
+      "source": "/it/colloqui-presentazioni",
+      "destination": "/it/colloqui-presentazioni.html"
+    },
+    {
+      "source": "/it/prova-gratuita",
+      "destination": "/it/prova-gratuita.html"
     }
   ],
   "headers": [
