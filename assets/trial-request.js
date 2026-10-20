@@ -10,7 +10,7 @@
   var stored = {};
 
   try { stored = JSON.parse(localStorage.getItem(attributionKey) || '{}') || {}; } catch (error) { stored = {}; }
-  try { reportedSource = localStorage.getItem(reportedSourceKey) || stored.reported_source || ''; } catch (error) { reportedSource = stored.reported_source || ''; }
+  try { reportedSource = sessionStorage.getItem(reportedSourceKey) || ''; } catch (error) { reportedSource = ''; }
   if (reportedSource) stored.reported_source = reportedSource;
 
   attributionFields.forEach(function (key) {
@@ -58,9 +58,20 @@
     stored.reported_source = reportedSource;
     stored.reported_source_at = new Date().toISOString();
     try {
-      localStorage.setItem(reportedSourceKey, reportedSource);
+      sessionStorage.setItem(reportedSourceKey, reportedSource);
       localStorage.setItem(attributionKey, JSON.stringify(stored));
     } catch (error) {}
+
+    document.querySelectorAll('form[data-trial-request]').forEach(function (form) {
+      var field = form.querySelector('input[name="reported_source"]');
+      if (!field) {
+        field = document.createElement('input');
+        field.type = 'hidden';
+        field.name = 'reported_source';
+        form.appendChild(field);
+      }
+      field.value = reportedSource;
+    });
   }
 
   function refreshCalendarAttribution() {
@@ -83,7 +94,7 @@
       if (container) container.hidden = !isOpen;
       if (node.tagName === 'IFRAME') node.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
     });
-    document.querySelectorAll('.calendar-fallback, .fallback').forEach(function (node) {
+    document.querySelectorAll('.calendar-fallback, .fallback, .alt-request').forEach(function (node) {
       node.hidden = !isOpen;
     });
     document.querySelectorAll('[data-source-question]').forEach(function (question) {
@@ -169,12 +180,19 @@
       sendEvent('trial_form_start', {
         form_name: form.querySelector('[name="enquiry_type"]') ? form.querySelector('[name="enquiry_type"]').value : 'free_trial',
         page_path: window.location.pathname,
-        campaign: stored.utm_campaign || ''
+        campaign: stored.utm_campaign || '',
+        reported_source: reportedSource || ''
       });
     });
 
     form.addEventListener('submit', async function (event) {
       event.preventDefault();
+      if (!reportedSource) {
+        status.dataset.state = 'error';
+        status.textContent = 'Please choose how you found Phillips English before sending your request.';
+        status.focus();
+        return;
+      }
       if (pending || !form.reportValidity()) return;
       pending = true;
       button.disabled = true;
