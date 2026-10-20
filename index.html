@@ -236,6 +236,102 @@ nav{position:relative;z-index:50}
 .pe-lang-switcher{display:flex;gap:5px;align-items:center;margin-left:4px}.pe-lang-switcher a{display:inline-flex;min-width:34px;height:30px;align-items:center;justify-content:center;border:1px solid #385063;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.06em;color:#dbe4e9}.pe-lang-switcher a[aria-current="page"]{background:var(--ice);border-color:var(--ice);color:#071521}.pe-lang-switcher a:hover{border-color:var(--ice)}@media(max-width:800px){.pe-lang-switcher{margin-left:auto}}
 </style><!-- Phillips English shared polish -->
 <link rel="stylesheet" href="assets/site-polish.css">
+<style id="pe-home-mobile-layout">
+/* Homepage-specific mobile layout. Keep the desktop header and animations intact. */
+.pe-home-nav .pe-menu-toggle{display:none}
+@media(max-width:800px){
+  .pe-nav-shell .wrap:has(> .pe-home-nav){padding-left:20px!important;padding-right:20px!important}
+  .pe-home-nav{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    grid-template-areas:"brand toggle" "languages cta" "links links"!important;
+    column-gap:10px!important;
+    row-gap:12px!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    padding:14px 0 16px!important;
+    align-items:center!important;
+    border-bottom:0!important;
+  }
+  .pe-home-nav .brand{grid-area:brand;min-width:0!important;justify-self:start}
+  .pe-home-nav .brand-lockup{min-width:0!important}
+  .pe-home-nav .brand-name{font-size:clamp(15px,4.3vw,19px)!important;letter-spacing:.035em!important;white-space:nowrap!important}
+  .pe-home-nav .brand-sub{font-size:8px!important;letter-spacing:.12em!important;white-space:nowrap!important}
+  .pe-home-nav .pe-menu-toggle{
+    grid-area:toggle;display:inline-flex!important;align-items:center;justify-content:center;
+    gap:9px;min-height:42px;padding:9px 12px;justify-self:end;cursor:pointer;
+    color:#e8f2f6;background:rgba(139,200,239,.07);border:1px solid rgba(139,200,239,.4);
+    border-radius:999px;font:700 12px/1 Arial,Helvetica,sans-serif;
+  }
+  .pe-home-nav .pe-menu-toggle:focus-visible,.pe-home-nav .navlinks a:focus-visible,.pe-home-nav .pe-lang-switcher a:focus-visible{
+    outline:3px solid #8bc8ef;outline-offset:3px
+  }
+  .pe-home-nav .pe-menu-icon{display:flex;flex-direction:column;gap:4px;width:17px;flex-shrink:0}
+  .pe-home-nav .pe-menu-icon span{display:block;width:17px;height:2px;border-radius:2px;background:currentColor;transition:transform .2s ease,opacity .2s ease}
+  .pe-home-nav.menu-open .pe-menu-icon span:first-child{transform:translateY(6px) rotate(45deg)}
+  .pe-home-nav.menu-open .pe-menu-icon span:nth-child(2){opacity:0}
+  .pe-home-nav.menu-open .pe-menu-icon span:last-child{transform:translateY(-6px) rotate(-45deg)}
+  .pe-home-nav .pe-lang-switcher{
+    grid-area:languages;display:flex!important;flex-wrap:nowrap!important;
+    justify-self:start;align-items:center;margin:0!important;gap:4px!important;min-width:0;
+  }
+  .pe-home-nav .pe-lang-switcher a{
+    min-width:30px!important;width:30px;height:34px!important;font-size:10px!important;
+    padding:0!important;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
+  }
+  .pe-home-nav .navcta{
+    grid-area:cta;align-self:center;justify-self:end!important;
+    padding:10px 12px!important;font-size:11px!important;line-height:1.15!important;
+    white-space:nowrap!important;min-height:38px;display:inline-flex;align-items:center;justify-content:center;
+    margin:0!important
+  }
+  .pe-home-nav .navlinks{
+    grid-area:links;grid-column:auto!important;order:initial!important;
+    display:none!important;width:100%!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:2px 6px!important;margin:0!important;padding:9px!important;
+    overflow:visible!important;overscroll-behavior:auto;
+    background:#162a38;border:1px solid rgba(139,200,239,.24)!important;
+    border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.18);
+  }
+  .pe-home-nav.menu-open .navlinks{display:grid!important}
+  .pe-home-nav .navlinks a{
+    display:block!important;min-width:0!important;white-space:normal!important;
+    font-size:13px!important;line-height:1.3!important;padding:12px 10px!important;
+    border:0!important;border-radius:8px;overflow-wrap:break-word;
+  }
+  .pe-home-nav .navlinks a:hover,.pe-home-nav .navlinks a:focus-visible{background:rgba(139,200,239,.12);color:#fff!important}
+  .pe-home-nav .navlinks a::after{display:none}
+  .pe-home-hero{min-height:0!important;padding:36px 0 40px!important}
+  .pe-home-hero .pe-hero-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:28px!important;align-items:start}
+  .pe-home-hero .pe-hero-copy{min-width:0;width:100%}
+  .pe-home-hero .pe-hero-copy .eyebrow{max-width:100%;font-size:10px!important;letter-spacing:.1em!important;line-height:1.45!important;padding:9px 11px!important;white-space:normal}
+  .pe-home-hero .pe-hero-copy h1{
+    font-size:clamp(36px,9.35vw,46px)!important;line-height:1.04!important;
+    letter-spacing:-.047em!important;overflow-wrap:normal;word-break:normal;
+    text-wrap:balance;max-width:19ch;margin:17px 0 20px!important;
+  }
+  .pe-home-hero .pe-hero-copy>p:not(.pe-hero-note){font-size:16px!important;line-height:1.55!important;max-width:40ch;margin:0 0 22px!important}
+  .pe-home-hero .pe-actions{margin:22px 0 0!important;gap:11px!important}
+  .pe-home-hero .pe-actions .button{min-height:48px!important;font-size:13px!important}
+  .pe-home-hero .pe-secondary{min-height:42px}
+  .pe-home-hero .pe-hero-note{font-size:11px!important;line-height:1.5!important;margin:17px 0 0!important}
+  .pe-home-hero .pe-hero-photo{width:100%;max-width:480px;height:380px!important;margin:0 auto}
+  .pe-home-page .pe-translate{display:none!important}
+}
+@media(max-width:380px){
+  .pe-home-nav .brand-name{font-size:15px!important}
+  .pe-home-nav .brand-sub{font-size:7.5px!important}
+  .pe-home-nav .pe-lang-switcher a{width:28px!important;min-width:28px!important;height:32px!important}
+  .pe-home-nav .navcta{padding:9px 10px!important;font-size:10px!important}
+  .pe-home-hero .pe-hero-copy h1{font-size:clamp(34px,9.6vw,37px)!important}
+  .pe-home-hero .pe-hero-photo{height:340px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .pe-home-nav .pe-menu-icon span{transition:none}
+}
+</style>
 <style>.pe-trial-offer{background:#dcecf0;color:#10252d;padding:48px 0}.pe-trial-offer .eyebrow{color:#35616b}.pe-trial-offer h2{font-size:clamp(32px,5vw,52px);line-height:1.08;margin:12px 0 20px}.pe-trial-offer p{max-width:760px;line-height:1.7}.pe-trial-offer .pe-trial-small{font-size:13px}.pe-trial-form{max-width:680px;margin-top:24px}.pe-trial-form label{display:block;font-weight:700;margin:16px 0 6px}.pe-trial-form input,.pe-trial-form textarea{display:block;width:100%;box-sizing:border-box;background:white;color:#10252d;border:1px solid #809ba3;padding:12px;font:inherit}.pe-trial-form button{margin-top:20px;border:0;cursor:pointer}</style><meta name="description" content="Private online English lessons with Jason Phillips for work, IELTS and clearer speaking. Try a free 25 minute first lesson with practical feedback.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <link rel="canonical" href="https://www.phillipsenglish.com/">
@@ -255,11 +351,12 @@ nav{position:relative;z-index:50}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://www.phillipsenglish.com/#jason-phillips","name":"Jason Phillips","jobTitle":"British English Teacher and Coach","worksFor":{"@id":"https://www.phillipsenglish.com/#business"},"knowsAbout":["Business English","IELTS","English pronunciation","English fluency","Interview English","Presentation English","Aviation English","Professional communication"],"url":"https://www.phillipsenglish.com/about.html","sameAs":["https://www.linkedin.com/in/jason-phillips-77337a2b8/","https://x.com/JasonPhill20809"]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://www.phillipsenglish.com/#webpage","name":"Online English Tutor & British English Coaching","url":"https://www.phillipsenglish.com/","description":"Private online English lessons with Jason Phillips for work, IELTS and clearer speaking. Try a free 25 minute first lesson with practical feedback.","inLanguage":"en-GB","isPartOf":{"@id":"https://www.phillipsenglish.com/#website"},"dateModified":"2026-10-20"}</script>
 </head>
-<body>
+<body class="pe-home-page">
 <div class="wrap">
-  <nav>
+  <nav class="pe-home-nav">
     <a class="brand" href="/"><span class="brand-lockup"><span class="brand-name">Phillips English</span><span class="brand-sub">Private English Coaching</span></span></a>
-    <div class="navlinks">
+    <button class="pe-menu-toggle" type="button" aria-expanded="false" aria-controls="home-primary-navigation" aria-label="Open navigation"><span class="pe-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span><span class="pe-menu-word">Menu</span></button>
+    <div class="navlinks" id="home-primary-navigation">
 <a href="/">Home</a>
 <a href="about.html">About</a>
 <a href="coaching.html">Coaching</a>
@@ -567,5 +664,27 @@ nav{position:relative;z-index:50}
 </script>
 
 
+
+<script id="pe-home-menu-behaviour">
+(function(){
+  var nav=document.querySelector('.pe-home-nav');
+  var toggle=nav&&nav.querySelector('.pe-menu-toggle');
+  var links=nav&&nav.querySelector('.navlinks');
+  if(!nav||!toggle||!links) return;
+  function setOpen(open){
+    nav.classList.toggle('menu-open',open);
+    toggle.setAttribute('aria-expanded',String(open));
+    toggle.setAttribute('aria-label',open?'Close navigation':'Open navigation');
+    var word=toggle.querySelector('.pe-menu-word');
+    if(word) word.textContent=open?'Close':'Menu';
+  }
+  toggle.addEventListener('click',function(){setOpen(!nav.classList.contains('menu-open'));});
+  links.addEventListener('click',function(e){if(e.target.closest('a'))setOpen(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('menu-open')){setOpen(false);toggle.focus();}});
+  document.addEventListener('click',function(e){if(nav.classList.contains('menu-open')&&!nav.contains(e.target))setOpen(false);});
+  var desktop=window.matchMedia('(min-width:801px)');
+  if(desktop.addEventListener) desktop.addEventListener('change',function(e){if(e.matches)setOpen(false);});
+})();
+</script>
 <script defer src="assets/site-polish.js"></script>
 </body></html>
