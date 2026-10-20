@@ -763,8 +763,16 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
-      "source": "/portal",
-      "destination": "/portal/index.html"
+      "source": "/es",
+      "destination": "/es/index.html"
+    },
+    {
+      "source": "/fr",
+      "destination": "/fr/index.html"
+    },
+    {
+      "source": "/de",
+      "destination": "/de/index.html"
     }
   ],
   "headers": [
