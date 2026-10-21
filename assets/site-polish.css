@@ -640,3 +640,178 @@ body.pe-page-leaving>section:not(.pe-link-wave){
   body.pe-page-leaving main,body.pe-page-leaving>section{transform:none!important;filter:none!important}
   .button::before,.btn::before,.navcta::before,.pe-trial-link::before{display:none}
 }
+
+
+/* PHILLIPS ENGLISH MOTION V2
+   MotionSites-inspired layer: kinetic type, liquid glass, responsive light,
+   scroll depth and restrained magnetic interaction. */
+body.pe-motion-v2{--pe-cursor-x:50vw;--pe-cursor-y:24vh}
+.pe-cursor-glow{
+  position:fixed;
+  z-index:1;
+  width:520px;
+  height:520px;
+  left:0;
+  top:0;
+  border-radius:50%;
+  pointer-events:none;
+  opacity:.52;
+  transform:translate3d(calc(var(--pe-cursor-x) - 260px),calc(var(--pe-cursor-y) - 260px),0);
+  background:radial-gradient(circle,rgba(142,190,202,.16) 0,rgba(142,190,202,.07) 28%,rgba(142,190,202,0) 68%);
+  filter:blur(14px);
+  mix-blend-mode:screen;
+  transition:opacity .35s ease;
+  will-change:transform;
+}
+body.pe-motion-v2 main,body.pe-motion-v2 header,body.pe-motion-v2 footer,body.pe-motion-v2 .pe-nav-shell{position:relative;z-index:2}
+
+/* Kinetic hero words use overflow masks instead of changing the accessible heading. */
+.pe-kinetic-title{overflow:visible}
+.pe-kinetic-title .pe-word-mask{display:inline-block;overflow:hidden;vertical-align:bottom;margin-right:.16em;margin-bottom:-.12em;padding-bottom:.12em}
+.pe-kinetic-title .pe-word{
+  display:inline-block;
+  transform-origin:50% 100%;
+  will-change:transform,opacity,filter;
+}
+
+/* Slight scroll depth on hero media. */
+.pe-home-hero .pe-hero-photo{
+  --pe-parallax-y:0px;
+  transform:perspective(1100px) translate3d(0,var(--pe-parallax-y),0) rotateY(-2deg) rotateX(.5deg);
+}
+.pe-home-hero .pe-hero-photo:hover{
+  transform:perspective(1100px) translate3d(0,calc(var(--pe-parallax-y) - 8px),0) rotateY(0) rotateX(0) scale(1.012);
+}
+.pe-profile-photo,.editorial-proof img,.story-photo,.proof-img{
+  --pe-media-y:0px;
+  transform:translate3d(0,var(--pe-media-y),0);
+  will-change:transform;
+}
+
+/* Liquid-glass edge treatment on interactive cards. */
+.pe-liquid-card{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+.pe-liquid-card::before{
+  content:"";
+  position:absolute;
+  z-index:3;
+  inset:0;
+  padding:1px;
+  border-radius:inherit;
+  pointer-events:none;
+  background:conic-gradient(from var(--pe-liquid-angle,0deg),transparent 0 18%,rgba(142,190,202,.72) 26%,rgba(255,255,255,.4) 31%,transparent 40% 73%,rgba(106,164,179,.42) 82%,transparent 90%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  opacity:.42;
+  transition:opacity .35s ease;
+  animation:pe-liquid-edge 11s linear infinite;
+}
+.pe-liquid-card:hover::before{opacity:.85}
+@keyframes pe-liquid-edge{to{--pe-liquid-angle:360deg}}
+@property --pe-liquid-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+
+/* MotionSites-style soft glass on dark cards, still inside Phillips English palette. */
+.pe-package-card.pe-featured,.seo-specialism-grid a,.student-voice.dark .review-card,.premium-route.pe-book-card.featured{
+  backdrop-filter:blur(10px) saturate(120%);
+  -webkit-backdrop-filter:blur(10px) saturate(120%);
+  background-image:linear-gradient(145deg,rgba(255,255,255,.035),rgba(142,190,202,.025))!important;
+}
+
+/* Section depth beam follows the reader down the page. */
+.pe-motion-section{position:relative;isolation:isolate}
+.pe-motion-section::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  pointer-events:none;
+  left:50%;
+  top:0;
+  width:min(74vw,980px);
+  height:1px;
+  transform:translateX(-50%) scaleX(var(--pe-section-line,0));
+  transform-origin:center;
+  opacity:.72;
+  background:linear-gradient(90deg,transparent,rgba(106,164,179,.58),rgba(220,235,237,.9),rgba(106,164,179,.58),transparent);
+  box-shadow:0 0 22px rgba(142,190,202,.2);
+}
+.pe-motion-section>.wrap{position:relative;z-index:1}
+
+/* More editorial reveal depth without making content jump. */
+.pe-depth-reveal{
+  --pe-depth-y:22px;
+  opacity:.001;
+  filter:blur(8px);
+  transform:translate3d(0,var(--pe-depth-y),0) scale(.992);
+  transition:opacity .9s var(--pe-motion-ease),filter .9s var(--pe-motion-ease),transform .9s var(--pe-motion-ease);
+}
+.pe-depth-reveal.is-depth-visible{opacity:1;filter:blur(0);transform:none}
+
+/* Magnetic CTA movement is intentionally tiny. */
+.pe-magnetic{
+  --pe-magnet-x:0px;
+  --pe-magnet-y:0px;
+}
+.pe-magnetic:hover{
+  transform:translate3d(var(--pe-magnet-x),calc(var(--pe-magnet-y) - 3px),0)!important;
+}
+.pe-magnetic::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  inset:-18px;
+  border-radius:999px;
+}
+
+/* The existing ticker now feels more spatial. */
+.pe-motion-ticker{position:relative;isolation:isolate}
+.pe-motion-ticker::before,.pe-motion-ticker::after{
+  content:"";
+  position:absolute;
+  z-index:2;
+  top:0;
+  bottom:0;
+  width:90px;
+  pointer-events:none;
+}
+.pe-motion-ticker::before{left:0;background:linear-gradient(90deg,#dcebed,rgba(220,235,237,0))}
+.pe-motion-ticker::after{right:0;background:linear-gradient(-90deg,#dcebed,rgba(220,235,237,0))}
+.pe-motion-ticker:hover .pe-motion-ticker-track{animation-play-state:paused}
+
+/* Proof figures gain a restrained count-up finish. */
+.pe-proof strong.pe-counting{font-variant-numeric:tabular-nums}
+.pe-proof strong.pe-count-complete{animation:pe-stat-settle .55s var(--pe-motion-ease)}
+@keyframes pe-stat-settle{0%{transform:translateY(5px);opacity:.55}100%{transform:none;opacity:1}}
+
+/* Dark section glow travels subtly with scroll. */
+.pe-dark-depth{
+  --pe-depth-x:50%;
+  background-image:radial-gradient(circle at var(--pe-depth-x) 0%,rgba(142,190,202,.08),transparent 33%)!important;
+}
+
+/* Scroll-sensitive nav compression on desktop only. */
+@media(min-width:801px){
+  .pe-nav-shell nav{transition:transform .35s var(--pe-motion-ease),min-height .35s ease}
+  .pe-nav-shell.pe-scrolled nav{transform:scale(.985)}
+  .pe-nav-shell.pe-scrolled .navlinks a{padding-top:23px;padding-bottom:21px}
+}
+
+@media(max-width:800px){
+  .pe-cursor-glow{display:none}
+  .pe-liquid-card::before{animation-duration:18s;opacity:.28}
+  .pe-motion-section::after{width:88vw}
+  .pe-depth-reveal{filter:none;transform:translate3d(0,16px,0)}
+  .pe-home-hero .pe-hero-photo,.pe-home-hero .pe-hero-photo:hover{transform:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .pe-cursor-glow{display:none!important}
+  .pe-liquid-card::before{animation:none!important}
+  .pe-depth-reveal{opacity:1!important;filter:none!important;transform:none!important;transition:none!important}
+  .pe-magnetic,.pe-magnetic:hover{transform:none!important}
+  .pe-motion-section::after{transform:translateX(-50%) scaleX(1)!important}
+  .pe-kinetic-title .pe-word{transform:none!important;opacity:1!important;filter:none!important}
+}
