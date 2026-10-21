@@ -637,6 +637,10 @@
       var safeTitle=escapeHtml(title);
       var safeTopic=escapeHtml(topic);
 
+      // The blog index initially shows nine articles and hides the remainder.
+      // Carry that state to the cube shell so hidden articles do not leave empty faces.
+      var wasHidden=card.hidden || card.style.display==='none';
+
       var shell=document.createElement('div');
       shell.className='pe-article-cube-shell';
       shell.tabIndex=0;
@@ -648,6 +652,7 @@
 
       card.classList.remove('pe-reveal','pe-scale-in','pe-from-left','pe-from-right','pe-motion-card','pe-liquid-card','is-visible','is-depth-visible');
       card.removeAttribute('style');
+      card.hidden=false; // The shell, not its content, controls pagination visibility.
 
       var front=document.createElement('div');
       front.className='pe-cube-face-real pe-cube-front-real';
@@ -676,6 +681,7 @@
 
       [front,back,right,left,top,bottom].forEach(function(face){cube.appendChild(face);});
       shell.appendChild(cube);
+      if(wasHidden){shell.hidden=true;shell.style.display='none';}
 
       function go(){
         window.location.href=href;
