@@ -37,19 +37,30 @@
     form.appendChild(field);
   }
 
+  function compactReferrer(value) {
+    if (!value) return '';
+    try {
+      return new URL(value, window.location.origin).hostname.replace(/^www\./, '').slice(0, 120);
+    } catch (error) {
+      return String(value).slice(0, 120);
+    }
+  }
+
   function attributionParams() {
     var params = new URLSearchParams();
     attributionFields.forEach(function (key) {
       if (stored[key]) params.set(key, stored[key]);
     });
 
-    // Cal.com automatically stores standard UTM parameters with the booking.
-    // Preserve any existing utm_content and append the visitor's self-reported source.
-    if (reportedSource) {
-      var existingContent = params.get('utm_content') || '';
-      var sourceTag = 'reported_source:' + reportedSource;
-      params.set('utm_content', existingContent ? existingContent + '|' + sourceTag : sourceTag);
-    }
+    // Cal.com stores standard UTM parameters with the booking. Keep any campaign
+    // content already present, then append self-reported source and referrer host
+    // so attribution survives even when Google Analytics is not available.
+    var contentParts = [];
+    if (params.get('utm_content')) contentParts.push(params.get('utm_content'));
+    if (reportedSource) contentParts.push('reported_source:' + reportedSource);
+    var referrerHost = compactReferrer(stored.first_referrer || stored.last_referrer);
+    if (referrerHost) contentParts.push('referrer:' + referrerHost);
+    if (contentParts.length) params.set('utm_content', contentParts.join('|'));
     return params;
   }
 
@@ -82,6 +93,10 @@
         var url = new URL(base, window.location.origin);
         attributionParams().forEach(function (value, key) { url.searchParams.set(key, value); });
         url.searchParams.set('utm_landing_page', window.location.pathname);
+        if (stored.first_landing_page) url.searchParams.set('first_landing_page', stored.first_landing_page);
+        if (stored.last_landing_page) url.searchParams.set('last_landing_page', stored.last_landing_page);
+        if (stored.first_referrer) url.searchParams.set('first_referrer', stored.first_referrer);
+        if (stored.last_referrer) url.searchParams.set('last_referrer', stored.last_referrer);
         if (node.tagName === 'IFRAME') node.src = url.toString();
         else node.href = url.toString();
       } catch (error) {}
@@ -118,6 +133,7 @@
         other.setAttribute('aria-pressed', other === button ? 'true' : 'false');
       });
       refreshCalendarAttribution();
+      sendBookingIntent('source_selection');
       sendEvent('trial_source_selected', {
         page_path: window.location.pathname,
         reported_source: value
@@ -127,17 +143,25 @@
 
   refreshCalendarAttribution();
 
-  document.addEventListener('click', function (event) {
-    var cta = event.target && event.target.closest ? event.target.closest('[data-trial-calendar], [data-campaign-cta]') : null;
-    if (!cta) return;
+  var bookingIntentSent = false;
+  function sendBookingIntent(location) {
+    if (bookingIntentSent) return;
+    bookingIntentSent = true;
     sendEvent('trial_booking_intent', {
       page_path: window.location.pathname,
       campaign: stored.utm_campaign || '',
       source: stored.utm_source || '',
       medium: stored.utm_medium || '',
       reported_source: reportedSource || '',
-      cta_location: cta.getAttribute('data-campaign-cta') || 'calendar'
+      referrer_host: compactReferrer(stored.first_referrer || stored.last_referrer),
+      cta_location: location || 'calendar'
     });
+  }
+
+  document.addEventListener('click', function (event) {
+    var cta = event.target && event.target.closest ? event.target.closest('[data-trial-calendar], [data-campaign-cta]') : null;
+    if (!cta) return;
+    sendBookingIntent(cta.getAttribute('data-campaign-cta') || 'calendar');
   }, true);
 
   window.addEventListener('blur', function () {
@@ -148,7 +172,9 @@
         page_path: window.location.pathname,
         campaign: stored.utm_campaign || '',
         source: stored.utm_source || '',
-        reported_source: reportedSource || ''
+        medium: stored.utm_medium || '',
+        reported_source: reportedSource || '',
+        referrer_host: compactReferrer(stored.first_referrer || stored.last_referrer)
       });
     }, 0);
   });
@@ -204,7 +230,11 @@
       sendEvent('trial_form_submit', {
         form_name: form.querySelector('[name="enquiry_type"]') ? form.querySelector('[name="enquiry_type"]').value : 'free_trial',
         page_path: window.location.pathname,
-        campaign: stored.utm_campaign || ''
+        campaign: stored.utm_campaign || '',
+        source: stored.utm_source || '',
+        medium: stored.utm_medium || '',
+        reported_source: reportedSource || '',
+        referrer_host: compactReferrer(stored.first_referrer || stored.last_referrer)
       });
 
       try {
@@ -235,7 +265,11 @@
         });
         sendEvent('trial_request_success', {
           page_path: window.location.pathname,
-          campaign: stored.utm_campaign || ''
+          campaign: stored.utm_campaign || '',
+          source: stored.utm_source || '',
+          medium: stored.utm_medium || '',
+          reported_source: reportedSource || '',
+          referrer_host: compactReferrer(stored.first_referrer || stored.last_referrer)
         });
         status.focus();
       } catch (error) {
