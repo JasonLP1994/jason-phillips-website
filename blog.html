@@ -489,6 +489,14 @@ body{background:var(--journal-dark)}
   }
 }
 
+
+/* Individual blog cover photographs, same imagery as each article hero. */
+.journal-card-art.has-real-cover{height:160px;background:#122a3b;overflow:hidden}
+.journal-card-art.has-real-cover::before,.journal-card-art.has-real-cover::after{display:none}
+.journal-card-art .journal-cover-image{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.post-card:hover .journal-cover-image{transform:scale(1.045)}
+@media(max-width:680px){.journal-card-art.has-real-cover{height:185px}}
+@media(prefers-reduced-motion:reduce){.journal-card-art .journal-cover-image{transition:none!important}}
 </style>
 <link rel="stylesheet" href="assets/site-polish.css">
 <meta name="description" content="Practical English tips from Jason Phillips on grammar mistakes, collocations, pronunciation and speaking at work, plus reflections on teaching and progress.">
@@ -573,11 +581,23 @@ body{background:var(--journal-dark)}
     if(/teaching|young learners/.test(t)) return 'teaching';
     return 'grammar';
   }
+  const blogOriginalCovers={"a-favourite-song-articles-contractions-anymore.html":"favourite-song-grammar","professional-meeting-presentation-introductions.html":"meeting-presentation-introductions","comparatives-superlatives-more-better-more-happier.html":"comparatives-better-happier","teaching-young-learners-engagement-and-progress.html":"teaching-young-learners","learning-pronunciation-native-english-teacher.html":"english-pronunciation","i-agree-not-i-am-agree.html":"i-agree-grammar","before-submit-or-before-submitting-the-request.html":"before-submitting","synonyms-for-good-better-vocabulary.html":"synonyms-for-good","you-dont-do-nothing-double-negative-english.html":"double-negatives"};
   cards.forEach(card=>{
     card.dataset.topic=topicOf(card);
     const art=document.createElement('div');art.className='journal-card-art';art.setAttribute('aria-hidden','true');
     const content=document.createElement('div');content.className='journal-card-content';
     while(card.firstChild) content.appendChild(card.firstChild);
+    const link=card.querySelector('a[href]');
+    const slug=link&&link.getAttribute('href').split('/').pop().split('#')[0];
+    if(slug&&blogOriginalCovers[slug]){
+      const picture=document.createElement('img');
+      picture.src='/assets/blog-covers/'+blogOriginalCovers[slug]+'.jpg';
+      picture.alt='Illustration for '+(card.querySelector('h3')?.textContent||'Phillips English article');
+      picture.width=1100;picture.height=619;picture.loading='lazy';picture.decoding='async';
+      picture.className='journal-cover-image';
+      art.appendChild(picture);
+      art.classList.add('has-real-cover');
+    }
     card.append(art,content);
   });
   let active='all',visible=9;
