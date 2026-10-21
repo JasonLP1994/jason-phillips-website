@@ -602,3 +602,64 @@
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
 })();
+
+
+/* Clickable rotating blog cubes */
+(function(){
+  'use strict';
+  function initBlogCubes(){
+    if(!/\/blog(?:\.html)?$/.test(window.location.pathname) && !document.querySelector('.post-grid .post-card')) return;
+    var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+    document.querySelectorAll('.post-grid .post-card').forEach(function(card,index){
+      if(card.dataset.peCube==='1') return;
+      card.dataset.peCube='1';
+      card.classList.add('pe-blog-cube');
+
+      var link=card.querySelector('a[href]');
+      if(!link) return;
+      var title=card.querySelector('h3');
+      card.tabIndex=0;
+      card.setAttribute('role','link');
+      card.setAttribute('aria-label',(title?title.textContent.trim():'Read article'));
+
+      var art=card.querySelector('.journal-card-art');
+      if(art && !art.querySelector('.pe-cube-shine')){
+        var shine=document.createElement('span');
+        shine.className='pe-cube-shine';
+        shine.setAttribute('aria-hidden','true');
+        art.appendChild(shine);
+      }
+
+      card.addEventListener('click',function(event){
+        if(event.target.closest('a,button,input,select,textarea,label')) return;
+        window.location.href=link.href;
+      });
+      card.addEventListener('keydown',function(event){
+        if(event.key==='Enter' || event.key===' '){
+          event.preventDefault();
+          window.location.href=link.href;
+        }
+      });
+
+      if(!reduced && fine){
+        card.addEventListener('pointermove',function(event){
+          var rect=card.getBoundingClientRect();
+          var px=(event.clientX-rect.left)/rect.width;
+          var py=(event.clientY-rect.top)/rect.height;
+          var ry=(px-.5)*11;
+          var rx=(.5-py)*9;
+          card.style.setProperty('--pe-cube-rx',rx.toFixed(2)+'deg');
+          card.style.setProperty('--pe-cube-ry',ry.toFixed(2)+'deg');
+        });
+        card.addEventListener('pointerleave',function(){
+          card.style.setProperty('--pe-cube-rx','0deg');
+          card.style.setProperty('--pe-cube-ry','0deg');
+        });
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initBlogCubes);
+  else initBlogCubes();
+})();
