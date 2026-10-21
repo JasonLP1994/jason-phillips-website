@@ -164,6 +164,59 @@
     sendBookingIntent(cta.getAttribute('data-campaign-cta') || 'calendar');
   }, true);
 
+  var confirmedBookingKey = 'pe-confirmed-trial-booking-v1';
+
+  function handleConfirmedCalBooking(message) {
+    var payload = message && typeof message === 'object' ? (message.data || message.detail || message) : {};
+    var uid = payload && (payload.uid || payload.bookingUid || payload.bookingId) ? String(payload.uid || payload.bookingUid || payload.bookingId) : '';
+    var dedupeValue = uid || 'confirmed:' + window.location.pathname;
+
+    try {
+      if (sessionStorage.getItem(confirmedBookingKey) === dedupeValue) return;
+      sessionStorage.setItem(confirmedBookingKey, dedupeValue);
+    } catch (error) {}
+
+    var conversionParams = {
+      form_name: 'cal_free_trial',
+      lead_type: 'trial_booking',
+      booking_provider: 'cal.com',
+      page_path: window.location.pathname,
+      campaign: stored.utm_campaign || '',
+      source: stored.utm_source || '',
+      medium: stored.utm_medium || '',
+      reported_source: reportedSource || '',
+      referrer_host: compactReferrer(stored.first_referrer || stored.last_referrer)
+    };
+    if (uid) conversionParams.booking_uid = uid;
+
+    // One canonical lead event for both successful Cal.com bookings and
+    // the alternative trial request form. This is the event to use as
+    // the primary GA4 / Google Ads / Meta conversion signal.
+    sendEvent('generate_lead', conversionParams);
+    sendEvent('trial_booking_complete', conversionParams);
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({ event: 'pe_trial_booking_complete' }, conversionParams));
+  }
+
+  // Cal.com's embedded booker posts bookingSuccessfulV2 to the parent
+  // window after a booking is successfully created. Only accept messages
+  // from Cal.com origins and ignore unrelated iframe messages.
+  window.addEventListener('message', function (event) {
+    var host = '';
+    try { host = new URL(event.origin).hostname.toLowerCase(); } catch (error) {}
+    if (!(host === 'cal.com' || host.endsWith('.cal.com'))) return;
+
+    var message = event.data;
+    if (!message || typeof message !== 'object') return;
+    var type = typeof message.type === 'string' ? message.type : '';
+    var originator = message.originator ? String(message.originator).toLowerCase() : '';
+    if (type.indexOf('bookingSuccessfulV2') === -1) return;
+    if (originator && originator.indexOf('cal') === -1) return;
+
+    handleConfirmedCalBooking(message);
+  });
+
   window.addEventListener('blur', function () {
     setTimeout(function () {
       var active = document.activeElement;
@@ -257,11 +310,13 @@
         sendEvent('generate_lead', {
           form_name: form.querySelector('[name="enquiry_type"]') ? form.querySelector('[name="enquiry_type"]').value : 'free_trial',
           lead_type: 'trial_request',
+          booking_provider: 'formspree',
           page_path: window.location.pathname,
           campaign: stored.utm_campaign || '',
           source: stored.utm_source || '',
           medium: stored.utm_medium || '',
-          reported_source: reportedSource || ''
+          reported_source: reportedSource || '',
+          referrer_host: compactReferrer(stored.first_referrer || stored.last_referrer)
         });
         sendEvent('trial_request_success', {
           page_path: window.location.pathname,
