@@ -471,6 +471,303 @@ body{background:var(--journal-dark)}
   }
 }
 
+
+
+/* Phillips English Journal CUBES V3 — six real 3D faces */
+.post-grid.pe-real-cube-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:76px 42px;
+  perspective:1800px;
+  perspective-origin:50% 28%;
+  align-items:center;
+  justify-items:center;
+  padding:38px 10px 68px;
+}
+
+.pe-article-cube-shell{
+  --pe-cube-size:300px;
+  --pe-cube-half:150px;
+  width:var(--pe-cube-size);
+  height:var(--pe-cube-size);
+  position:relative;
+  perspective:1500px;
+  cursor:pointer;
+  outline:none;
+}
+
+.pe-article-cube{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  transform:
+    rotateX(var(--pe-real-rx,-11deg))
+    rotateY(var(--pe-real-ry,18deg))
+    rotateZ(var(--pe-real-rz,0deg));
+  transition:transform .68s cubic-bezier(.16,1,.3,1);
+  will-change:transform;
+}
+
+.pe-article-cube-shell:nth-child(6n+1) .pe-article-cube{--pe-real-rx:-12deg;--pe-real-ry:19deg;--pe-real-rz:-1deg}
+.pe-article-cube-shell:nth-child(6n+2) .pe-article-cube{--pe-real-rx:10deg;--pe-real-ry:-20deg;--pe-real-rz:.7deg}
+.pe-article-cube-shell:nth-child(6n+3) .pe-article-cube{--pe-real-rx:-8deg;--pe-real-ry:16deg;--pe-real-rz:-.4deg}
+.pe-article-cube-shell:nth-child(6n+4) .pe-article-cube{--pe-real-rx:11deg;--pe-real-ry:-17deg;--pe-real-rz:.8deg}
+.pe-article-cube-shell:nth-child(6n+5) .pe-article-cube{--pe-real-rx:-10deg;--pe-real-ry:21deg;--pe-real-rz:-.7deg}
+.pe-article-cube-shell:nth-child(6n+6) .pe-article-cube{--pe-real-rx:8deg;--pe-real-ry:-21deg;--pe-real-rz:.45deg}
+
+.pe-cube-face-real{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  backface-visibility:hidden;
+  border:1px solid rgba(139,200,239,.34);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.pe-cube-front-real{
+  transform:rotateY(0deg) translateZ(var(--pe-cube-half));
+  background:#fff;
+  color:#132633;
+}
+.pe-cube-back-real{
+  transform:rotateY(180deg) translateZ(var(--pe-cube-half));
+  background:
+    radial-gradient(circle at 30% 20%,rgba(139,200,239,.19),transparent 34%),
+    linear-gradient(145deg,#071521,#12384b 70%,#1d5f75);
+  color:#fff;
+  padding:34px;
+  text-align:center;
+  flex-direction:column;
+}
+.pe-cube-right-real{
+  transform:rotateY(90deg) translateZ(var(--pe-cube-half));
+  background:linear-gradient(180deg,#153c4f,#0a2634);
+  color:#dcebed;
+  padding:28px;
+  text-align:center;
+  flex-direction:column;
+}
+.pe-cube-left-real{
+  transform:rotateY(-90deg) translateZ(var(--pe-cube-half));
+  background:linear-gradient(180deg,#0d3142,#163e52);
+  color:#dcebed;
+  padding:28px;
+  text-align:center;
+  flex-direction:column;
+}
+.pe-cube-top-real{
+  transform:rotateX(90deg) translateZ(var(--pe-cube-half));
+  background:linear-gradient(135deg,#8ebeca,#4c879b);
+  color:#081722;
+  padding:30px;
+  text-align:center;
+  flex-direction:column;
+}
+.pe-cube-bottom-real{
+  transform:rotateX(-90deg) translateZ(var(--pe-cube-half));
+  background:linear-gradient(135deg,#071521,#164253);
+  color:#dcebed;
+  padding:30px;
+  text-align:center;
+  flex-direction:column;
+}
+
+.pe-cube-front-real .post-card{
+  width:100%;
+  height:100%;
+  min-height:0!important;
+  margin:0;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:#fff!important;
+  transform:none!important;
+  overflow:hidden!important;
+  display:flex;
+  flex-direction:column;
+}
+.pe-cube-front-real .post-card::before,
+.pe-cube-front-real .post-card::after{
+  display:none!important;
+}
+.pe-cube-front-real .journal-card-art{
+  height:100px;
+  min-height:100px;
+}
+.pe-cube-front-real .journal-card-content{
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.pe-cube-front-real .post-card h3{
+  font-size:22px;
+  line-height:1.12;
+  margin:10px 0 10px;
+}
+.pe-cube-front-real .post-card p{
+  font-size:13px;
+  line-height:1.55;
+  margin-bottom:12px;
+}
+.pe-cube-front-real .post-card a{
+  margin-top:auto;
+}
+
+.pe-cube-face-real .pe-cube-mini{
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  opacity:.72;
+  margin-bottom:14px;
+  font-weight:800;
+}
+.pe-cube-face-real .pe-cube-side-title{
+  font-size:28px;
+  line-height:1.05;
+  font-weight:800;
+  letter-spacing:-.035em;
+  max-width:230px;
+}
+.pe-cube-face-real .pe-cube-brand{
+  font-size:15px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:800;
+}
+.pe-cube-face-real .pe-cube-read{
+  margin-top:18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  background:#8ebeca;
+  color:#071521;
+  font-size:30px;
+  font-weight:800;
+  box-shadow:0 12px 28px rgba(0,0,0,.2);
+}
+.pe-cube-face-real .pe-cube-topic{
+  font-size:34px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-.04em;
+}
+.pe-cube-face-real .pe-cube-wordmark{
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  transform:rotate(180deg);
+  font-size:22px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:900;
+}
+
+/* Real cube shadow that moves with lift */
+.pe-article-cube-shell::after{
+  content:"";
+  position:absolute;
+  left:14%;
+  right:14%;
+  bottom:-54px;
+  height:46px;
+  border-radius:50%;
+  background:rgba(2,17,27,.34);
+  filter:blur(22px);
+  transform:scale(.82);
+  transition:transform .62s cubic-bezier(.16,1,.3,1),opacity .62s ease;
+  opacity:.48;
+  pointer-events:none;
+}
+.pe-article-cube-shell:hover::after,
+.pe-article-cube-shell:focus-visible::after{
+  transform:scale(1.02);
+  opacity:.68;
+}
+.pe-article-cube-shell:hover .pe-article-cube,
+.pe-article-cube-shell:focus-visible .pe-article-cube{
+  transform:
+    translate3d(0,-14px,36px)
+    rotateX(var(--pe-real-rx,-15deg))
+    rotateY(var(--pe-real-ry,24deg))
+    rotateZ(var(--pe-real-rz,0deg));
+}
+.pe-article-cube-shell:focus-visible{
+  outline:3px solid #8ebeca;
+  outline-offset:14px;
+  border-radius:8px;
+}
+
+/* Press in, then spring out */
+.pe-article-cube-shell.is-real-cube-pressed .pe-article-cube{
+  transition-duration:.16s;
+  transform:
+    translate3d(0,-5px,12px)
+    rotateX(var(--pe-real-rx))
+    rotateY(var(--pe-real-ry))
+    rotateZ(var(--pe-real-rz))
+    scale(.96);
+}
+
+@media(max-width:1080px){
+  .post-grid.pe-real-cube-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:70px 34px;
+  }
+  .pe-article-cube-shell{
+    --pe-cube-size:286px;
+    --pe-cube-half:143px;
+  }
+}
+
+@media(max-width:680px){
+  .post-grid.pe-real-cube-grid{
+    grid-template-columns:1fr;
+    gap:74px;
+    perspective:1250px;
+    padding-top:26px;
+  }
+  .pe-article-cube-shell{
+    --pe-cube-size:min(78vw,286px);
+    --pe-cube-half:min(39vw,143px);
+  }
+  .pe-article-cube{
+    --pe-real-rx:-7deg!important;
+    --pe-real-ry:13deg!important;
+    --pe-real-rz:0deg!important;
+  }
+  .pe-article-cube-shell:nth-child(even) .pe-article-cube{
+    --pe-real-ry:-13deg!important;
+  }
+  .pe-cube-front-real .post-card h3{font-size:20px}
+  .pe-cube-front-real .post-card p{
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .pe-article-cube{
+    transform:rotateX(-5deg) rotateY(8deg)!important;
+    transition:none!important;
+  }
+  .pe-article-cube-shell:hover .pe-article-cube,
+  .pe-article-cube-shell:focus-visible .pe-article-cube{
+    transform:rotateX(-5deg) rotateY(8deg)!important;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="assets/site-polish.css">
 <meta name="description" content="Practical English tips from Jason Phillips on grammar mistakes, collocations, pronunciation and speaking at work, plus reflections on teaching and progress.">
