@@ -714,14 +714,9 @@
         });
 
         shell.addEventListener('pointerleave',function(){
-          var bases=[
-            [-12,19,-1],[10,-20,.7],[-8,16,-.4],
-            [11,-17,.8],[-10,21,-.7],[8,-21,.45]
-          ];
-          var b=bases[index%bases.length];
-          cube.style.setProperty('--pe-real-rx',b[0]+'deg');
-          cube.style.setProperty('--pe-real-ry',b[1]+'deg');
-          cube.style.setProperty('--pe-real-rz',b[2]+'deg');
+          cube.style.setProperty('--pe-real-rx','0deg');
+          cube.style.setProperty('--pe-real-ry','0deg');
+          cube.style.setProperty('--pe-real-rz','0deg');
         });
       }
     });
