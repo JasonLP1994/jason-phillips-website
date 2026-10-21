@@ -646,6 +646,9 @@
       var cube=document.createElement('div');
       cube.className='pe-article-cube';
 
+      card.classList.remove('pe-reveal','pe-scale-in','pe-from-left','pe-from-right','pe-motion-card','pe-liquid-card','is-visible','is-depth-visible');
+      card.removeAttribute('style');
+
       var front=document.createElement('div');
       front.className='pe-cube-face-real pe-cube-front-real';
       card.parentNode.insertBefore(shell,card);
@@ -701,9 +704,9 @@
           var px=(event.clientX-rect.left)/rect.width;
           var py=(event.clientY-rect.top)/rect.height;
 
-          var ry=(px-.5)*58;
-          var rx=(.5-py)*48;
-          var rz=(px-.5)*3;
+          var ry=(px-.5)*38;
+          var rx=(.5-py)*30;
+          var rz=(px-.5)*2;
 
           cube.style.setProperty('--pe-real-rx',rx.toFixed(2)+'deg');
           cube.style.setProperty('--pe-real-ry',ry.toFixed(2)+'deg');
