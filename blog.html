@@ -438,6 +438,57 @@ body{background:var(--journal-dark)}
   .pe-cube-front-real .post-card{opacity:1!important}
 }
 
+
+
+/* Blog cubes V4 — flat until interaction */
+.pe-article-cube{
+  --pe-real-rx:0deg!important;
+  --pe-real-ry:0deg!important;
+  --pe-real-rz:0deg!important;
+  transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg)!important;
+}
+
+.pe-article-cube-shell:hover .pe-article-cube{
+  transform:
+    translate3d(0,-16px,42px)
+    rotateX(var(--pe-real-rx))
+    rotateY(var(--pe-real-ry))
+    rotateZ(var(--pe-real-rz))!important;
+}
+
+.pe-article-cube-shell:focus-visible .pe-article-cube{
+  transform:
+    translate3d(0,-16px,42px)
+    rotateX(-9deg)
+    rotateY(14deg)
+    rotateZ(0deg)!important;
+}
+
+.pe-article-cube-shell.is-real-cube-pressed .pe-article-cube{
+  transform:
+    translate3d(0,-6px,14px)
+    rotateX(var(--pe-real-rx))
+    rotateY(var(--pe-real-ry))
+    rotateZ(var(--pe-real-rz))
+    scale(.965)!important;
+}
+
+@media(max-width:680px){
+  .pe-article-cube,
+  .pe-article-cube-shell:hover .pe-article-cube,
+  .pe-article-cube-shell:focus-visible .pe-article-cube,
+  .pe-article-cube-shell.is-real-cube-pressed .pe-article-cube{
+    --pe-real-rx:0deg!important;
+    --pe-real-ry:0deg!important;
+    --pe-real-rz:0deg!important;
+    transform:none!important;
+  }
+  .pe-article-cube-shell::after{
+    opacity:.28;
+    transform:scale(.75);
+  }
+}
+
 </style>
 <link rel="stylesheet" href="assets/site-polish.css">
 <meta name="description" content="Practical English tips from Jason Phillips on grammar mistakes, collocations, pronunciation and speaking at work, plus reflections on teaching and progress.">
