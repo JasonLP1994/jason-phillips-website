@@ -497,6 +497,17 @@ body{background:var(--journal-dark)}
 .post-card:hover .journal-cover-image{transform:scale(1.045)}
 @media(max-width:680px){.journal-card-art.has-real-cover{height:185px}}
 @media(prefers-reduced-motion:reduce){.journal-card-art .journal-cover-image{transition:none!important}}
+
+/* Cube reliability: hidden results must not leave empty white cube shells. */
+.pe-article-cube-shell[hidden]{display:none!important}
+.pe-cube-front-real .post-card:not([hidden]){display:flex!important;visibility:visible!important;opacity:1!important}
+.pe-cube-front-real .journal-card-art.has-real-cover{height:118px;min-height:118px;flex-shrink:0}
+.pe-cube-front-real .journal-card-art.has-real-cover img{display:block;width:100%;height:100%;object-fit:cover}
+.pe-cube-front-real .journal-card-content{min-width:0;padding:16px 17px 14px}
+.pe-cube-front-real .post-card h3{font-size:19px;line-height:1.15;margin:7px 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pe-cube-front-real .post-card p{font-size:12px;line-height:1.42;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pe-cube-front-real .post-card a{font-size:12px;padding-top:5px}
+@media(max-width:680px){.pe-cube-front-real .journal-card-art.has-real-cover{height:110px;min-height:110px}}
 </style>
 <link rel="stylesheet" href="assets/site-polish.css">
 <meta name="description" content="Practical English tips from Jason Phillips on grammar mistakes, collocations, pronunciation and speaking at work, plus reflections on teaching and progress.">
@@ -587,12 +598,12 @@ body{background:var(--journal-dark)}
     const art=document.createElement('div');art.className='journal-card-art';art.setAttribute('aria-hidden','true');
     const content=document.createElement('div');content.className='journal-card-content';
     while(card.firstChild) content.appendChild(card.firstChild);
-    const link=card.querySelector('a[href]');
+    const link=content.querySelector('a[href]');
     const slug=link&&link.getAttribute('href').split('/').pop().split('#')[0];
     if(slug&&blogOriginalCovers[slug]){
       const picture=document.createElement('img');
       picture.src='/assets/blog-covers/'+blogOriginalCovers[slug]+'.jpg';
-      picture.alt='Illustration for '+(card.querySelector('h3')?.textContent||'Phillips English article');
+      picture.alt='Illustration for '+(content.querySelector('h3')?.textContent||'Phillips English article');
       picture.width=1100;picture.height=619;picture.loading='lazy';picture.decoding='async';
       picture.className='journal-cover-image';
       art.appendChild(picture);
@@ -604,8 +615,17 @@ body{background:var(--journal-dark)}
   function update(){
     const q=norm(search.value.trim());
     const matches=cards.filter(c=>(active==='all'||c.dataset.topic===active)&&(!q||norm(c.textContent).includes(q)));
-    cards.forEach(c=>{c.hidden=true;c.style.display='none'});
-    matches.slice(0,visible).forEach(c=>{c.hidden=false;c.style.display='flex'});
+    // Hide/show the outer cube after the 3D wrapper is created. Hiding only
+    // the inner card leaves empty white faces visible further down the grid.
+    function setVisible(card, show){
+      const shell=card.closest('.pe-article-cube-shell');
+      const target=shell||card;
+      target.hidden=!show;
+      target.style.display=show?(shell?'block':'flex'):'none';
+      if(shell){card.hidden=false;card.style.display='flex';}
+    }
+    cards.forEach(c=>setVisible(c,false));
+    matches.slice(0,visible).forEach(c=>setVisible(c,true));
     const shown=Math.min(visible,matches.length);
     status.textContent=matches.length? 'Showing '+shown+' of '+matches.length+' articles':'No matching articles';
     more.hidden=shown>=matches.length;
