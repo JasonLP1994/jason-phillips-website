@@ -197,6 +197,15 @@
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push(Object.assign({ event: 'pe_trial_booking_complete' }, conversionParams));
+
+    // If a Phillips English Meta Pixel is added later, use Meta's standard
+    // Lead event for this same confirmed booking without changing the funnel code.
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', {
+        content_name: 'Phillips English free trial',
+        content_category: 'trial_booking'
+      });
+    }
   }
 
   // Cal.com's embedded booker posts bookingSuccessfulV2 to the parent
