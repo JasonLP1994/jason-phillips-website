@@ -600,6 +600,14 @@ body{background:var(--journal-dark)}
     while(card.firstChild) content.appendChild(card.firstChild);
     const link=content.querySelector('a[href]');
     const slug=link&&link.getAttribute('href').split('/').pop().split('#')[0];
+    if(slug==='my-approach-to-personalised-english-coaching.html'){
+      const picture=document.createElement('img');
+      picture.src='/assets/jason-phillips-notre-dame-original.jpg';
+      picture.alt='Jason Phillips in front of Notre-Dame Cathedral in Paris';
+      picture.width=900;picture.height=1200;picture.loading='lazy';picture.decoding='async';
+      picture.className='journal-cover-image';
+      art.appendChild(picture);art.classList.add('has-real-cover');
+    }
     if(slug&&blogOriginalCovers[slug]){
       const picture=document.createElement('img');
       picture.src='/assets/blog-covers/'+blogOriginalCovers[slug]+'.jpg';
