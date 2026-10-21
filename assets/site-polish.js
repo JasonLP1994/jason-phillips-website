@@ -604,116 +604,126 @@
 })();
 
 
-/* Clickable rotating blog cubes V2 */
+/* Phillips English six-face article cubes */
 (function(){
   'use strict';
 
-  function initBlogCubes(){
-    if(!document.querySelector('.post-grid .post-card')) return;
+  function escapeHtml(value){
+    return String(value||'').replace(/[&<>"']/g,function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch];
+    });
+  }
+
+  function initRealBlogCubes(){
+    var grid=document.querySelector('.post-grid');
+    if(!grid || !grid.querySelector('.post-card')) return;
+
+    grid.classList.add('pe-real-cube-grid');
 
     var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
-    document.querySelectorAll('.post-grid .post-card').forEach(function(card,index){
-      if(card.dataset.peCube==='2') return;
-      card.dataset.peCube='2';
-      card.classList.add('pe-blog-cube');
+    Array.from(grid.querySelectorAll(':scope > .post-card')).forEach(function(card,index){
+      if(card.closest('.pe-article-cube-shell')) return;
 
       var link=card.querySelector('a[href]');
       if(!link) return;
 
-      var title=card.querySelector('h3');
-      card.tabIndex=0;
-      card.setAttribute('role','link');
-      card.setAttribute('aria-label',title?title.textContent.trim():'Read article');
+      var href=link.href;
+      var titleNode=card.querySelector('h3');
+      var tagNode=card.querySelector('.tag');
+      var title=titleNode ? titleNode.textContent.trim() : 'English insight';
+      var topic=tagNode ? tagNode.textContent.trim() : 'English';
+      var safeTitle=escapeHtml(title);
+      var safeTopic=escapeHtml(topic);
 
-      if(!card.querySelector('.pe-cube-face')){
-        var face=document.createElement('div');
-        face.className='pe-cube-face';
-        while(card.firstChild) face.appendChild(card.firstChild);
-        card.appendChild(face);
+      var shell=document.createElement('div');
+      shell.className='pe-article-cube-shell';
+      shell.tabIndex=0;
+      shell.setAttribute('role','link');
+      shell.setAttribute('aria-label',title);
 
-        var right=document.createElement('span');
-        right.className='pe-cube-side pe-cube-side-right';
-        right.setAttribute('aria-hidden','true');
+      var cube=document.createElement('div');
+      cube.className='pe-article-cube';
 
-        var bottom=document.createElement('span');
-        bottom.className='pe-cube-side pe-cube-side-bottom';
-        bottom.setAttribute('aria-hidden','true');
+      var front=document.createElement('div');
+      front.className='pe-cube-face-real pe-cube-front-real';
+      card.parentNode.insertBefore(shell,card);
+      front.appendChild(card);
 
-        var corner=document.createElement('span');
-        corner.className='pe-cube-corner';
-        corner.setAttribute('aria-hidden','true');
+      var back=document.createElement('div');
+      back.className='pe-cube-face-real pe-cube-back-real';
+      back.innerHTML='<div class="pe-cube-mini">Read the article</div><div class="pe-cube-side-title">'+safeTitle+'</div><div class="pe-cube-read" aria-hidden="true">↗</div>';
 
-        card.appendChild(right);
-        card.appendChild(bottom);
-        card.appendChild(corner);
+      var right=document.createElement('div');
+      right.className='pe-cube-face-real pe-cube-right-real';
+      right.innerHTML='<div class="pe-cube-mini">Topic</div><div class="pe-cube-topic">'+safeTopic+'</div>';
+
+      var left=document.createElement('div');
+      left.className='pe-cube-face-real pe-cube-left-real';
+      left.innerHTML='<div class="pe-cube-wordmark">Phillips English</div>';
+
+      var top=document.createElement('div');
+      top.className='pe-cube-face-real pe-cube-top-real';
+      top.innerHTML='<div class="pe-cube-mini">English Insights</div><div class="pe-cube-brand">Phillips English</div>';
+
+      var bottom=document.createElement('div');
+      bottom.className='pe-cube-face-real pe-cube-bottom-real';
+      bottom.innerHTML='<div class="pe-cube-mini">Practical English</div><div class="pe-cube-side-title">'+safeTopic+'</div>';
+
+      [front,back,right,left,top,bottom].forEach(function(face){cube.appendChild(face);});
+      shell.appendChild(cube);
+
+      function go(){
+        window.location.href=href;
       }
-
-      var art=card.querySelector('.journal-card-art');
-      if(art && !art.querySelector('.pe-cube-shine')){
-        var shine=document.createElement('span');
-        shine.className='pe-cube-shine';
-        shine.setAttribute('aria-hidden','true');
-        art.appendChild(shine);
-      }
-
-      card.addEventListener('click',function(event){
-        if(event.target.closest('a,button,input,select,textarea,label')) return;
-        window.location.href=link.href;
+      shell.addEventListener('click',function(event){
+        if(event.target.closest('a,button,input,select,textarea,label')){
+          if(event.target.closest('a')) return;
+        }
+        go();
       });
-
-      card.addEventListener('keydown',function(event){
+      shell.addEventListener('keydown',function(event){
         if(event.key==='Enter' || event.key===' '){
           event.preventDefault();
-          window.location.href=link.href;
+          go();
         }
       });
 
-      card.addEventListener('pointerdown',function(){
-        card.classList.add('is-cube-pressed');
-      });
+      shell.addEventListener('pointerdown',function(){shell.classList.add('is-real-cube-pressed');});
       ['pointerup','pointercancel','pointerleave'].forEach(function(name){
-        card.addEventListener(name,function(){
-          card.classList.remove('is-cube-pressed');
-        });
+        shell.addEventListener(name,function(){shell.classList.remove('is-real-cube-pressed');});
       });
 
       if(!reduced && fine){
-        card.addEventListener('pointermove',function(event){
-          var rect=card.getBoundingClientRect();
+        shell.addEventListener('pointermove',function(event){
+          var rect=shell.getBoundingClientRect();
           var px=(event.clientX-rect.left)/rect.width;
           var py=(event.clientY-rect.top)/rect.height;
 
-          var ry=(px-.5)*28;
-          var rx=(.5-py)*22;
-          var rz=(px-.5)*1.4;
+          var ry=(px-.5)*58;
+          var rx=(.5-py)*48;
+          var rz=(px-.5)*3;
 
-          card.style.setProperty('--pe-cube-rx',rx.toFixed(2)+'deg');
-          card.style.setProperty('--pe-cube-ry',ry.toFixed(2)+'deg');
-          card.style.setProperty('--pe-cube-rz',rz.toFixed(2)+'deg');
-
-          var face=card.querySelector('.pe-cube-face');
-          if(face){
-            face.style.setProperty('--pe-pointer-x',(px*100).toFixed(1)+'%');
-            face.style.setProperty('--pe-pointer-y',(py*100).toFixed(1)+'%');
-          }
+          cube.style.setProperty('--pe-real-rx',rx.toFixed(2)+'deg');
+          cube.style.setProperty('--pe-real-ry',ry.toFixed(2)+'deg');
+          cube.style.setProperty('--pe-real-rz',rz.toFixed(2)+'deg');
         });
 
-        card.addEventListener('pointerleave',function(){
+        shell.addEventListener('pointerleave',function(){
           var bases=[
-            [-4,7,-1],[3,-7,.7],[-2,5,-.4],
-            [4,-5,.8],[-3,8,-.7],[2,-8,.45]
+            [-12,19,-1],[10,-20,.7],[-8,16,-.4],
+            [11,-17,.8],[-10,21,-.7],[8,-21,.45]
           ];
           var b=bases[index%bases.length];
-          card.style.setProperty('--pe-cube-rx',b[0]+'deg');
-          card.style.setProperty('--pe-cube-ry',b[1]+'deg');
-          card.style.setProperty('--pe-cube-rz',b[2]+'deg');
+          cube.style.setProperty('--pe-real-rx',b[0]+'deg');
+          cube.style.setProperty('--pe-real-ry',b[1]+'deg');
+          cube.style.setProperty('--pe-real-rz',b[2]+'deg');
         });
       }
     });
   }
 
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initBlogCubes);
-  else initBlogCubes();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initRealBlogCubes);
+  else initRealBlogCubes();
 })();
