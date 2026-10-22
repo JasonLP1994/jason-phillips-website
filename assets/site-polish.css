@@ -836,9 +836,9 @@ body.pe-motion-v2 main,body.pe-motion-v2 header,body.pe-motion-v2 footer,body.pe
 .pe-method .eyebrow{font-size:12px;letter-spacing:.17em;color:#8ebeca!important}
 .pe-method h2{font-size:clamp(38px,5.8vw,65px);line-height:1.04;letter-spacing:-.05em;color:#fff!important;margin:12px 0 0}
 .pe-method-heading>p{font-size:16px;line-height:1.7;max-width:570px;margin:0;color:#c9dce4!important}
-.pe-method-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.pe-method-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .pe-method-card{
-  position:relative;overflow:hidden;min-height:215px;
+  position:relative;overflow:hidden;min-height:225px;
   background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(142,190,202,.035));
   border:1px solid rgba(142,190,202,.25);
   border-radius:17px;padding:26px 25px;
@@ -850,7 +850,7 @@ body.pe-motion-v2 main,body.pe-motion-v2 header,body.pe-motion-v2 footer,body.pe
   background:linear-gradient(90deg,#8ebeca,transparent);opacity:.6;
 }
 .pe-method-number{display:inline-block;color:#8ebeca;font-size:12px;font-weight:800;letter-spacing:.16em;margin-bottom:20px}
-.pe-method-card h3{color:#fff!important;font-size:clamp(26px,2.7vw,34px);letter-spacing:-.025em;line-height:1.12;margin:0 0 12px}
+.pe-method-card h3{color:#fff!important;font-size:clamp(24px,2.35vw,33px);letter-spacing:-.025em;line-height:1.12;margin:0 0 12px}
 .pe-method-card p{color:#c4d5dc!important;font-size:15px;line-height:1.65;margin:0;max-width:29ch}
 .pe-method-card:hover{transform:translateY(-5px);border-color:rgba(142,190,202,.65);box-shadow:0 22px 45px rgba(0,0,0,.20)}
 .pe-method-footer{margin-top:27px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
@@ -860,13 +860,15 @@ body.pe-motion-v2 main,body.pe-motion-v2 header,body.pe-motion-v2 footer,body.pe
 .pe-method-link:focus-visible{outline:3px solid #8ebeca;outline-offset:4px}
 .pe-coaching-method p{line-height:1.7}
 .pe-coaching-method p b{color:#163746}
+@media(max-width:1050px){.pe-method-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:800px){
   .pe-method-heading{grid-template-columns:1fr;gap:16px}
-  .pe-method-grid{grid-template-columns:1fr;gap:12px}
+  .pe-method-grid{gap:12px}
   .pe-method-card{min-height:0;padding:22px 23px}
   .pe-method-number{margin-bottom:11px}
   .pe-method-card h3{font-size:28px;margin-bottom:8px}
 }
+@media(max-width:580px){.pe-method-grid{grid-template-columns:1fr}}
 @media(max-width:420px){
   .pe-method h2{font-size:40px}
   .pe-method-heading>p{font-size:15px}
