@@ -1005,3 +1005,20 @@ body.pe-motion-v2 main,body.pe-motion-v2 header,body.pe-motion-v2 footer,body.pe
   .pe-method-steps::after{transform:scaleY(1)!important}
   .pe-method-step-surface:hover,.pe-method-focus-link:hover{transform:none!important}
 }
+
+
+/* Coaching page companion: editorial method list on its light content section. */
+.pe-coaching-method{position:relative}
+.pe-coaching-method h2{font-size:clamp(34px,3.8vw,53px);line-height:1.1;letter-spacing:-.05em;color:#132d3b!important;margin:11px 0 16px}
+.pe-coaching-method h2 em{font-style:normal;color:#277a90}
+.pe-coaching-method .pe-coaching-method-intro{font-size:16px;line-height:1.75;color:#415660!important;max-width:570px;margin:0 0 24px}
+.pe-coaching-method-list{list-style:none;padding:0;margin:22px 0 24px;display:grid;gap:0;border-top:1px solid #bfd2d9}
+.pe-coaching-method-list li{display:flex;align-items:center;gap:18px;padding:13px 0;border-bottom:1px solid #c4d6dd}
+.pe-coaching-method-list li>span{flex:none;width:36px;font-size:12px;letter-spacing:.1em;font-weight:900;color:#2f8092}
+.pe-coaching-method-list strong{display:block;font-size:19px;line-height:1.35;letter-spacing:-.02em;color:#172e3a}
+.pe-coaching-method-list small{display:block;font-size:13px;line-height:1.55;color:#4a6470;margin-top:2px}
+.pe-coaching-method-note{display:flex;align-items:start;gap:12px;background:#e1f0f2;border-left:3px solid #478ea0;border-radius:0 13px 13px 0;padding:16px 17px;margin-bottom:22px}
+.pe-coaching-method-note>span{color:#2f8092;flex:none;font-size:19px;line-height:1.2}
+.pe-coaching-method-note p{margin:0;color:#234351!important;font-size:14px;line-height:1.7}
+.pe-coaching-method-note strong{color:#153947}
+@media(max-width:520px){.pe-coaching-method h2{font-size:36px}.pe-coaching-method-list li{gap:12px}.pe-coaching-method-note{padding:14px 13px}}
