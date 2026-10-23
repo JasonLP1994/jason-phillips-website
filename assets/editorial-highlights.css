@@ -1,0 +1,9 @@
+/* Editorial teaching moments for standalone long-form Phillips English articles. */
+.pe-article-fieldnote{margin:32px 0 35px;padding:26px clamp(21px,4vw,34px) 28px;border-radius:0 15px 15px 0;border:1px solid #cbdfe5;border-left:4px solid #347e94;background:linear-gradient(125deg,#eaf4f5,#f6fbfb 75%);color:#234450;box-shadow:0 10px 28px rgba(16,47,62,.055)}
+.pe-article-fieldnote .pe-fieldnote-kicker{display:block;font-size:11px;line-height:1.5;font-weight:800;letter-spacing:.12em;color:#266c80;margin-bottom:10px}
+.pe-article-fieldnote h3{color:#183847!important;font-size:clamp(21px,2.7vw,28px)!important;line-height:1.23!important;letter-spacing:-.025em;margin:0 0 15px!important}
+.pe-article-fieldnote p{color:#284651!important;font-size:clamp(15px,1.5vw,17px)!important;line-height:1.77!important;margin:0 0 13px!important}
+.pe-article-fieldnote p:last-child{margin-bottom:0!important}
+.pe-article-fieldnote strong{color:#183847}
+.pe-article-fieldnote em{color:#315969}
+@media(max-width:600px){.pe-article-fieldnote{margin:24px 0;padding:23px 19px;border-radius:0 12px 12px 0}}
