@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="t d">
+<title id="t">Real-life English results</title><desc id="d">Phillips English visual about turning English lessons into confidence for real professional situations.</desc>
+<defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#071521"/><stop offset="1" stop-color="#12384b"/></linearGradient></defs>
+<rect width="1200" height="675" fill="#f5f2eb"/><rect x="0" y="0" width="1200" height="118" fill="url(#g)"/>
+<text x="70" y="72" fill="#fff" font-family="Arial,sans-serif" font-size="34" font-weight="800" letter-spacing="4">PHILLIPS ENGLISH</text>
+<rect x="70" y="166" width="102" height="8" rx="4" fill="#8bc8ef"/>
+<text x="70" y="250" fill="#102330" font-family="Arial,sans-serif" font-size="63" font-weight="800">English should work</text>
+<text x="70" y="320" fill="#102330" font-family="Arial,sans-serif" font-size="63" font-weight="800">in real life.</text>
+<text x="70" y="382" fill="#50646d" font-family="Arial,sans-serif" font-size="27">From lessons → to presentations, meetings and opportunities.</text>
+<rect x="70" y="438" width="676" height="132" rx="22" fill="#fff" stroke="#c9dce4" stroke-width="2"/>
+<text x="104" y="486" fill="#477c8a" font-family="Arial,sans-serif" font-size="18" font-weight="700">REAL STUDENT RESULT</text>
+<text x="104" y="536" fill="#102330" font-family="Arial,sans-serif" font-size="31" font-weight="700">“Conference went great!!!”</text>
+<circle cx="932" cy="346" r="148" fill="#dcebed"/><path d="M870 352l48 48 91-105" fill="none" stroke="#236779" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="792" y="546" fill="#236779" font-family="Arial,sans-serif" font-size="22" font-weight="800">LEARN · APPLY · IMPROVE · REPEAT</text>
+</svg>
