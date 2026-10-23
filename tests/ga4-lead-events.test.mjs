@@ -6,7 +6,7 @@ import { test } from 'node:test';
 function exerciseFormPage(file, { accepted, enquiryType = 'Private English Coaching', analytics = true }) {
   const html = readFileSync(new URL('../' + file, import.meta.url), 'utf8');
   const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
-  const formCode = scripts.map(match => match[1]).find(code => code.includes('await fetch(form.action)'));
+  const formCode = scripts.map(match => match[1]).find(code => code.includes('await fetch(form.action'));
   assert.ok(formCode, file + ' must contain a form submission handler');
 
   let handler;
