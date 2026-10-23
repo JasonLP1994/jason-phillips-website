@@ -1058,3 +1058,34 @@ body.pe-motion-v2 main,body.pe-motion-v2 header,body.pe-motion-v2 footer,body.pe
   .article .pe-article-fieldnote{margin:23px 0 28px;padding:23px 19px;border-radius:0 12px 12px 0}
   .article .pe-article-fieldnote h3{font-size:22px}
 }
+
+
+/* Phillips English blog refresh — editorial rhythm and reader-friendly introductions.
+   Applies only to article content, not other website sections. */
+.article-shell .article .pe-editorial-lead{
+  margin:12px 0 35px;
+  padding:0 0 0 clamp(18px,2.2vw,26px);
+  border-left:3px solid #438fa2;
+  color:#264958!important;
+  font-size:clamp(18px,1.85vw,21px)!important;
+  line-height:1.76!important;
+  font-weight:450;
+  letter-spacing:-.012em;
+  max-width:72ch;
+}
+.article-shell .article .pe-editorial-lead em{font-style:italic;color:#195b70}
+.article-shell .article > p:not(.pe-editorial-lead){max-width:74ch;line-height:1.82}
+.article-shell .article > h2{scroll-margin-top:28px;text-wrap:balance}
+.article-shell .article > h3{scroll-margin-top:28px}
+.article-shell .article .answer{border-radius:0 12px 12px 0}
+.article-shell .article .example,.article-shell .article .compare{border-radius:12px}
+.article-shell .article :where(.example,.compare,table) + p{margin-top:20px}
+.article-shell .article a:not(.btn):not(.button){text-underline-offset:3px}
+.article-shell .article figure img{max-width:100%;height:auto}
+.article-shell .article table{border-collapse:collapse}
+@media(max-width:720px){
+ .article-shell .article .pe-editorial-lead{font-size:18px!important;padding-left:17px;margin-bottom:28px}
+ .article-shell .article > p:not(.pe-editorial-lead){line-height:1.77}
+ .article-shell .article .example,.article-shell .article .compare{overflow-wrap:anywhere}
+}
+@media(prefers-reduced-motion:reduce){.article-shell .article *{scroll-behavior:auto}}
