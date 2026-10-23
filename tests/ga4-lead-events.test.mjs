@@ -72,7 +72,7 @@ for (const file of ['contact.html', 'group-coaching.html', 'work-with-me.html'])
 
   test(file + ': avoids guessed conversion on timer/status changes', () => {
     const html = readFileSync(new URL('../' + file, import.meta.url), 'utf8');
-    assert.ok(!html.includes("document.querySelectorAll('form[action*=\\"formspree.io\\"]').forEach"), 'no broad status-based lead listener');
+    assert.ok(!html.includes('var sent = false;'), 'no broad status-based lead listener');
   });
 }
 
