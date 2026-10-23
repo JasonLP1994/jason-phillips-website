@@ -1022,3 +1022,39 @@ body.pe-motion-v2 main,body.pe-motion-v2 header,body.pe-motion-v2 footer,body.pe
 .pe-coaching-method-note p{margin:0;color:#234351!important;font-size:14px;line-height:1.7}
 .pe-coaching-method-note strong{color:#153947}
 @media(max-width:520px){.pe-coaching-method h2{font-size:36px}.pe-coaching-method-list li{gap:12px}.pe-coaching-method-note{padding:14px 13px}}
+
+
+/* Phillips English editorial fieldnotes — readable teaching moments, not SEO padding. */
+.article .pe-article-fieldnote{
+  position:relative;
+  margin:32px 0 36px;
+  padding:26px clamp(22px,4vw,34px) 28px;
+  background:linear-gradient(125deg,#eaf4f5,#f6fbfb 73%);
+  border:1px solid #d2e4e8;
+  border-left:4px solid #367f90;
+  border-radius:0 15px 15px 0;
+  color:#203943;
+  box-shadow:0 10px 30px rgba(22,54,65,.045);
+}
+.article .pe-article-fieldnote .pe-fieldnote-kicker{
+  display:block;margin:0 0 10px;
+  color:#246d80;font-size:11px;line-height:1.5;
+  font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+}
+.article .pe-article-fieldnote h3{
+  color:#183847!important;font-size:clamp(21px,2.7vw,28px);
+  line-height:1.23;letter-spacing:-.025em;margin:0 0 15px;
+}
+.article .pe-article-fieldnote p{
+  color:#284651!important;
+  font-size:clamp(15px,1.5vw,17px);
+  line-height:1.77;margin:0 0 13px;
+}
+.article .pe-article-fieldnote p:last-child{margin-bottom:0}
+.article .pe-article-fieldnote strong{color:#153947}
+.article .pe-article-fieldnote em{color:#315969}
+.article .pe-article-fieldnote a{color:#1b6274;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:600px){
+  .article .pe-article-fieldnote{margin:23px 0 28px;padding:23px 19px;border-radius:0 12px 12px 0}
+  .article .pe-article-fieldnote h3{font-size:22px}
+}
