@@ -324,6 +324,19 @@ nav{position:relative;z-index:50}
 
       if (response.ok) {
         form.classList.add('is-sent');
+        // A click or a timeout is not a conversion; require HTTP success.
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'generate_lead', {
+            form_name: 'work_with_me',
+            lead_type: 'coaching_application',
+            booking_provider: 'formspree',
+            page_path: window.location.pathname
+          });
+          window.gtag('event', 'coaching_application_success', {
+            form_name: 'work_with_me',
+            page_path: window.location.pathname
+          });
+        }
         status.textContent = 'Application sent successfully.';
         form.reset();
         form.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -438,41 +451,8 @@ nav{position:relative;z-index:50}
     }, 0);
   });
 
-  document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
-    var pending = false;
-    var sent = false;
-    var status = form.querySelector('.form-status');
-    var formName = 'enquiry';
-    if (window.location.pathname.indexOf('contact') !== -1) formName = 'contact';
-    if (window.location.pathname.indexOf('work-with-me') !== -1) formName = 'work_with_me';
-    if (window.location.pathname.indexOf('book') !== -1) formName = 'booking_enquiry';
-
-    form.addEventListener('submit', function () {
-      pending = true;
-      sent = false;
-      if (!status) {
-        setTimeout(function () {
-          if (pending && !sent) {
-            sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-            sent = true;
-            pending = false;
-          }
-        }, 1500);
-      }
-    }, true);
-
-    if (status) {
-      new MutationObserver(function () {
-        if (!pending || sent) return;
-        var text = (status.textContent || '').toLowerCase();
-        if (text.indexOf('success') !== -1 || text.indexOf('sent') !== -1 || text.indexOf('thank') !== -1) {
-          sendEvent('generate_lead', { form_name: formName, page_path: window.location.pathname });
-          sent = true;
-          pending = false;
-        }
-      }).observe(status, { childList: true, subtree: true, characterData: true });
-    }
-  });
+  // Lead events are emitted by the successful form response handler above,
+  // never by a timer or inferred status text.
 
   if (/\/book(?:\.html)?$/.test(window.location.pathname)) {
     sendEvent('view_booking_page', { page_path: window.location.pathname });
