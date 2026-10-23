@@ -7,3 +7,19 @@
 .pe-article-fieldnote strong{color:#183847}
 .pe-article-fieldnote em{color:#315969}
 @media(max-width:600px){.pe-article-fieldnote{margin:24px 0;padding:23px 19px;border-radius:0 12px 12px 0}}
+
+
+/* Refined narrative typography for standalone long-form articles. */
+main.page,main:has(> .article) {text-rendering:optimizeLegibility}
+main.page > h1,main:has(> .article) > h1{text-wrap:balance;letter-spacing:-.045em}
+main.page > p:not(.lead),main:has(> .article) > .article > p{line-height:1.84;max-width:74ch}
+main.page .lead,main:has(> .article) > .lead{line-height:1.7;max-width:74ch}
+main.page > h2,main.page section > h2,main:has(> .article) .article > h2{scroll-margin-top:30px;text-wrap:balance}
+main.page .pe-article-fieldnote,main:has(> .article) .pe-article-fieldnote{transition:border-color .2s ease,background .2s ease}
+main.page .pe-article-fieldnote:hover,main:has(> .article) .pe-article-fieldnote:hover{border-color:#82b5c4}
+main.page .hero img,main:has(> .article) .hero-img img{max-width:100%;height:auto}
+@media(max-width:720px){
+ main.page > p:not(.lead),main:has(> .article) > .article > p{line-height:1.76}
+ main.page .pe-article-fieldnote,main:has(> .article) .pe-article-fieldnote{padding:22px 19px}
+}
+@media(prefers-reduced-motion:reduce){main.page .pe-article-fieldnote,main:has(> .article) .pe-article-fieldnote{transition:none}}
