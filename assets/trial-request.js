@@ -103,24 +103,7 @@
     });
   }
 
-  function setBookingGate(isOpen) {
-    document.querySelectorAll('[data-trial-calendar]').forEach(function (node) {
-      var container = node.closest('.trial-calendar, .calendar');
-      if (container) container.hidden = !isOpen;
-      if (node.tagName === 'IFRAME') node.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-    });
-    document.querySelectorAll('.calendar-fallback, .fallback, .alt-request').forEach(function (node) {
-      node.hidden = !isOpen;
-    });
-    document.querySelectorAll('[data-source-question]').forEach(function (question) {
-      question.setAttribute('data-selected', isOpen ? 'true' : 'false');
-    });
-  }
-
-  // A source choice is required before the booker is revealed. This keeps attribution
-  // independent from analytics consent while adding only one click to the flow.
-  setBookingGate(Boolean(reportedSource));
-
+  // Source attribution is optional: never hide the calendar or enquiry fallback.
   document.querySelectorAll('[data-attribution-source]').forEach(function (button) {
     if (reportedSource && button.getAttribute('data-attribution-source') === reportedSource) {
       button.setAttribute('aria-pressed', 'true');
@@ -128,12 +111,10 @@
     button.addEventListener('click', function () {
       var value = button.getAttribute('data-attribution-source') || '';
       persistReportedSource(value);
-      setBookingGate(true);
       document.querySelectorAll('[data-attribution-source]').forEach(function (other) {
         other.setAttribute('aria-pressed', other === button ? 'true' : 'false');
       });
       refreshCalendarAttribution();
-      sendBookingIntent('source_selection');
       sendEvent('trial_source_selected', {
         page_path: window.location.pathname,
         reported_source: value
@@ -275,12 +256,6 @@
 
     form.addEventListener('submit', async function (event) {
       event.preventDefault();
-      if (!reportedSource) {
-        status.dataset.state = 'error';
-        status.textContent = 'Please choose how you found Phillips English before sending your request.';
-        status.focus();
-        return;
-      }
       if (pending || !form.reportValidity()) return;
       pending = true;
       button.disabled = true;

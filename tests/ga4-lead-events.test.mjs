@@ -41,6 +41,7 @@ function exerciseFormPage(file, { accepted, enquiryType = 'Private English Coach
 
   runInNewContext(formCode, {
     document, window,
+    FormData: class { constructor(value) { assert.equal(value, form); } },
     fetch: async () => ({ ok: accepted, json: async () => ({ errors: [{ message: 'Rejected' }] }) })
   });
 
