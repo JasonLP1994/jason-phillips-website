@@ -146,11 +146,20 @@
   }, true);
 
   var confirmedBookingKey = 'pe-confirmed-trial-booking-v1';
+  var confirmedBookingIds = Object.create(null);
 
   function handleConfirmedCalBooking(message) {
     var payload = message && typeof message === 'object' ? (message.data || message.detail || message) : {};
-    var uid = payload && (payload.uid || payload.bookingUid || payload.bookingId) ? String(payload.uid || payload.bookingUid || payload.bookingId) : '';
-    var dedupeValue = uid || 'confirmed:' + window.location.pathname;
+    // Cal's success event can also describe an unconfirmed booking. Count only
+    // an accepted, unpaid free-trial booking with a real booking identifier.
+    if (!payload || Number(payload.eventTypeId) !== 7383670 ||
+        String(payload.status || '').toLowerCase() !== 'accepted' ||
+        payload.paymentRequired !== false || typeof payload.uid !== 'string' ||
+        !payload.uid.trim()) return;
+    var uid = payload.uid;
+    var dedupeValue = uid;
+    if (confirmedBookingIds[uid]) return;
+    confirmedBookingIds[uid] = true;
 
     try {
       if (sessionStorage.getItem(confirmedBookingKey) === dedupeValue) return;
@@ -193,15 +202,15 @@
   // window after a booking is successfully created. Only accept messages
   // from Cal.com origins and ignore unrelated iframe messages.
   window.addEventListener('message', function (event) {
-    var host = '';
-    try { host = new URL(event.origin).hostname.toLowerCase(); } catch (error) {}
-    if (!(host === 'cal.com' || host.endsWith('.cal.com'))) return;
+    if (event.origin !== 'https://cal.com') return;
+    var calendar = document.querySelector('iframe[data-trial-calendar]');
+    if (!calendar || event.source !== calendar.contentWindow) return;
 
     var message = event.data;
     if (!message || typeof message !== 'object') return;
     var type = typeof message.type === 'string' ? message.type : '';
     var originator = message.originator ? String(message.originator).toLowerCase() : '';
-    if (type.indexOf('bookingSuccessfulV2') === -1) return;
+    if (type !== 'bookingSuccessfulV2') return;
     if (originator && originator.indexOf('cal') === -1) return;
 
     handleConfirmedCalBooking(message);
