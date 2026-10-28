@@ -7,6 +7,7 @@ on:
       - 'sitemap.xml'
       - 'vercel.json'
       - 'scripts/check_links.py'
+      - 'scripts/seo-audit.mjs'
       - '.github/workflows/content-audit.yml'
   pull_request:
     paths:
@@ -17,6 +18,8 @@ on:
       - 'scripts/check_links.py'
       - '.github/workflows/content-audit.yml'
   workflow_dispatch:
+  schedule:
+    - cron: '15 8 * * 1' # Every Monday at 08:15 UTC
 permissions:
   contents: read
 jobs:
@@ -82,3 +85,13 @@ jobs:
                   wc=len(re.findall(r"\b[\w’'-]+\b",clean))
                   print(f'S{i}: class={cls!r} words={wc} heading={heading[:140]!r}')
           PY
+      - name: Generate searchable SEO health report
+        if: always()
+        run: node scripts/seo-audit.mjs
+      - name: Preserve weekly SEO audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phillips-english-technical-seo
+          path: seo-audit-report.md
+          if-no-files-found: ignore
