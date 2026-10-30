@@ -25,7 +25,7 @@
   try { localStorage.setItem(attributionKey, JSON.stringify(stored)); } catch (error) {}
 
   function sendEvent(name, params) {
-    if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
+    if (window['ga-disable-G-NHQ8S263EP'] !== true && typeof window.gtag === 'function') window.gtag('event', name, params || {});
   }
 
   function addHidden(form, name, value) {
@@ -238,7 +238,7 @@
       reported_source: reportedSource || '',
       referrer_host: compactReferrer(stored.first_referrer || stored.last_referrer)
     };
-    if (uid) conversionParams.booking_uid = uid;
+    // Keep the booking identifier local for deduplication; never send it to Analytics.
 
     // One canonical lead event for both successful Cal.com bookings and
     // the alternative trial request form. This is the event to use as
