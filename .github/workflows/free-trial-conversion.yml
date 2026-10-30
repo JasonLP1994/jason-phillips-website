@@ -1,0 +1,26 @@
+name: Free-trial GA4 conversion regression
+
+on:
+  pull_request:
+    paths:
+      - 'assets/trial-request.js'
+      - 'free-trial.html'
+      - 'tests/trial-booking-conversion.test.mjs'
+      - '.github/workflows/free-trial-conversion.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/trial-request.js'
+      - 'free-trial.html'
+      - 'tests/trial-booking-conversion.test.mjs'
+      - '.github/workflows/free-trial-conversion.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --test tests/trial-booking-conversion.test.mjs
