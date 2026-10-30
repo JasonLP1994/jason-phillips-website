@@ -98,7 +98,8 @@
         if (stored.first_referrer) url.searchParams.set('first_referrer', stored.first_referrer);
         if (stored.last_referrer) url.searchParams.set('last_referrer', stored.last_referrer);
         if (node.tagName === 'IFRAME') node.src = url.toString();
-        else node.href = url.toString();
+        else if (node.tagName === 'A') node.href = url.toString();
+        // The official Cal inline embed receives its initial UTM config below.
       } catch (error) {}
     });
   }
@@ -123,6 +124,66 @@
   });
 
   refreshCalendarAttribution();
+
+  // Use Cal.com's official inline embed so bookingSuccessfulV2 is delivered to
+  // a supported callback. A plain cal.com iframe does not set up the embed SDK.
+  // The existing direct booking link remains available if the script is blocked.
+  function initialiseOfficialCalEmbed() {
+    var target = document.getElementById && document.getElementById('pe-trial-embed');
+    if (!target) return;
+
+    (function (C, A, L) {
+      var push = function (api, args) { api.q.push(args); };
+      var doc = C.document;
+      C.Cal = C.Cal || function () {
+        var cal = C.Cal, args = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          var script = doc.createElement('script');
+          script.src = A;
+          script.async = true;
+          doc.head.appendChild(script);
+          cal.loaded = true;
+        }
+        if (args[0] === L) {
+          var api = function () { push(api, arguments); };
+          var namespace = args[1];
+          api.q = api.q || [];
+          if (typeof namespace === 'string') {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            push(cal.ns[namespace], args);
+            push(cal, ['initNamespace', namespace]);
+          } else {
+            push(cal, args);
+          }
+          return;
+        }
+        push(cal, args);
+      };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+    var config = {};
+    attributionParams().forEach(function (value, key) { config[key] = value; });
+    config.utm_landing_page = window.location.pathname;
+
+    window.Cal('init', { origin: 'https://cal.com' });
+    window.Cal('on', {
+      action: 'bookingSuccessfulV2',
+      callback: function (event) {
+        var detail = event && event.detail;
+        if (!detail || detail.type !== 'bookingSuccessfulV2') return;
+        handleConfirmedCalBooking({ data: detail.data });
+      }
+    });
+    window.Cal('inline', {
+      elementOrSelector: '#pe-trial-embed',
+      calLink: 'jason-phillips-u5rvya/free-trial',
+      config: config
+    });
+  }
+
+  initialiseOfficialCalEmbed();
 
   var bookingIntentSent = false;
   function sendBookingIntent(location) {
@@ -202,8 +263,9 @@
   // window after a booking is successfully created. Only accept messages
   // from Cal.com origins and ignore unrelated iframe messages.
   window.addEventListener('message', function (event) {
-    if (event.origin !== 'https://cal.com') return;
-    var calendar = document.querySelector('iframe[data-trial-calendar]');
+    if (event.origin !== 'https://cal.com' && event.origin !== 'https://app.cal.com') return;
+    var calendar = document.querySelector('#pe-trial-embed iframe') ||
+      document.querySelector('iframe[data-trial-calendar]');
     if (!calendar || event.source !== calendar.contentWindow) return;
 
     var message = event.data;
