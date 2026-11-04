@@ -4,3 +4,12 @@ dist/
 .env*
 *.log
 supabase/.temp/
+
+# Local OS/editor and generated analysis files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+coverage/
+.cache/
+*.tsbuildinfo
