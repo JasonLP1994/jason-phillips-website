@@ -11,6 +11,7 @@ on:
       - '.github/workflows/content-audit.yml'
   pull_request:
     paths:
+      - 'vercel.json'
       - '**/*.html'
       - 'assets/**/*.js'
       - 'sitemap.xml'
