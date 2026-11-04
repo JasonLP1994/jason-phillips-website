@@ -757,6 +757,156 @@
       "source": "/blog/when-students-return-to-your-english-lessons.html/",
       "destination": "/blog/when-students-return-to-your-english-lessons.html",
       "permanent": true
+    },
+    {
+      "source": "/blog/affect-vs-effect-difference-examples",
+      "destination": "/blog/affect-vs-effect-difference-examples.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/affect-vs-effect-difference-examples/",
+      "destination": "/blog/affect-vs-effect-difference-examples.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/affect-vs-effect-difference-examples.html/",
+      "destination": "/blog/affect-vs-effect-difference-examples.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/before-submit-or-before-submitting-the-request",
+      "destination": "/blog/before-submit-or-before-submitting-the-request.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/before-submit-or-before-submitting-the-request/",
+      "destination": "/blog/before-submit-or-before-submitting-the-request.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/before-submit-or-before-submitting-the-request.html/",
+      "destination": "/blog/before-submit-or-before-submitting-the-request.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/business-english-real-life-results",
+      "destination": "/blog/business-english-real-life-results.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/business-english-real-life-results/",
+      "destination": "/blog/business-english-real-life-results.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/business-english-real-life-results.html/",
+      "destination": "/blog/business-english-real-life-results.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/confident-presentation-in-english-10-tips",
+      "destination": "/blog/confident-presentation-in-english-10-tips.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/confident-presentation-in-english-10-tips/",
+      "destination": "/blog/confident-presentation-in-english-10-tips.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/confident-presentation-in-english-10-tips.html/",
+      "destination": "/blog/confident-presentation-in-english-10-tips.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/in-on-at-prepositions-time-place",
+      "destination": "/blog/in-on-at-prepositions-time-place.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/in-on-at-prepositions-time-place/",
+      "destination": "/blog/in-on-at-prepositions-time-place.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/in-on-at-prepositions-time-place.html/",
+      "destination": "/blog/in-on-at-prepositions-time-place.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/my-approach-to-personalised-english-coaching",
+      "destination": "/blog/my-approach-to-personalised-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/my-approach-to-personalised-english-coaching/",
+      "destination": "/blog/my-approach-to-personalised-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/my-approach-to-personalised-english-coaching.html/",
+      "destination": "/blog/my-approach-to-personalised-english-coaching.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/present-perfect-vs-past-simple",
+      "destination": "/blog/present-perfect-vs-past-simple.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/present-perfect-vs-past-simple/",
+      "destination": "/blog/present-perfect-vs-past-simple.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/present-perfect-vs-past-simple.html/",
+      "destination": "/blog/present-perfect-vs-past-simple.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/professional-email-phrases-business-english",
+      "destination": "/blog/professional-email-phrases-business-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/professional-email-phrases-business-english/",
+      "destination": "/blog/professional-email-phrases-business-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/professional-email-phrases-business-english.html/",
+      "destination": "/blog/professional-email-phrases-business-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/synonyms-for-good-better-vocabulary",
+      "destination": "/blog/synonyms-for-good-better-vocabulary.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/synonyms-for-good-better-vocabulary/",
+      "destination": "/blog/synonyms-for-good-better-vocabulary.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/synonyms-for-good-better-vocabulary.html/",
+      "destination": "/blog/synonyms-for-good-better-vocabulary.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/you-dont-do-nothing-double-negative-english",
+      "destination": "/blog/you-dont-do-nothing-double-negative-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/you-dont-do-nothing-double-negative-english/",
+      "destination": "/blog/you-dont-do-nothing-double-negative-english.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/you-dont-do-nothing-double-negative-english.html/",
+      "destination": "/blog/you-dont-do-nothing-double-negative-english.html",
+      "permanent": true
     }
   ],
   "buildCommand": "npm run build",
