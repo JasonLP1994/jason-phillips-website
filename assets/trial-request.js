@@ -168,6 +168,19 @@
     config.utm_landing_page = window.location.pathname;
 
     window.Cal('init', { origin: 'https://cal.com' });
+    // Record whether the embedded booker loads, even when no booking occurs.
+    window.Cal('on', {
+      action: 'linkReady',
+      callback: function () {
+        sendEvent('trial_calendar_ready', { page_path: window.location.pathname });
+      }
+    });
+    window.Cal('on', {
+      action: 'linkFailed',
+      callback: function () {
+        sendEvent('trial_calendar_failed', { page_path: window.location.pathname });
+      }
+    });
     window.Cal('on', {
       action: 'bookingSuccessfulV2',
       callback: function (event) {
@@ -278,10 +291,14 @@
     handleConfirmedCalBooking(message);
   });
 
+  var trialCalendarInteractionRecorded = false;
   window.addEventListener('blur', function () {
     setTimeout(function () {
       var active = document.activeElement;
-      if (!active || active.tagName !== 'IFRAME' || !active.hasAttribute('data-trial-calendar')) return;
+      if (!active || active.tagName !== 'IFRAME' ||
+          !active.closest('#pe-trial-embed') || trialCalendarInteractionRecorded) return;
+      trialCalendarInteractionRecorded = true;
+      sendBookingIntent('embedded-calendar');
       sendEvent('trial_calendar_interaction', {
         page_path: window.location.pathname,
         campaign: stored.utm_campaign || '',
