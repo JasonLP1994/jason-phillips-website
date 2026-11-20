@@ -138,7 +138,7 @@
     var destination;
     try { destination = new URL(link.href, window.location.href); } catch (error) { return; }
     if (destination.origin !== window.location.origin ||
-        !/\/free-trial(?:\.html)?\/?$/.test(destination.pathname)) return;
+        !/^\/(?:free-trial(?:\.html)?|es\/prueba-gratis|fr\/essai-gratuit|de\/kostenlose-probestunde|it\/prova-gratuita)\/?$/.test(destination.pathname)) return;
     window.gtag('event', 'trial_cta_click', {
       page_path: window.location.pathname,
       cta_text: (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80)
