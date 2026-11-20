@@ -129,10 +129,27 @@
     (footer.querySelector('.wrap') || footer).appendChild(settings);
   }
 
+  // Measure visits to the free-trial funnel without collecting visitor details.
+  // Respect the same explicit analytics consent as all other GA4 events.
+  function trackFreeTrialClick(event) {
+    if (choice !== true || typeof window.gtag !== 'function') return;
+    var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+    if (!link) return;
+    var destination;
+    try { destination = new URL(link.href, window.location.href); } catch (error) { return; }
+    if (destination.origin !== window.location.origin ||
+        !/^\/(?:free-trial(?:\.html)?|es\/prueba-gratis|fr\/essai-gratuit|de\/kostenlose-probestunde|it\/prova-gratuita)\/?$/.test(destination.pathname)) return;
+    window.gtag('event', 'trial_cta_click', {
+      page_path: window.location.pathname,
+      cta_text: (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80)
+    });
+  }
+
   function init() {
     startVercelTelemetry();
     if (choice === true) startAnalytics();
     buildControls();
+    document.addEventListener('click', trackFreeTrialClick, true);
   }
 
   window.addEventListener('storage', function (event) {
