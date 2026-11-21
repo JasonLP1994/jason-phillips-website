@@ -1,0 +1,54 @@
+/* Phillips English blog free-trial CTA
+   Static HTML in the built output: no JavaScript, cookie or tracking dependency. */
+.pe-blog-trial-callout{
+  position:relative;
+  z-index:1;
+  background:linear-gradient(112deg,#0c3743 0%,#112833 62%,#0c1d28 100%);
+  color:#f9ffff;
+  border-top:1px solid rgba(162,219,226,.42);
+  border-bottom:1px solid rgba(162,219,226,.42);
+  box-shadow:0 12px 38px rgba(0,0,0,.16);
+  font-family:Arial,Helvetica,sans-serif;
+}
+.pe-blog-trial-callout *, .pe-blog-trial-callout *::before,
+.pe-blog-trial-callout *::after{box-sizing:border-box}
+.pe-blog-trial-callout__inner{
+  width:100%;max-width:1160px;margin:0 auto;padding:26px 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:28px;
+}
+.pe-blog-trial-callout__copy{flex:1 1 570px;min-width:0}
+.pe-blog-trial-callout__eyebrow{
+  color:#a9e6ea;font-size:12px;font-weight:800;letter-spacing:.14em;
+  line-height:1.5;margin:0 0 8px;text-transform:uppercase;
+}
+.pe-blog-trial-callout h2{
+  margin:0 0 8px!important;padding:0!important;color:#fff!important;
+  font-size:clamp(24px,2.8vw,33px)!important;letter-spacing:-.025em;
+  line-height:1.13!important;max-width:none!important;font-weight:800;
+}
+.pe-blog-trial-callout p{
+  margin:0!important;max-width:760px!important;color:#d8e9ec!important;
+  font-size:15px!important;line-height:1.52!important;
+}
+.pe-blog-trial-callout__button{
+  display:inline-flex;justify-content:center;align-items:center;gap:12px;
+  flex:0 0 auto;min-height:56px;padding:14px 24px;border-radius:999px;
+  background:#a7e3e8!important;color:#0d2834!important;
+  border:2px solid #a7e3e8;box-shadow:0 6px 24px rgba(0,0,0,.25);
+  font-size:16px;font-weight:800;text-decoration:none!important;
+  line-height:1.2;transition:background-color .15s ease,transform .15s ease;
+}
+.pe-blog-trial-callout__button:hover{background:#e9ffff!important;transform:translateY(-1px)}
+.pe-blog-trial-callout__button:focus-visible{outline:3px solid #fff;outline-offset:4px}
+.pe-blog-trial-callout__button span{font-size:20px}
+@media(max-width:760px){
+ .pe-blog-trial-callout__inner{padding:22px 20px 24px;display:flex;flex-direction:column;align-items:stretch;gap:18px}
+ .pe-blog-trial-callout__copy{flex:0 1 auto}
+ .pe-blog-trial-callout__button{width:100%;min-height:54px}
+ .pe-blog-trial-callout h2{font-size:25px!important}
+ .pe-blog-trial-callout p{font-size:14px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .pe-blog-trial-callout__button{transition:none}
+ .pe-blog-trial-callout__button:hover{transform:none}
+}
