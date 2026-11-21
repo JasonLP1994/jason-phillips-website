@@ -1,0 +1,36 @@
+{
+  "week": "2026-11-23",
+  "timeZone": "Europe/London",
+  "posts": [
+    {
+      "date": "2026-11-23",
+      "source": "scheduled/blog/phrasal-verbs-30-examples-work-everyday-english.html",
+      "destination": "blog/phrasal-verbs-30-examples-work-everyday-english.html",
+      "slug": "phrasal-verbs-30-examples-work-everyday-english",
+      "title": "30 useful phrasal verbs for work and everyday English",
+      "category": "Vocabulary · Phrasal verbs · Business English",
+      "description": "Learn 30 common English phrasal verbs with natural examples for work, meetings and daily life. Includes grammar tips, a quiz and answer key.",
+      "cardSummary": "Phrasal verbs are everywhere in natural English: we set up meetings, look into problems and catch up with friends. Learn the meanings, then practise using them in situations that matter to you."
+    },
+    {
+      "date": "2026-11-25",
+      "source": "scheduled/blog/ielts-speaking-questions-parts-1-2-3-sample-answers.html",
+      "destination": "blog/ielts-speaking-questions-parts-1-2-3-sample-answers.html",
+      "slug": "ielts-speaking-questions-parts-1-2-3-sample-answers",
+      "title": "IELTS Speaking questions for Parts 1, 2 and 3 — with sample answers",
+      "category": "IELTS · Speaking · Exam preparation",
+      "description": "Practise realistic IELTS Speaking Part 1, 2 and 3 questions with original sample answers, useful structures and practical preparation advice.",
+      "cardSummary": "The IELTS Speaking test checks how well you communicate your own ideas, not how many memorised expressions you can repeat. Practise these realistic sample questions to develop natural answers for all three parts."
+    },
+    {
+      "date": "2026-11-27",
+      "source": "scheduled/blog/how-to-pronounce-th-british-english.html",
+      "destination": "blog/how-to-pronounce-th-british-english.html",
+      "slug": "how-to-pronounce-th-british-english",
+      "title": "How to pronounce TH in British English: two sounds and common mistakes",
+      "category": "Pronunciation · British English · Speaking",
+      "description": "Learn the two English TH sounds, /θ/ and /ð/, with clear mouth-position tips, minimal pairs, common mistakes and pronunciation practice.",
+      "cardSummary": "English TH is not one sound. Compare think /θɪŋk/ with this /ðɪs/: the tongue position is similar, but the voice works differently. Here's how to practise both sounds without trying to erase your accent."
+    }
+  ]
+}
