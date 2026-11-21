@@ -28,6 +28,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Node.js for build checks
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build the marketing website
+        run: |
+          node scripts/build-site.mjs
+          test -s dist/index.html
+          test -s dist/free-trial.html
+          test -s dist/business-english-coaching.html
+          test -s dist/ielts-coaching.html
       - name: Validate site links and redirects
         run: python3 scripts/check_links.py
       - name: Audit page structure

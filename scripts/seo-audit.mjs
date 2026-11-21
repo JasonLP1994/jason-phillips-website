@@ -3,7 +3,7 @@
  * Audits files that are intentionally published in sitemap.xml.
  * This is not a substitute for Google Search Console data or a live crawl.
  */
-import { existsSync, readFileSync, writeFileSync, appendFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync, appendFileSync } from "node:fs";
 import { dirname, extname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -78,6 +78,20 @@ for (const url of urls) {
     const existing = canonicalSeen.get(canonical);
     if (existing) warnings.push(url + ": canonical shared with " + existing);
     else canonicalSeen.set(canonical, url);
+  }
+}
+// Prevent discoverability gaps when a newly published indexable article
+// is accidentally omitted from the sitemap.
+const listedFiles = new Set(urls.map(u => sourceFor(u)).filter(x => x.file).map(x => x.file));
+for (const entry of readdirSync(join(root, "blog"), { withFileTypes: true })) {
+  if (!entry.isFile() || !entry.name.endsWith(".html")) continue;
+  const file = resolve(root, "blog", entry.name);
+  if (listedFiles.has(file)) continue;
+  const html = readFileSync(file, "utf8");
+  const robots = attr(findTag(html, "meta", "name", "robots") || "", "content");
+  const canonical = attr(findTag(html, "link", "rel", "canonical") || "", "href");
+  if (!/noindex/i.test(robots) && canonical === base + "/blog/" + entry.name) {
+    errors.push("Indexable blog article missing from sitemap: blog/" + entry.name);
   }
 }
 if (!urls.length) errors.push("Sitemap contains no URLs.");
