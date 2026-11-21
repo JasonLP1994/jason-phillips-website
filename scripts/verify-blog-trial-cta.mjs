@@ -19,3 +19,13 @@ for (const name of pages) {
   }
 }
 console.log('Verified prominent free-trial CTA on all ' + pages.length + ' built blog articles.');
+
+// Make sure every public article is also reachable from the main blog index.
+// Previously, the prepositions article existed but had no card in the grid.
+const blogHub = await readFile(resolve(root, 'dist/blog.html'), 'utf8');
+for (const name of pages) {
+  if (!blogHub.includes('href="blog/' + name + '"')) {
+    throw new Error('Blog index missing article card: blog/' + name);
+  }
+}
+console.log('Verified all ' + pages.length + ' blog articles are listed in the blog index.');
