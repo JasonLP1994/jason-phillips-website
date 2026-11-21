@@ -30,7 +30,7 @@ class Page(HTMLParser):
 
 pages = {}
 for path in ROOT.rglob("*.html"):
-    if any(part in (".git", "node_modules", "dist") for part in path.relative_to(ROOT).parts):
+    if any(part in (".git", "node_modules", "dist", "scheduled") for part in path.relative_to(ROOT).parts):
         continue
     page = Page()
     page.feed(path.read_text(encoding="utf-8"))
