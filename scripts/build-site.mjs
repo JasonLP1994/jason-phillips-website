@@ -47,13 +47,13 @@ async function cleanRenderedHtml(directory) {
     // Every existing and future /blog/*.html page receives the banner.
     // This runs on the generated site; source articles are left unchanged.
     if (directory === resolve(dist, 'blog')) {
-      if (!/<main\\b/i.test(cleaned) || !/<\\/head>/i.test(cleaned)) {
+      if (!/<main\b/i.test(cleaned) || !/<\/head>/i.test(cleaned)) {
         throw new Error('Blog article missing required main/head: ' + entry.name);
       }
       if (!cleaned.includes('class="pe-blog-trial-callout"')) {
         cleaned = cleaned
-          .replace(/<\\/head>/i, '<link rel="stylesheet" href="/assets/blog-trial-cta.css">\\n</head>')
-          .replace(/<main\\b/i, blogTrialCallout + '<main');
+          .replace(/<\/head>/i, '<link rel="stylesheet" href="/assets/blog-trial-cta.css">\n</head>')
+          .replace(/<main\b/i, blogTrialCallout + '<main');
       }
     }
 
