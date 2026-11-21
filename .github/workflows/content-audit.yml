@@ -39,6 +39,7 @@ jobs:
           test -s dist/free-trial.html
           test -s dist/business-english-coaching.html
           test -s dist/ielts-coaching.html
+          node scripts/verify-blog-trial-cta.mjs
       - name: Validate site links and redirects
         run: python3 scripts/check_links.py
       - name: Audit page structure
