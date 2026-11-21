@@ -94,6 +94,22 @@ for (const entry of readdirSync(join(root, "blog"), { withFileTypes: true })) {
     errors.push("Indexable blog article missing from sitemap: blog/" + entry.name);
   }
 }
+// Ensure every published blog article is discoverable from the blog index.
+// This catches articles that have a sitemap entry but no visible article card.
+const hub = readFileSync(join(root, "blog.html"), "utf8");
+const blogCardLinks = new Set(
+  [...hub.matchAll(/<article class="post-card">[\\s\\S]*?<a\\b[^>]*href=["']blog\\/([^"'#?]+\\.html)["'][^>]*>[\\s\\S]*?<\\/article>/gi)]
+    .map(match => match[1])
+);
+for (const entry of readdirSync(join(root, "blog"), { withFileTypes: true })) {
+  if (!entry.isFile() || !entry.name.endsWith(".html")) continue;
+  const html = readFileSync(join(root, "blog", entry.name), "utf8");
+  const robots = attr(findTag(html, "meta", "name", "robots") || "", "content");
+  if (/noindex/i.test(robots)) continue;
+  if (!blogCardLinks.has(entry.name)) {
+    errors.push("Published blog article missing from blog.html article cards: blog/" + entry.name);
+  }
+}
 if (!urls.length) errors.push("Sitemap contains no URLs.");
 if (new Set(urls).size !== urls.length) errors.push("Sitemap contains duplicate URLs.");
 
