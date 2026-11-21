@@ -98,7 +98,7 @@ for (const entry of readdirSync(join(root, "blog"), { withFileTypes: true })) {
 // This catches articles that have a sitemap entry but no visible article card.
 const hub = readFileSync(join(root, "blog.html"), "utf8");
 const blogCardLinks = new Set(
-  [...hub.matchAll(/<article class="post-card">[\\s\\S]*?<a\\b[^>]*href=["']blog\\/([^"'#?]+\\.html)["'][^>]*>[\\s\\S]*?<\\/article>/gi)]
+  [...hub.matchAll(/<article class="post-card">[\s\S]*?<a\b[^>]*href=["']blog\/([^"'#?]+\.html)["'][^>]*>[\s\S]*?<\/article>/gi)]
     .map(match => match[1])
 );
 for (const entry of readdirSync(join(root, "blog"), { withFileTypes: true })) {
